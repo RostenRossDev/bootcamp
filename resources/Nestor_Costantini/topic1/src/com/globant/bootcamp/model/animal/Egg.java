@@ -2,16 +2,19 @@ package com.globant.bootcamp.model.animal;
 
 import com.globant.bootcamp.enums.Color;
 
-public class Egg {
+public class Egg extends Animal {
     private Color color;
-    private Hen baby;
+    private Bird baby;
 
-    public Egg(Hen hen, Color color){
-        this.baby=hen;
+    public Egg(Bird bird, Color color){
+        super(randomGender());
+        this.baby=bird;
         this.color=color;
     }
 
-    public Egg(){}
+    public Egg(){
+        super(null);
+    }
 
     public Color getColor(){
         return this.color;
@@ -28,5 +31,15 @@ public class Egg {
             eggStr="(G)";
         }
         return eggStr;
+    }
+
+    @Override
+    public Object gaveBirth(Color color) {
+        return null;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println("No sound.");
     }
 }

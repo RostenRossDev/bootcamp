@@ -4,7 +4,7 @@ import com.globant.bootcamp.enums.Color;
 import com.globant.bootcamp.model.animal.Egg;
 
 public class EggsCarton {
-    private Egg[][] eggs;
+    private Egg[][] eggs=new Egg[5][6];
     private int eggCount;
     private boolean full;
     private Color color;
