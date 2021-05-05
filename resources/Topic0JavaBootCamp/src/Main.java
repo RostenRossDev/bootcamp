@@ -24,7 +24,7 @@ public class Main {
         animals[2] = doggo;
         animals[3] = cat;
 
-        MainTopic1.singAnimals(animals);
+        Main.singAnimals(animals);
     }
 
     private static void singAnimals(Animal[] animalBox){

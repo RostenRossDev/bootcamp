@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="766b46dd-f5cb-4009-b480-e4f999dacc4e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/enums/Color.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/enums/Gender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/interfaces/Being.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/model/EggsCarton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/model/Farmer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/model/animal/Animal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/model/animal/Bird.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/model/animal/Egg.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/model/animal/Hen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootcamp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bootcamp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Nestor_Costantini/topic0/src/com/globant/bootcamp/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Nestor_Costantini/topic1/src/com/globant/bootcamp/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/Topic0JavaBootCamp/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Topic0JavaBootCamp/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,14 +30,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/Nestor_Costantini/topic1" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\nesto\IdeaProjects\bootcamp\resources\Nestor_Costantini\topic1" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\nesto\IdeaProjects\bootcamp\resources\Nestor_Costantini\topic0\src\com\globant\bootcamp\item" />
     </key>
