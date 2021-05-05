@@ -1,3 +1,4 @@
+import com.globant.bootcamp.MainTopic1;
 import com.globant.bootcamp.abstracts.Animal;
 import com.globant.bootcamp.animals.Cat;
 import com.globant.bootcamp.animals.Dog;
@@ -23,7 +24,7 @@ public class Main {
         animals[2] = doggo;
         animals[3] = cat;
 
-        Main.singAnimals(animals);
+        MainTopic1.singAnimals(animals);
     }
 
     private static void singAnimals(Animal[] animalBox){
