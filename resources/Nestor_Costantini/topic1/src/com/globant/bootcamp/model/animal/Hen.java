@@ -2,6 +2,8 @@ package com.globant.bootcamp.model.animal;
 
 import com.globant.bootcamp.enums.Color;
 import com.globant.bootcamp.enums.Gender;
+import com.globant.bootcamp.model.FactoryPattern.AnimalFactory;
+import com.globant.bootcamp.model.FactoryPattern.EggFactory;
 
 public class Hen extends Bird{
     private Egg[] eggs;
@@ -11,6 +13,9 @@ public class Hen extends Bird{
         super(Gender.FEMALE);
         this.eggs= new Egg[2];
         this.color=color;
+    }
+    public Hen(){
+        super(null);
     }
 
     public Color getEggsColor(){
@@ -31,14 +36,22 @@ public class Hen extends Bird{
     }
 
 
-    public void layEggs(){
-        this.eggs[0]=this.gaveBirth(this.color);
-        this.eggs[1]=this.gaveBirth(this.color);
+    public void layEggs(EggFactory eggFactory){
+        this.eggs[0]=this.gaveBirth(this.color, eggFactory );
+        this.eggs[1]=this.gaveBirth(this.color, eggFactory );
     }
 
 
     @Override
     public void makeSound() {
         System.out.println("kakareo kakareo!!!");
+    }
+
+
+
+    @Override
+    public Egg gaveBirth(Color color, AnimalFactory AnimalFactory) {
+        EggFactory eggFactory= (EggFactory)AnimalFactory;
+        return (Egg) eggFactory.getAnimal( color,this );
     }
 }

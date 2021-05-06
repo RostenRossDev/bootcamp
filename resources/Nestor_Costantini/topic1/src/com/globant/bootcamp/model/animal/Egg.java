@@ -1,6 +1,7 @@
 package com.globant.bootcamp.model.animal;
 
 import com.globant.bootcamp.enums.Color;
+import com.globant.bootcamp.model.FactoryPattern.AnimalFactory;
 
 public class Egg extends Animal {
     private Color color;
@@ -34,12 +35,14 @@ public class Egg extends Animal {
     }
 
     @Override
-    public Object gaveBirth(Color color) {
-        return null;
-    }
-
-    @Override
     public void makeSound() {
         System.out.println("No sound.");
     }
+
+    @Override
+    public Object gaveBirth(Color color, AnimalFactory animalFactory) {
+        return null;
+    }
+
+
 }
