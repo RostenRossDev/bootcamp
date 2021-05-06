@@ -7,15 +7,20 @@ import com.globant.bootcamp.model.animal.Egg;
 
 public class EggFactory extends AnimalFactory{
     @Override
-    public Animal getAnimal(Color color, Bird bird) {
-        if(color !=null && bird != null )
-            return new Egg(bird, color);
+    public Animal getAnimal( Color color, Bird bird ) {
 
-        return new Egg(null, null);
+        if( color != null && bird != null )
+            return new Egg( bird, color );
+
+        return new Egg(null, null );
     }
 
     @Override
-    public Animal getAnimal(Color color, Enum bird) {
+    public Animal getAnimal( Color color, Enum bird ) {
+
+        if (com.globant.bootcamp.enums.Bird.Hen.equals(bird))
+            return new Egg(null, null );
+
         return null;
     }
 }

@@ -8,7 +8,8 @@ import com.globant.bootcamp.model.animal.Hen;
 public class HenFactory extends AnimalFactory{
 
     @Override
-    public Animal getAnimal(Color color, com.globant.bootcamp.model.animal.Bird bird) {
+    public Animal getAnimal( Color color, com.globant.bootcamp.model.animal.Bird bird ) {
+
         if( bird != null)
             return new Hen(color);
 
@@ -17,7 +18,8 @@ public class HenFactory extends AnimalFactory{
 
     @Override
     public Animal getAnimal(Color color, Enum bird) {
-        if( bird == Bird.Hen)
+
+        if( Bird.Hen.equals(bird) )
             return new Hen(color);
 
         return new Hen();
