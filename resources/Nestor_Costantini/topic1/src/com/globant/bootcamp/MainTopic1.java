@@ -1,12 +1,11 @@
 package com.globant.bootcamp;
 
-import com.globant.bootcamp.enums.BirdEnum;
+import com.globant.bootcamp.enums.Bird;
 import com.globant.bootcamp.enums.Color;
 import com.globant.bootcamp.model.EggsCarton;
 import com.globant.bootcamp.model.FactoryPattern.EggFactory;
 import com.globant.bootcamp.model.FactoryPattern.HenFactory;
 import com.globant.bootcamp.model.Farmer;
-import com.globant.bootcamp.model.animal.Bird;
 import com.globant.bootcamp.model.animal.Hen;
 
 public class MainTopic1 {
@@ -17,7 +16,7 @@ public class MainTopic1 {
 
         Hen[] henHouse=initHenHouse(henFactory);
         layEggs(henHouse,eggFactory);
-        Farmer farmer = new Farmer();
+        Farmer farmer = new Farmer(eggFactory);
         farmer.startFarming(henHouse);
         showEggsCartons(farmer);
 
@@ -28,7 +27,7 @@ public class MainTopic1 {
     public static Hen[] initHenHouse(HenFactory henFactory){
         Hen[] hens=new Hen[40];
         for (int i = 0; i < 40; i++) {
-            Bird hen = (Bird) henFactory.getAnimal(null, BirdEnum.Hen);
+            com.globant.bootcamp.model.animal.Bird hen = (com.globant.bootcamp.model.animal.Bird) henFactory.getAnimal(null, Bird.Hen);
             if(i<12){
                 hens[i]=(Hen) henFactory.getAnimal(Color.WHITE, hen);
             }else{

@@ -1,5 +1,6 @@
 package com.globant.bootcamp.model;
 
+import com.globant.bootcamp.enums.Bird;
 import com.globant.bootcamp.enums.Color;
 import com.globant.bootcamp.model.FactoryPattern.EggFactory;
 import com.globant.bootcamp.model.animal.Egg;
@@ -54,7 +55,7 @@ public class EggsCarton {
     private void fillEmptyEggs(EggFactory eggFactory){
         for (int i = 0; i <6 ; i++) {
             for (int j = 0; j <5 ; j++) {
-                this.eggs[j][i]=(Egg) eggFactory.getAnimal(null, null);
+                this.eggs[j][i]=(Egg) eggFactory.getAnimal(null, Bird.Hen);
             }
         }
     }}

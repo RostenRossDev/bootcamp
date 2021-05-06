@@ -1,5 +1,5 @@
 package com.globant.bootcamp.enums;
 
-public enum BirdEnum {
+public enum Bird {
     Hen
 }
