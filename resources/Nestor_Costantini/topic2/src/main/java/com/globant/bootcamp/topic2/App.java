@@ -32,13 +32,9 @@ public class App
         layEggs(henHouse, eggFactory); //Hens lay eggs.
         
         Farmer farmer = new Farmer(eggFactory); //Create a farmer.
-        
-        logg.info("Start farming!!.");
-        
+                
         farmer.startFarming(henHouse); //farmer farming all eggs of hen house.
-        
-        logg.info("End farming!!.");
-        
+                
         showEggsCartons(farmer); // Show eggs carton content.
     }
 

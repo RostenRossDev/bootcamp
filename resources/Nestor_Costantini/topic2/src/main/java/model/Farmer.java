@@ -1,6 +1,8 @@
 package model;
 
 
+import org.apache.log4j.Logger;
+
 import com.globant.bootcamp.topic2.enums.Color;
 import model.FactoryPattern.EggFactory;
 import model.animal.Egg;
@@ -8,6 +10,8 @@ import model.animal.Hen;
 
 public class Farmer {
 
+	private final Logger LOG = Logger.getLogger(this.getClass());
+	
     private EggsCarton[] eggsCartons;
 
     public Farmer (EggFactory eggFactory){
@@ -15,11 +19,14 @@ public class Farmer {
         this.eggsCartons = new EggsCarton[3];
 
         this.initEggsCartons(eggFactory);
-
+        
+        LOG.info("Farmer is alive!!.");
     }
 
 
     public void startFarming( Hen[] hens ){
+        LOG.info("Start farming!!.");
+
         for ( Hen hen: hens ) {
             Egg[] eggs = hen.handEgg();
             for ( Egg egg:eggs ) {
@@ -39,6 +46,8 @@ public class Farmer {
                 }
             }
         }
+        
+        LOG.info("End farming!!.");
     }
 
     public EggsCarton[] getEggsCartons(){
@@ -48,11 +57,15 @@ public class Farmer {
 
     private void initEggsCartons( EggFactory eggFactory ){
 
+    	LOG.info("Start create Eggs Cartons.");
+    	
         this.eggsCartons[0] = new EggsCarton( Color.RED, eggFactory );
 
         this.eggsCartons[1] = new EggsCarton( Color.RED,eggFactory );
 
         this.eggsCartons[2] = new EggsCarton( Color.WHITE, eggFactory );
+
+    	LOG.info("Eggs Cartons was created!!.");
 
     }
 }
