@@ -1,5 +1,8 @@
 package com.globant.bootcamp.topic2;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
+
 import com.globant.bootcamp.topic2.enums.Color;
 import model.EggsCarton;
 import model.Farmer;
@@ -14,8 +17,12 @@ import model.animal.Hen;
  */
 public class App 
 {
+	public static Logger logg = Logger.getLogger(App.class);
+	
     public static void main(String[] args) {
-
+		BasicConfigurator.configure();
+		logg.info("This is Logger Info");
+    	
         EggFactory eggFactory = new EggFactory(); //Create an egg factory.
 
         HenFactory henFactory = new HenFactory(); //Create a hen Factory.
@@ -23,11 +30,15 @@ public class App
         Hen[] henHouse=initHenHouse(henFactory); // Create a hen house (array of Hen).
 
         layEggs(henHouse, eggFactory); //Hens lay eggs.
-
+        
         Farmer farmer = new Farmer(eggFactory); //Create a farmer.
-
+        
+        logg.info("Start farming!!.");
+        
         farmer.startFarming(henHouse); //farmer farming all eggs of hen house.
-
+        
+        logg.info("End farming!!.");
+        
         showEggsCartons(farmer); // Show eggs carton content.
     }
 
