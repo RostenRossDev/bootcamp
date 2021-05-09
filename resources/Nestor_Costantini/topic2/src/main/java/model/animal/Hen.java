@@ -68,4 +68,25 @@ public class Hen extends Bird{
         return (Egg) eggFactory.getAnimal( color,this );
     }
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "bird: Hen, egg colors: "+this.color;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Hen hen = (Hen) obj;
+		if(obj instanceof Hen) {
+			if(this.color.equals(hen.getEggsColor())) {
+				return true;
+			}
+		}
+		return false;
+	}
+    
+    
+
+	
 }

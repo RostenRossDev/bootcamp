@@ -29,6 +29,10 @@ public class Egg extends Animal {
         return this.color;
     }
 
+    public Animal<Bird> getBaby() {
+    	return (Animal) this.baby;
+    }
+    
     @Override
     public String toString() {
 
@@ -57,5 +61,18 @@ public class Egg extends Animal {
         return null;
     }
 
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof Egg) {
+			Egg egg = (Egg) obj;
+			if(this.getColor().equals(egg.getColor()) && this.getBaby().equals(egg.getBaby())) {
+				return true;
+			}
+		}
+			
+		return false;
+	}
 
+    
 }
