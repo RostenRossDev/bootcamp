@@ -5,24 +5,24 @@ import model.animal.Animal;
 import model.animal.Bird;
 import model.animal.Egg;
 
-public class EggFactory extends AnimalFactory{
-    @Override
-    public Animal getAnimal( Color color, Bird bird ) {
+public class EggFactory extends AnimalFactory {
 
-        if( color != null && bird != null )
-            return new Egg( bird, color );
+  @Override
+  public Animal<Egg> getAnimal(Color color, Bird bird) {
 
-        return new Egg(null, null );
-    }
+    if (color != null && bird != null)
+      return new Egg(bird, color);
+
+    return new Egg(null, null);
+  }
 
 
+  @Override
+  public Animal<Egg> getAnimal(Color color, com.globant.bootcamp.topic2.enums.Bird bird) {
 
-    @Override
-    public Animal getAnimal( Color color, com.globant.bootcamp.topic2.enums.Bird bird ) {
+    if (com.globant.bootcamp.topic2.enums.Bird.Hen.equals(bird))
+      return new Egg(null, null);
 
-        if (com.globant.bootcamp.topic2.enums.Bird.Hen.equals(bird))
-            return new Egg(null, null );
-
-        return null;
-    }
+    return null;
+  }
 }
