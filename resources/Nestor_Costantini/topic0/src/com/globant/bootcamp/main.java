@@ -1,5 +1,4 @@
-
-
+package com.globant.bootcamp;
 
 import com.globant.bootcamp.enums.Color;
 import com.globant.bootcamp.model.FactoryPattern.EggFactory;
