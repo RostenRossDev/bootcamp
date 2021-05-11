@@ -1,12 +1,12 @@
-package model.FactoryPattern;
+package com.globant.bootcamp.topic3.model.FactoryPattern;
 
 
 import org.junit.Assert;
 import org.junit.Test;
-import com.globant.bootcamp.topic2.enums.Bird;
-import com.globant.bootcamp.topic2.enums.Color;
-import model.animal.Egg;
-import model.animal.Hen;
+import com.globant.bootcamp.topic3.enums.Bird;
+import com.globant.bootcamp.topic3.enums.Color;
+import com.globant.bootcamp.topic3.model.animal.Egg;
+import com.globant.bootcamp.topic3.model.animal.Hen;
 
 public class EggFactoryTest {
   Hen hen = new Hen(Color.RED);

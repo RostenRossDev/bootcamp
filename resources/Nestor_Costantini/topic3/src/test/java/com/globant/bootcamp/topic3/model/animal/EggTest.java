@@ -1,15 +1,10 @@
-package model.animal;
-
-import static org.junit.Assert.*;
+package com.globant.bootcamp.topic3.model.animal;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.globant.bootcamp.topic2.constants.StringConstans;
-import com.globant.bootcamp.topic2.enums.Color;
-import com.globant.bootcamp.topic2.enums.Gender;
-
-import model.FactoryPattern.EggFactory;
+import com.globant.bootcamp.topic3.enums.Color;
+import com.globant.bootcamp.topic3.enums.Gender;
+import com.globant.bootcamp.topic3.model.FactoryPattern.EggFactory;
 
 public class EggTest {
   private final EggFactory eggFactory = new EggFactory();
