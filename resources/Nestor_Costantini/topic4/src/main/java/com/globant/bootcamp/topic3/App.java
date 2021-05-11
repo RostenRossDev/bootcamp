@@ -1,7 +1,8 @@
 package com.globant.bootcamp.topic3;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
+
 import com.globant.bootcamp.topic3.enums.Color;
 import com.globant.bootcamp.topic3.model.EggsCarton;
 import com.globant.bootcamp.topic3.model.Farmer;
@@ -10,7 +11,10 @@ import com.globant.bootcamp.topic3.model.FactoryPattern.HenFactory;
 import com.globant.bootcamp.topic3.model.animal.Bird;
 import com.globant.bootcamp.topic3.model.animal.Hen;
 
-
+/**
+ * Hello world!
+ *
+ */
 public class App {
   public static Logger logg = Logger.getLogger(App.class);
 
@@ -39,7 +43,7 @@ public class App {
     Hen[] hens = new Hen[40]; // init the hen array.
 
     for (int i = 0; i < 40; i++) {
-      Bird hen = (Bird) henFactory.getAnimal(null, com.globant.bootcamp.topic3.enums.Bird.Hen);
+      Bird hen = (Bird) henFactory.getAnimal(null, com.globant.bootcamp.topic2.enums.Bird.Hen);
       if (i < 12) { // decide what color of eggs lays the hen.
         hens[i] = (Hen) henFactory.getAnimal(Color.WHITE, hen);
       } else {
