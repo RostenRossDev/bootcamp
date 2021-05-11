@@ -1,8 +1,8 @@
-package model.FactoryPattern;
+package com.globant.bootcamp.topic2.model.FactoryPattern;
 
 import com.globant.bootcamp.topic2.enums.Color;
-import model.animal.Animal;
-import model.animal.Bird;
+import com.globant.bootcamp.topic2.model.animal.Animal;
+import com.globant.bootcamp.topic2.model.animal.Bird;
 
 public abstract class AnimalFactory {
 

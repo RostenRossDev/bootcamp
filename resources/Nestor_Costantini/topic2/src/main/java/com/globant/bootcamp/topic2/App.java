@@ -4,12 +4,12 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
 
 import com.globant.bootcamp.topic2.enums.Color;
-import model.EggsCarton;
-import model.Farmer;
-import model.FactoryPattern.EggFactory;
-import model.FactoryPattern.HenFactory;
-import model.animal.Bird;
-import model.animal.Hen;
+import com.globant.bootcamp.topic2.model.EggsCarton;
+import com.globant.bootcamp.topic2.model.Farmer;
+import com.globant.bootcamp.topic2.model.FactoryPattern.EggFactory;
+import com.globant.bootcamp.topic2.model.FactoryPattern.HenFactory;
+import com.globant.bootcamp.topic2.model.animal.Bird;
+import com.globant.bootcamp.topic2.model.animal.Hen;
 
 /**
  * Hello world!

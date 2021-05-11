@@ -1,10 +1,10 @@
-package model.animal;
+package com.globant.bootcamp.topic2.model.animal;
 
 
 import com.globant.bootcamp.topic2.enums.Color;
 import com.globant.bootcamp.topic2.enums.Gender;
 import com.globant.bootcamp.topic2.interfaces.Being;
-import model.FactoryPattern.AnimalFactory;
+import com.globant.bootcamp.topic2.model.FactoryPattern.AnimalFactory;
 
 public abstract class Animal<T> implements Being<T> {
   protected Gender gender;

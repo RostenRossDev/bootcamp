@@ -1,16 +1,16 @@
-package model.FactoryPattern;
+package com.globant.bootcamp.topic2.model.FactoryPattern;
 
 
 
 import com.globant.bootcamp.topic2.enums.Bird;
 import com.globant.bootcamp.topic2.enums.Color;
-import model.animal.Animal;
-import model.animal.Hen;;
+import com.globant.bootcamp.topic2.model.animal.Animal;
+import com.globant.bootcamp.topic2.model.animal.Hen;;
 
 public class HenFactory extends AnimalFactory {
 
   @Override
-  public Animal getAnimal(Color color, model.animal.Bird bird) {
+  public Animal getAnimal(Color color, com.globant.bootcamp.topic2.model.animal.Bird bird) {
 
     if (bird != null)
       return new Hen(color);

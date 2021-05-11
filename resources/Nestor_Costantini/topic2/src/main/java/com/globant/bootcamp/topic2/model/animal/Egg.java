@@ -1,8 +1,8 @@
-package model.animal;
+package com.globant.bootcamp.topic2.model.animal;
 
 import com.globant.bootcamp.topic2.constants.StringConstans;
 import com.globant.bootcamp.topic2.enums.Color;
-import model.FactoryPattern.AnimalFactory;
+import com.globant.bootcamp.topic2.model.FactoryPattern.AnimalFactory;
 
 public class Egg extends Animal<Egg> {
 

@@ -1,11 +1,11 @@
-package model;
+package com.globant.bootcamp.topic2.model;
 
 
 import org.apache.log4j.Logger;
 import com.globant.bootcamp.topic2.enums.Color;
-import model.FactoryPattern.EggFactory;
-import model.animal.Egg;
-import model.animal.Hen;
+import com.globant.bootcamp.topic2.model.FactoryPattern.EggFactory;
+import com.globant.bootcamp.topic2.model.animal.Egg;
+import com.globant.bootcamp.topic2.model.animal.Hen;
 
 public class Farmer {
 
