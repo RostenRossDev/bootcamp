@@ -64,8 +64,8 @@ public class Egg extends Animal<Egg> {
   @Override
   public boolean equals(Object obj) {
     // TODO Auto-generated method stub
+    Egg egg = (Egg) obj;
     if (obj instanceof Egg) {
-      Egg egg = (Egg) obj;
       if (this.toString().equals(egg.toString())
           || this.getColor().equals(egg.getColor()) && this.getBaby().equals(egg.getBaby())) {
         return true;

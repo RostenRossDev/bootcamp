@@ -19,7 +19,7 @@ public class HenFactory extends AnimalFactory {
   @Override
   public Animal getAnimal(Color color, Bird bird) {
 
-    if (bird.Hen.equals(bird))
+    if (bird.Hen.equals(bird) || bird != null)
       return new Hen(color);
 
     return new Hen();

@@ -13,17 +13,24 @@ public class HenFactoryTest {
 
   Hen henRed = new Hen(Color.RED);
 
+  Bird birdEnum = null;
+
   HenFactory henFactory = new HenFactory();
+
+  com.globant.bootcamp.topic3.model.animal.Bird birdNull = null;
+
+  com.globant.bootcamp.topic3.model.animal.Bird bird =
+      (com.globant.bootcamp.topic3.model.animal.Bird) henRed;
+
+
 
   @Test
   public void getAnimal() {
 
     Assert.assertEquals(henRed, henFactory.getAnimal(Color.RED, henRed));
-  }
-
-
-  public void getAnimalByEnum() {
 
     Assert.assertEquals(henRed, henFactory.getAnimal(Color.RED, Bird.Hen));
+
+    Assert.assertEquals(henRed, henFactory.getAnimal(Color.RED, bird));
   }
 }

@@ -5,23 +5,23 @@ import com.globant.bootcamp.enums.Color;
 import com.globant.bootcamp.model.animal.Animal;
 import com.globant.bootcamp.model.animal.Hen;
 
-public class HenFactory extends AnimalFactory{
+public class HenFactory extends AnimalFactory {
 
-    @Override
-    public Animal getAnimal( Color color, com.globant.bootcamp.model.animal.Bird bird ) {
+  @Override
+  public Animal getAnimal(Color color, com.globant.bootcamp.model.animal.Bird bird) {
 
-        if( bird != null)
-            return new Hen(color);
+    if (bird != null)
+      return new Hen(color);
 
-        return new Hen();
-    }
+    return new Hen();
+  }
 
-    @Override
-    public Animal getAnimal(Color color, Bird bird) {
+  @Override
+  public Animal getAnimal(Color color, Bird bird) {
 
-        if( bird.Hen.equals(bird) )
-            return new Hen(color);
+    if (bird.Hen.equals(bird))
+      return new Hen(color);
 
-        return new Hen();
-    }
+    return new Hen();
+  }
 }

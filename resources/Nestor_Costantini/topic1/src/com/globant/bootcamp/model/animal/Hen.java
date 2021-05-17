@@ -6,65 +6,65 @@ import com.globant.bootcamp.enums.Gender;
 import com.globant.bootcamp.model.FactoryPattern.AnimalFactory;
 import com.globant.bootcamp.model.FactoryPattern.EggFactory;
 
-public class Hen extends Bird{
+public class Hen extends Bird {
 
-    private Egg[] eggs;
-    private Color color;
+  private Egg[] eggs;
+  private Color color;
 
-    public Hen( Color color ){
+  public Hen(Color color) {
 
-        super( Gender.FEMALE );
-        this.eggs= new Egg[2];
-        this.color=color;
-    }
+    super(Gender.FEMALE);
+    this.eggs = new Egg[2];
+    this.color = color;
+  }
 
-    public Hen(){
+  public Hen() {
 
-        super(null );
-    }
+    super(null);
+  }
 
-    public Color getEggsColor(){
+  public Color getEggsColor() {
 
-        return this.color;
-    }
+    return this.color;
+  }
 
-    public Egg[] getEgg(){
+  public Egg[] getEgg() {
 
-        return this.eggs;
-    }
-
-
+    return this.eggs;
+  }
 
 
-    public Egg[] handEgg(){
 
-        Egg[] handEggs= this.eggs; //Guardo el arreglo de los huevos de la gallina en una variable local
+  public Egg[] handEgg() {
 
-        this.eggs=new Egg[2];
+    Egg[] handEggs = this.eggs; // Guardo el arreglo de los huevos de la gallina en una variable
+                                // local
 
-        return handEggs; //retorno la variable local con los huevos
-    }
+    this.eggs = new Egg[2];
 
-
-    public void layEggs( EggFactory eggFactory ){
-
-        this.eggs[0]=this.gaveBirth(this.color, eggFactory );
-
-        this.eggs[1]=this.gaveBirth(this.color, eggFactory );
-    }
+    return handEggs; // retorno la variable local con los huevos
+  }
 
 
-    @Override
-    public void makeSound() {
+  public void layEggs(EggFactory eggFactory) {
 
-        System.out.println(StringConstans.KAKAREO);
-    }
+    this.eggs[0] = this.gaveBirth(this.color, eggFactory);
 
-    @Override
-    public Egg gaveBirth( Color color, AnimalFactory AnimalFactory ) {
+    this.eggs[1] = this.gaveBirth(this.color, eggFactory);
+  }
 
-        EggFactory eggFactory= (EggFactory)AnimalFactory;
 
-        return (Egg) eggFactory.getAnimal( color,this );
-    }
+  @Override
+  public void makeSound() {
+
+    System.out.println(StringConstans.KAKAREO);
+  }
+
+  @Override
+  public Egg gaveBirth(Color color, AnimalFactory AnimalFactory) {
+
+    EggFactory eggFactory = (EggFactory) AnimalFactory;
+
+    return (Egg) eggFactory.getAnimal(color, this);
+  }
 }

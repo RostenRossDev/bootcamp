@@ -6,6 +6,7 @@ import com.globant.bootcamp.topic3.model.FactoryPattern.AnimalFactory;
 import com.globant.bootcamp.topic3.model.FactoryPattern.EggFactory;
 
 public abstract class Bird extends Animal<Egg> {
+
   public Bird(Gender gender) {
     super(gender);
   }
