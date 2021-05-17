@@ -14,6 +14,10 @@ public class EggsCartonTest {
 
   EggsCarton eggsCarton = new EggsCarton(Color.RED, eggFactory);
 
+  EggsCarton eggsCartonWhite = new EggsCarton(Color.WHITE, eggFactory);
+
+  EggsCarton eggsCartonRedHalf = new EggsCarton(Color.RED, eggFactory);
+
   Hen hen = new Hen(Color.RED);
 
   // Egg egg = new Egg();
@@ -30,6 +34,27 @@ public class EggsCartonTest {
     Assert.assertArrayEquals(EmptyEggs(eggFactory), eggsCarton.getEggs());
   }
 
+  @Test
+  public void getColor() {
+    Assert.assertEquals(Color.RED, eggsCarton.getColor());
+
+    Assert.assertNotEquals(Color.WHITE, eggsCarton.getColor());
+
+    Assert.assertNotNull(eggsCarton.getColor());
+  }
+
+  @Test
+  public void equals() {
+    eggsCartonRedHalf.addEgg(new Egg());
+
+    Assert.assertEquals(eggsCartonRedHalf, eggsCarton);
+
+    Assert.assertEquals(eggsCarton, eggsCarton);
+
+    Assert.assertNotEquals(eggsCarton, eggsCartonWhite);
+
+    Assert.assertNotNull(eggsCarton);
+  }
 
   private Egg[][] EmptyEggs(EggFactory eggFactory) {
 
@@ -43,4 +68,5 @@ public class EggsCartonTest {
     }
     return eggs;
   }
+
 }

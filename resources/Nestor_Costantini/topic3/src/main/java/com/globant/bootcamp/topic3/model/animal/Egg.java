@@ -66,8 +66,12 @@ public class Egg extends Animal<Egg> {
     // TODO Auto-generated method stub
     Egg egg = (Egg) obj;
     if (obj instanceof Egg) {
-      if (this.toString().equals(egg.toString())
-          || this.getColor().equals(egg.getColor()) && this.getBaby().equals(egg.getBaby())) {
+      if (this.getColor() != null && egg.getColor() != null) {
+
+        if (this.getColor().equals(egg.getColor())) {
+          return true;
+        }
+      } else {
         return true;
       }
     }

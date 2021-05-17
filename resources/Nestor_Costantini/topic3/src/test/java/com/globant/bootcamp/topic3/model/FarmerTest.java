@@ -15,18 +15,19 @@ public class FarmerTest {
   @Test
   public void getEggsCartons() {
 
-    initEggsCartons(eggFActory);
+    Assert.assertNotEquals(eggsCartons, farmer.getEggsCartons());
+
+    this.eggsCartons[0] = new EggsCarton(Color.RED, eggFActory);
+
+    this.eggsCartons[1] = new EggsCarton(Color.RED, eggFActory);
+
+    this.eggsCartons[2] = new EggsCarton(Color.WHITE, eggFActory);
+
     Assert.assertArrayEquals(eggsCartons, farmer.getEggsCartons());
+
+
   }
 
-  private void initEggsCartons(EggFactory eggFactory) {
 
-
-    this.eggsCartons[0] = new EggsCarton(Color.RED, eggFactory);
-
-    this.eggsCartons[1] = new EggsCarton(Color.RED, eggFactory);
-
-    this.eggsCartons[2] = new EggsCarton(Color.WHITE, eggFactory);
-  }
 
 }

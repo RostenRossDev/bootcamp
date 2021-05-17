@@ -11,7 +11,7 @@ import com.globant.bootcamp.topic3.model.FactoryPattern.EggFactory;
 public class EggTest {
   private final EggFactory eggFactory = new EggFactory();
 
-  private final Bird bird = new Bird(Gender.FEMALE) {
+  private final Bird birdFemale = new Bird(Gender.FEMALE) {
 
     @Override
     public void makeSound() {
@@ -19,11 +19,21 @@ public class EggTest {
 
     }
   };
-  private final Egg eggRed = new Egg(bird, Color.RED);
 
-  private final Egg eggRed2 = new Egg(bird, Color.RED);
+  private final Bird birdMale = new Bird(Gender.MALE) {
 
-  private final Egg eggWhite = new Egg(bird, Color.WHITE);
+    @Override
+    public void makeSound() {
+      // TODO Auto-generated method stub
+
+    }
+  };
+
+  private final Egg eggRed = new Egg(birdFemale, Color.RED);
+
+  private final Egg eggRed2 = new Egg(birdFemale, Color.RED);
+
+  private final Egg eggWhite = new Egg(birdFemale, Color.WHITE);
 
   private final Egg eggNUll = new Egg(null, null);
 
@@ -37,7 +47,13 @@ public class EggTest {
   @Test
   public void to_string() {
 
+
     Assert.assertEquals("(D)", eggRed.toString());
+
+    Assert.assertEquals("(O)", eggWhite.toString());
+
+    Assert.assertEquals("(G)", eggNUll.toString());
+
   }
 
   @Test
@@ -56,19 +72,23 @@ public class EggTest {
 
     assertFalse(eggRed.equals(eggNUll));
 
-    assertFalse(eggRed.equals(bird));
+    assertFalse(eggRed.equals(birdFemale));
+
+    assertTrue(eggRed.getBaby().equals(birdFemale));
+
+    assertFalse(eggRed.getBaby().equals(birdMale));
   }
 
   @Test
   public void getBaby() {
 
-    Assert.assertEquals(bird, eggRed.getBaby());
+    Assert.assertEquals(birdFemale, eggRed.getBaby());
 
     Assert.assertNotNull(eggRed.getBaby());
 
     Assert.assertNull(eggNUll.getBaby());
 
-    Assert.assertEquals(bird, eggRed.getBaby());
+    Assert.assertEquals(birdFemale, eggRed.getBaby());
   }
 
 }

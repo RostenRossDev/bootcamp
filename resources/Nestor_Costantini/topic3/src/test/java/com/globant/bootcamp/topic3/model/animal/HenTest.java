@@ -19,10 +19,6 @@ public class HenTest {
 
   Egg egg = new Egg((Bird) henRed, henRed.getEggsColor());
 
-  Egg egg2 = new Egg((Bird) henWhite, henWhite.getEggsColor());
-
-  Egg egg3 = new Egg(null, null);
-
   EggFactory eggFActory = new EggFactory();
 
   Egg[] eggs = {egg, egg};
@@ -63,13 +59,21 @@ public class HenTest {
     assertFalse(henRed.equals(egg));
   }
 
+
   @Test
-  public void toStringHen() {
+  public void getColor() {
+    Assert.assertEquals(Color.RED, henRed.getEggsColor());
 
-    Assert.assertEquals("(D)", egg.toString());
+    Assert.assertNotEquals(Color.WHITE, henRed.getEggsColor());
+  }
 
-    Assert.assertEquals("(O)", egg2.toString());
+  @Test
+  public void toString_() {
 
-    Assert.assertEquals("(G)", egg3.toString());
+    Assert.assertEquals("bird: Hen, egg colors: RED", henRed.toString());
+
+    Assert.assertNotEquals("bird: Hen, egg colors: WHITE", henRed.toString());
+
+    Assert.assertNotNull(henRed.toString());
   }
 }

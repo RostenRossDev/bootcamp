@@ -109,11 +109,15 @@ public class EggsCarton {
 
           for (int i = 0; i < this.eggs.length; i++) {
             for (int j = 0; j < this.eggs[i].length; j++) {
-              if (this.eggs[i][j].equals(eggsObj[i][j])) {
-                isEquals = true;
-              } else {
-                isEquals = false;
-                break;
+              if (this.eggs[i][j] instanceof Egg && eggsObj[i][j] instanceof Egg) {
+
+
+                if (this.eggs[i][j].equals(eggsObj[i][j])) {
+                  isEquals = true;
+                } else {
+                  isEquals = false;
+                  break;
+                }
               }
             }
           }
