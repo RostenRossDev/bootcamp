@@ -14,15 +14,21 @@
  
 <body >
 	<header>
-	    <h1>${greeting}</h1>
+	    <h1 style="position: absolute; top: 0px; left:10px; ">${greeting}</h1><p class="text-muted" style="position: absolute; top: 20px; left:800px; ">${pd}</p>
+	    <div class="pt-5">
+	    	<img src="https://media.istockphoto.com/illustrations/easter-set-with-patterned-eggs-hand-drawn-watercolor-illustration-on-illustration-id1198410935?s=2048x2048"
+	    		 height="400" width="100%" style="margin: -160px -200px 0px -0px;">
+	    </div>
 	</header>
 	
-	<main>
-		<h2>${manage}</h2>
-		<p>${pd}</p>
+	<main class="ms-5 me-5" >
+		<div class="d-flex justify-content-center mb-5">
+			<h2 class=" ">${manage}</h2>
+		</div>
 		
 		<div class="container-flex g-0">
-			<div class="row col-12 g-0">
+		
+			<div class="row col-12 g-0 ">
 				<div class="col-2">
 					<form action="/FarmEggsSpringMVC/createHenHouse" method = "POST" >
 						<input type="submit" class="btn btn-primary" value="Create Hen House" />
@@ -54,10 +60,9 @@
 					</form>			
 				</div>
 							
-				<div class="col-2">
-					<a href="/showEggs" class="btn btn-primary">Show Cartons Eggs</a>	
-				</div>
+				
 			</div>
+			
 			
 		</div>
 		
@@ -93,14 +98,7 @@
 			      <td>${eggsCartons.size()}</td>
 			      <td><a href="#"class="btn btn-danger">Delete</a></td>			      
 			    </tr>
-  				
-  				<tr>
-			      <th scope="row"><a href="#" class="btn btn-primary">4</a></th>
-			      <td>Eggs</td>
-			      <td>${eggs.size()}</td>
-			      <td><a href="#"class="btn btn-danger">Delete</a></td>
-			    </tr>
-			  
+ 			  
 			  </tbody>
 			</table>
 					

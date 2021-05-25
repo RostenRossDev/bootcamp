@@ -14,7 +14,12 @@
 
 <body>
 
-
+		<div class="container-flex g-0">
+			<img src="https://www.dexerto.es/wp-content/uploads/sites/3/2021/04/10/portada-nueva-caracteristica-Pokemon-GO-huevos.jpg">
+			<div class="row col-12 g-0">
+				<a href="/FarmEggsSpringMVC/home" class="btn btn-success">
+			</div>
+		</div>
    
 
 </body>

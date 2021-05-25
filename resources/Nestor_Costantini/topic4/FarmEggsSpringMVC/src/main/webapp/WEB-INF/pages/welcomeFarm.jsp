@@ -54,11 +54,10 @@
 					</form>			
 				</div>
 							
-				<div class="col-2">
-					<a href="/FarmEggsSpringMVC/showEggs" class="btn btn-primary">Show Cartons Eggs</a>	
-				</div>
 			</div>
-			
+			<div class="float-end mt-3">
+					<a href="/FarmEggsSpringMVC/showEggs" class="btn btn-primary">Show Cartons Eggs</a>	
+			</div>
 		</div>
 		
 		<div class="container mt-5">
@@ -93,14 +92,7 @@
 			      <td>${eggsCartons.size()}</td>
 			      <td><a href="#"class="btn btn-danger">Delete</a></td>			      
 			    </tr>
-  				
-  				<tr>
-			      <th scope="row"><a href="#" class="btn btn-primary">4</a></th>
-			      <td>Eggs</td>
-			      <td>${eggs.size()}</td>
-			      <td><a href="#"class="btn btn-danger">Delete</a></td>
-			    </tr>
-			  
+  							  
 			  </tbody>
 			</table>
 		</div>
