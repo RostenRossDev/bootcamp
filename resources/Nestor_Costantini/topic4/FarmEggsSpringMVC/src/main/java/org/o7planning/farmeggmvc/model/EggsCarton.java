@@ -1,5 +1,6 @@
 package org.o7planning.farmeggmvc.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.o7planning.farmeggmvc.constants.NumberConstants;
@@ -13,15 +14,21 @@ public class EggsCarton {
 
   private List<Egg> eggs;
 
+  private int eggsCount; 
+  
   private Boolean full;
 
   private Color color;
 
   public EggsCarton(Color color) {
 
+	this.eggs=new ArrayList<>();
+	
     this.full = false;
 
     this.color = color;
+    
+    this.eggsCount=0;
   }
 
   public Color getColor() {
@@ -39,11 +46,12 @@ public class EggsCarton {
   }
 
   public void addEgg(Egg egg) {
-
+	LOG.info("egg "+egg.getColor()+", carton: "+this.color+", objeto: "+this);
     if (this.color.equals(egg.getColor())) {
-
+    	
       this.eggs.add(egg);
-
+      LOG.info("an "+egg.getColor()+" was added.");
+      this.eggsCount++;
       fullControl();
     }
   }
@@ -85,9 +93,5 @@ public class EggsCarton {
     return isEquals;
   }
 
-  @Override
-  public String toString() {
-    // TODO Auto-generated method stub
-    return this.eggs.toString();
-  }
+ 
 }

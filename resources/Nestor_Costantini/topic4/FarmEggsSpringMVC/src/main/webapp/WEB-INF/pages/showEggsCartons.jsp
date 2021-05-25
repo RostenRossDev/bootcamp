@@ -12,7 +12,7 @@
 </head>
  
  
-<body>
+<body >
 	<header>
 	    <h1>${greeting}</h1>
 	</header>
@@ -103,21 +103,60 @@
 			  
 			  </tbody>
 			</table>
-			<ul>		
-			
-					<p>${eggsCartons}</p>
-					<c:forEach items="${eggsCartons}" var="carton">
-						<p>carton</p>
-						
-						<c:forEach items="${carton.eggs}" var="eggs">
-							<p>O</p>
-						</c:forEach>
-						
-					</c:forEach>
 					
-			</ul>
+				
+				<c:forEach items="${eggsCartons}" var="carton">
+					
+						<p>carton</p>
+						<p>${carton.color}
+						<c:set var="line" value="0" scope="page" />
+						<c:set var="count" value="0" scope="page" />
+						<tr>
+						<table >
+						<c:forEach items="${carton.eggs}" var="egg" >
+								<c:if test="${egg.color == 'RED'}" >
+									<td>
+										<img src="https://image.shutterstock.com/image-illustration/red-egg-260nw-24543421.jpg" width="50px">
+									</td>
+								</c:if>
+								<c:if test="${egg.color == 'WHITE'}" >
+									<td>
+										<img src="https://image.shutterstock.com/image-illustration/egg-isolated-on-white-background-260nw-112960825.jpg" width="50px">
+									</td>
+								</c:if>
+								
+								
+	        					<c:set var="count" value="${count+1}" />
+	        					<c:set var="line" value="${line+1}" />
+	        					<c:if test="${line>4}">
+	        						<c:set var="line" value="${0}" />
+	        						
+	        						</tr>
+	        					</c:if>   
+	        					
+						</c:forEach>
+						<c:if test="${count < 30}">
+							
+							<c:forEach var="i" begin="${count}" end="29" step="1" varStatus ="status">
+									
+								<td>
+									<img src="https://thumbs.dreamstime.com/b/cracked-eggshell-23573.jpg" width="50px">
+									<c:out value="${line}" />
+								<td>
+								<c:set var="line" value="${line+1}" />
+							
+								<c:if test="${line>4}">
+		        					<c:set var="line" value="${0}" />
+		        					</tr>
+		        				</c:if>
+							</c:forEach>	
+						</c:if>
+					</table>	
+				</c:forEach>
 		</div>
 	</main>
+	
+	 
  </body>
- 
+
 </html>

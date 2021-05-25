@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.o7planning.farmeggmvc.database.DataFarm;
 import org.o7planning.farmeggmvc.model.EggsCarton;
+import org.o7planning.farmeggmvc.model.animal.Egg;
 import org.o7planning.farmeggmvc.service.FarmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,12 @@ public class FarmController {
   @RequestMapping(value = "/showEggs", method = RequestMethod.GET)
   public String showEggs(Model model) {
     model = fillModel(model);
+    
+    for (EggsCarton carton :  DataFarm.eggsCartons) {
+		for (Egg egg : carton.getEggs()) {
+			LOG.info("O");
+		}
+	}
 
     return "showEggsCartons";
   }

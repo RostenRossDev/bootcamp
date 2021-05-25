@@ -47,14 +47,14 @@ public class HenServiceImpl implements IHenService {
 
     if (DataFarm.hens.size() < 40) {
 
-      if (DataFarm.whiteHen < 12) {
+      if (DataFarm.hens.size() < 12) {
 
         DataFarm.hens.add((Hen) henFactory.getAnimal(Color.WHITE, hen));
-        LOG.info("White hen was added.");
+        LOG.info("Nro: "+DataFarm.hens.size()+" White hen was added.");
       } else {
 
         DataFarm.hens.add((Hen) henFactory.getAnimal(Color.RED, hen));
-        LOG.info("Red hen was added.");
+        LOG.info("Nro: "+DataFarm.hens.size()+" Red hen was added.");
       }
     }
   }

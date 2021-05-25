@@ -55,7 +55,7 @@
 				</div>
 							
 				<div class="col-2">
-					<a href="/showEggs" class="btn btn-primary">Show Cartons Eggs</a>	
+					<a href="/FarmEggsSpringMVC/showEggs" class="btn btn-primary">Show Cartons Eggs</a>	
 				</div>
 			</div>
 			
@@ -103,19 +103,6 @@
 			  
 			  </tbody>
 			</table>
-			<ul>		
-			
-					<p>${eggsCartons}</p>
-					<c:forEach items="${eggsCartons}" var="carton">
-						<p>carton</p>
-						
-						<c:forEach items="${carton.eggs}" var="eggs">
-							<p>O</p>
-						</c:forEach>
-						
-					</c:forEach>
-					
-			</ul>
 		</div>
 	</main>
  </body>
