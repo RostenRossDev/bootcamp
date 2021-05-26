@@ -86,7 +86,7 @@
 			    </tr>
 			    
 			    <tr>
-			      <th scope="row"><a href="#" class="btn btn-primary">2</a></th>
+			      <th scope="row"><a href="/FarmEggsSpringMVC/hens" class="btn btn-primary">2</a></th>
 			      <td>Hen House</td>
 			      <td>${hensSize}</td>
 			      <td><a href="#"class="btn btn-danger">Delete</a></td>

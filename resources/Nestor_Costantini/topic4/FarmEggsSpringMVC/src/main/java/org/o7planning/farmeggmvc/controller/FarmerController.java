@@ -8,6 +8,7 @@ import org.o7planning.farmeggmvc.service.FarmerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +28,12 @@ public class FarmerController {
     return "redirect:/home";
   }
 
+  @RequestMapping(value="/farmers", method = RequestMethod.GET)
   public String allFarmer(Model model) {
 
     List<Farmer> farmers = DataFarm.farmers;
-
+    model.addAttribute("farmers", farmers);
+    model.addAttribute("cantidad", farmers.size());
     return "farmers";
   }
 
@@ -51,18 +54,11 @@ public class FarmerController {
 
     return "";
   }
-
-
-  private Model fillModel(Model model) {
-    model.addAttribute("redHens", DataFarm.redHen);
-    model.addAttribute("whiteHens", DataFarm.redHen);
-    model.addAttribute("eggsCartons", DataFarm.eggsCartons);
-    model.addAttribute("farmers", DataFarm.farmers);
-    model.addAttribute("eggs", DataFarm.eggs);
-    model.addAttribute("hensSize", DataFarm.hens.size());
-    model.addAttribute("greeting", "Welcome to Humpty Dumpty eggs farm's.");
-    model.addAttribute("manage", "Here you can manage your Eggs Farms!!");
-    model.addAttribute("pd", "pd: None egg was crashed :D !!");
-    return model;
+  
+  @RequestMapping(value="farmer/{id}",  method = RequestMethod.GET)
+  public String viewHen(Model model, @PathVariable(value="id") int id) {
+	  model.addAttribute("farmer", service.getFarmer(id));
+	  return "farmer";
   }
+
 }

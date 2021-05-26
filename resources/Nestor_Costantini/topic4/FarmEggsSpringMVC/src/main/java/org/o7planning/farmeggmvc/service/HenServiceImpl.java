@@ -117,4 +117,10 @@ public class HenServiceImpl implements IHenService {
     }
   }
 
+@Override
+public Hen getHen(int index) {
+	Hen hen = DataFarm.hens.get(index);
+	return hen;
+}
+
 }

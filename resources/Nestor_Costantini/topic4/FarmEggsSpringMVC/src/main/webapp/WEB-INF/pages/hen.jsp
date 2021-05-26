@@ -22,41 +22,28 @@
 		</header>
 		
 		<main>
-			<div class="container-flex g-0 justify-content-center">
+			<div class="container-flex g-0 justify-content-center ">
 				<div class="row col-1 g-0">
 					<a href="/FarmEggsSpringMVC/home" class="btn btn-success">Home</a>
 				</div>
 			</div>
-			<div>
-				<table class="table">
-				<thead>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Delete</th>
-				      <th scope="col">Change color</th>
-				    </tr>
-			  	</thead>
-			  
-			  	<tbody>
-			  		<c:set var="count" value="0" scope="page" />
-			  		<c:forEach items="${hens}" var="hen" >
-			  			<tr>
-			  				<td>
-			  					<th>
-			  						<a href="/FarmEggsSpringMVC/hen/${count}" class="btn btn-success">${count+1}</a>
-			  					</th>
-			  					<th> <a href="/FarmEggsSpringMVCdelhen/${count}" class="btn btn-danger">Delete</th>
-			  					<th> <a href="/FarmEggsSpringMVCupdhen/${count}" class="btn btn-warning">Update</th>
-			  				</td>
-			  			</tr>
-			  			<c:set var="count" value="${count+1}" />
-			  		</c:forEach>
-			  	</tbody>
-			  </table>
+		</main>
+		<div class="container mt-5">
+			<div class="mb-3 row">
+    		  <label for="staticEmail" class="col-sm-2 col-form-label">Hen Color</label>
+	      	  <div class="col-sm-10">
+	      	  	<input type="text" readonly class="form-control-plaintext" id="staticEmail" value=${hen.getEggsColor()}>
+		      </div>
 			</div>
 			
-			
-   		</main>
-
+			<div class="mb-3 row">
+    		  <label for="staticEmail" class="col-sm-2 col-form-label">Eggs</label>
+	     	  <div class="col-sm-10">
+	     	  	<input type="text" readonly class="form-control-plaintext" id="staticEmail" value=${egss}>
+			  </div>
+			</div>	
+		</div>
+		
 </body>
+
 </html>

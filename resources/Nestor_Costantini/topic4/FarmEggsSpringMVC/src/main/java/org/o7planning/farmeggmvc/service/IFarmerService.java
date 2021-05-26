@@ -14,5 +14,7 @@ public interface IFarmerService {
   public void deleteFarmerByName(String name);
 
   public Farmer updateFarmer(Farmer farmer, int index);
+  
+  public Farmer getFarmer(int index);
 
 }

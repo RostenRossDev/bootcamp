@@ -66,4 +66,10 @@ public class FarmerServiceImpl implements IFarmerService {
     return null;
   }
 
+@Override
+public Farmer getFarmer(int index) {
+	// TODO Auto-generated method stub
+	return DataFarm.farmers.get(index);
+}
+
 }

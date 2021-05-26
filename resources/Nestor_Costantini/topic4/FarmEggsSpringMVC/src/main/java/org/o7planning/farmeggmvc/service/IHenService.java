@@ -17,4 +17,6 @@ public interface IHenService {
   public void deleteHenColor(Color color);
 
   public void layEggs();
+  
+  public Hen getHen(int index);
 }

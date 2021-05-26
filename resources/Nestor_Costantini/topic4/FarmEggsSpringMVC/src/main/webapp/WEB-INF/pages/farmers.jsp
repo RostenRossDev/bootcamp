@@ -39,14 +39,14 @@
 			  
 			  	<tbody>
 			  		<c:set var="count" value="0" scope="page" />
-			  		<c:forEach items="${hens}" var="hen" >
+			  		<c:forEach items="${farmers}" var="hen" >
 			  			<tr>
 			  				<td>
 			  					<th>
-			  						<a href="/FarmEggsSpringMVC/hen/${count}" class="btn btn-success">${count+1}</a>
+			  						<a href="/FarmEggsSpringMVC/farmer/${count}" class="btn btn-success">${count+1}</a>
 			  					</th>
-			  					<th> <a href="/FarmEggsSpringMVCdelhen/${count}" class="btn btn-danger">Delete</th>
-			  					<th> <a href="/FarmEggsSpringMVCupdhen/${count}" class="btn btn-warning">Update</th>
+			  					<th> <a href="/FarmEggsSpringMVC/delfar/${count}" class="btn btn-danger">Delete</th>
+			  					<th> <a href="/FarmEggsSpringMVC/updfar/${count}" class="btn btn-warning">Update</th>
 			  				</td>
 			  			</tr>
 			  			<c:set var="count" value="${count+1}" />
@@ -54,9 +54,8 @@
 			  	</tbody>
 			  </table>
 			</div>
-			
-			
    		</main>
 
 </body>
 </html>
+

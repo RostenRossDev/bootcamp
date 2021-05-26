@@ -1,5 +1,8 @@
 package org.o7planning.farmeggmvc.model.animal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.o7planning.farmeggmvc.constants.StringConstans;
 import org.o7planning.farmeggmvc.enums.Color;
 import org.o7planning.farmeggmvc.enums.Gender;
@@ -8,13 +11,13 @@ import org.o7planning.farmeggmvc.model.factory.EggFactory;
 
 public class Hen extends Bird {
 
-  private Egg[] eggs;
+  private List<Egg> eggs;
   private Color color;
 
   public Hen(Color color) {
 
     super(Gender.FEMALE);
-    this.eggs = new Egg[2];
+    this.eggs = new ArrayList<>();
     this.color = color;
   }
 
@@ -28,19 +31,19 @@ public class Hen extends Bird {
     return this.color;
   }
 
-  public Egg[] getEgg() {
+  public List<Egg> getEgg() {
 
     return this.eggs;
   }
 
 
 
-  public Egg[] handEgg() {
+  public List<Egg> handEgg() {
 
-    Egg[] handEggs = this.eggs; // Guardo el arreglo de los huevos de la gallina en una variable
+	  List<Egg> handEggs = this.eggs; // Guardo el arreglo de los huevos de la gallina en una variable
                                 // local
 
-    this.eggs = new Egg[2];
+    this.eggs = new ArrayList<>();
 
     return handEggs; // retorno la variable local con los huevos
   }
@@ -48,9 +51,9 @@ public class Hen extends Bird {
 
   public void layEggs(EggFactory eggFactory) {
 
-    this.eggs[0] = this.gaveBirth(this.color, eggFactory);
+    this.eggs.add( this.gaveBirth(this.color, eggFactory));
 
-    this.eggs[1] = this.gaveBirth(this.color, eggFactory);
+    this.eggs.add( this.gaveBirth(this.color, eggFactory));
   }
 
 

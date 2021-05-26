@@ -64,6 +64,10 @@ public class FarmService {
     DataFarm.eggsCartons = cartons;
   }
 
+  public Hen getHen(int index) {
+	  return henService.getHen(index);
+  }
+  
   public void layEggs() {
     henService.layEggs();
   }
