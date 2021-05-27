@@ -32,8 +32,8 @@ public class UserService implements IUserService, UserDetailsService{
 		User user = userDao.findByUsername(username);
 		
 		if(user == null) {
-			logger.info("User "+user.getUsername()+" don`t exist!");
-			throw new UsernameNotFoundException("User "+user.getUsername()+" don`t exist!");
+			logger.info("User "+username+" don`t exist!");
+			throw new UsernameNotFoundException("User "+username+" don`t exist!");
 		}
 		List<GrantedAuthority> authorities= user.getRoles()
 				.stream()
@@ -48,6 +48,11 @@ public class UserService implements IUserService, UserDetailsService{
 	public User findByUsername(String username) {
 		// TODO Auto-generated method stub
 		return userDao.findByUsername(username);
+	}
+	
+	
+	public User createUser(User user) {
+		return userDao.save(user);
 	}
 
 }
