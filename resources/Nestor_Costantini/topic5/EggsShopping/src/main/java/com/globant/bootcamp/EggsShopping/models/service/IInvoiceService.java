@@ -13,5 +13,7 @@ public interface IInvoiceService {
 	public void deleteInvoice(Long id);
 	
 	public List<Invoice> findByUser(Long id);
+	
+	public List<Invoice> findByUsername(String username);
 
 }

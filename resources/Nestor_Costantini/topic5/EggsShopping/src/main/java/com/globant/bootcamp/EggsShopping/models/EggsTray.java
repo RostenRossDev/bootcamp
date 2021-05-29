@@ -38,7 +38,7 @@ public class EggsTray implements Serializable{
 	private List<Egg> eggs;
 	
 	@ManyToOne
-	@JoinColumn(name="invoiceItem_id")
+	@JoinColumn(name="invoice_id")
 	private InvoiceItem invoiceItem;
 	
 	private Double price;

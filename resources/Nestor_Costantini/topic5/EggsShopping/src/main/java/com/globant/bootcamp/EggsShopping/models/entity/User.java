@@ -102,6 +102,23 @@ public class User implements Serializable{
 		this.roles = roles;
 	}
 
+	public void updateUser(User user) {
+		if(user.getNickname() != null) {
+			this.nickname = user.getNickname();
+		}
+		
+		if(user.getUsername() != null) {
+			this.username = user.getUsername();
+		}
+		
+		if(user.getEnabled() != null) {
+			this.enabled = user.getEnabled();
+		}
+		
+		if(user.getPassword() != null) {
+			this.password = user.getPassword();
+		}
+	}
 
 	private static final long serialVersionUID = 1L;
 }

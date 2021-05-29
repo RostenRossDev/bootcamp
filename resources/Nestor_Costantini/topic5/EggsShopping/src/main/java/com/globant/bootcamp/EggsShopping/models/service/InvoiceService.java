@@ -5,12 +5,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.globant.bootcamp.EggsShopping.models.dao.IInvoiceDao;
 import com.globant.bootcamp.EggsShopping.models.dao.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.entity.User;
 
+@Service
 public class InvoiceService implements IInvoiceService{
 
 	@Autowired
@@ -48,6 +50,14 @@ public class InvoiceService implements IInvoiceService{
 	
 	public List<Invoice> allInvoice(){
 		return invoiceDao.findAll();
+	}
+
+	@Override
+	public List<Invoice> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		User user = userDao.findByUsername(username);
+		
+		return invoiceDao.findByUser(user);
 	}
 	
 }

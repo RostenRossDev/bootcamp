@@ -93,21 +93,5 @@ public class AdminController {
 
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
-	
-	
-	@GetMapping("/allInvoice")
-	public  ResponseEntity<?> allInvoice(){
-		
-		List<Invoice> invoices = invoiceService.allInvoice();
-		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
-	}
-	
-	@GetMapping("/invoice/user/{id}")
-	public ResponseEntity<?> invoiceByUser(@PathVariable("id") Long id){
-		List<Invoice> invoice =invoiceService.findByUser(id);
-		
-		return new ResponseEntity<List<Invoice>>(invoice, HttpStatus.OK);
-	}
-	
-		
+			
 }

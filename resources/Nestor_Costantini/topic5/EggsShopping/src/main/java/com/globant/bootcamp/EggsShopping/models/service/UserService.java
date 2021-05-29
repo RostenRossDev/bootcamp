@@ -59,4 +59,12 @@ public class UserService implements IUserService, UserDetailsService{
 		return userDao.save(user);
 	}
 
+	public User update (User user) {
+		
+		return userDao.save(user);
+	}
+	
+	public void delete(User user) {
+		userDao.delete(user);
+	}
 }

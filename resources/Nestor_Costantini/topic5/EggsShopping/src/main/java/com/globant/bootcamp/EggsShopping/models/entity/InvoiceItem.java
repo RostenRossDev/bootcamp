@@ -2,6 +2,7 @@ package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.globant.bootcamp.EggsShopping.models.EggsTray;
@@ -23,8 +25,10 @@ public class InvoiceItem {
 	
 	private Integer quantity;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="carton_id")
+	@OneToMany(
+			mappedBy="invoiceItem",fetch=FetchType.LAZY,
+			cascade=CascadeType.ALL
+			)
 	private List<EggsTray> cartons;
 	
 	
