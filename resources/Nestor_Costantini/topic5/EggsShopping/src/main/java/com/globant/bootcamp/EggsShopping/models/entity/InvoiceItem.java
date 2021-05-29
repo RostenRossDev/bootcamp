@@ -1,5 +1,7 @@
 package com.globant.bootcamp.EggsShopping.models.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,10 +24,8 @@ public class InvoiceItem {
 	private Integer quantity;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="producto_id")
-	private EggsTray carton;
-	
-	
+	@JoinColumn(name="carton_id")
+	private List<EggsTray> cartons;
 	
 	
 	public Long getId() {
@@ -56,21 +56,22 @@ public class InvoiceItem {
 
 
 
-	public EggsTray getCarton() {
-		return carton;
+	public List<EggsTray> getCartons() {
+		return cartons;
 	}
 
 
 
 
-	public void setCarton(EggsTray carton) {
-		this.carton = carton;
+	public void setCartons(List<EggsTray> cartons) {
+		this.cartons = cartons;
 	}
 
 
 
 
 	public Double calculateAmount() {
-		return quantity.doubleValue()*carton.getPrice();
+		Double price = cartons.get(0).getPrice();
+		return quantity.doubleValue()*price;
 	}
 }

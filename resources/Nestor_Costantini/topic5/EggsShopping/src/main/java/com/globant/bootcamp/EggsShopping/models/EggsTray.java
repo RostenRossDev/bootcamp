@@ -9,11 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.animals.Egg;
+import com.globant.bootcamp.EggsShopping.models.entity.InvoiceItem;
 
 @Entity
 @Table(name="eggs_cartons")
@@ -34,11 +37,16 @@ public class EggsTray implements Serializable{
 			)
 	private List<Egg> eggs;
 	
+	@ManyToOne
+	@JoinColumn(name="invoiceItem_id")
+	private InvoiceItem invoiceItem;
+	
 	private Double price;
 
 	private Color color;
 
 	private Boolean sold;
+	
 	
 	public List<Egg> getEggs() {
 		return eggs;

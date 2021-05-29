@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.globant.bootcamp.EggsShopping.models.dao.IUsuarioDao;
+import com.globant.bootcamp.EggsShopping.models.dao.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.User;
 
 @Service
@@ -23,7 +23,7 @@ public class UserService implements IUserService, UserDetailsService{
 	private Logger logger = LoggerFactory.getLogger(UserService.class); 
 	
 	@Autowired
-	private IUsuarioDao userDao;
+	private IUserDao userDao;
 	
 	@Override
 	@Transactional(readOnly = true)
