@@ -17,4 +17,13 @@ public interface IEggsTrayService {
 	
 	public List<EggsTray> updateEggsTray(List<EggsTray> trays);
 	
+	public List<EggsTray> saveTrayEggs( List<EggsTray> trays);
+	
+	public List<EggsTray> findAllByColorAndSold(Color color, Boolean sold);
+	
+	public List<EggsTray> findByStock();
+	
+	public List<EggsTray> findByStockByColor(Color color);
+
+
 }

@@ -46,5 +46,8 @@ public class InvoiceService implements IInvoiceService{
 		return invoiceDao.findByUser(user);
 	}
 	
+	public List<Invoice> allInvoice(){
+		return invoiceDao.findAll();
+	}
 	
 }

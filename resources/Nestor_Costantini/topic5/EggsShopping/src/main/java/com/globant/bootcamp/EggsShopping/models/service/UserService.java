@@ -50,6 +50,10 @@ public class UserService implements IUserService, UserDetailsService{
 		return userDao.findByUsername(username);
 	}
 	
+	public User findById(Long id) {
+		User user =userDao.findById(id).orElse(null);
+		return user;
+	}
 	
 	public User createUser(User user) {
 		return userDao.save(user);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.dao.IEggsTrayDao;
@@ -29,6 +30,15 @@ public class EggsTrayService implements IEggsTrayService{
 	}
 
 	@Override
+	public List<EggsTray> findAllByColorAndSold(Color color, Boolean sold) {
+		List<EggsTray> eggsTrayrs = eggsTrayDao.findByColorAndSold(color, sold);
+		
+		
+		return eggsTrayrs;
+	}
+
+	
+	@Override
 	public List<EggsTray> findAll() {
 		List<EggsTray> eggsTrayrs = (List<EggsTray>) eggsTrayDao.findAll();
 		return eggsTrayrs;
@@ -46,12 +56,30 @@ public class EggsTrayService implements IEggsTrayService{
 		List<EggsTray> eggsTrayrs =  eggsTrayDao.findByColor(color);
 		return eggsTrayrs;
 	}
-
+	
+	@Override
+	public List<EggsTray> findByStock() {
+		return eggsTrayDao.findBySold(Constants.FALSE);
+	}
+	
 	@Override
 	public List<EggsTray> updateEggsTray(List<EggsTray> trays) {
 		// TODO Auto-generated method stub
 		
 		return (List<EggsTray>) eggsTrayDao.saveAll(trays);
+	}
+
+	@Override
+	public List<EggsTray> saveTrayEggs(List<EggsTray> trays) {
+		// TODO Auto-generated method stub
+		return (List<EggsTray>) eggsTrayDao.saveAll(trays);
+	}
+
+	@Override
+	public List<EggsTray> findByStockByColor(Color color) {
+		List<EggsTray> eggsTrayrs = eggsTrayDao.findByColorAndSold(color, Constants.FALSE);
+		
+		return eggsTrayrs;
 	}
 
 	
