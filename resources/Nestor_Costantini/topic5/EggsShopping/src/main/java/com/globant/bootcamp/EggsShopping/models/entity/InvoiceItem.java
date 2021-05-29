@@ -27,6 +27,49 @@ public class InvoiceItem {
 	
 	
 	
+	
+	public Long getId() {
+		return id;
+	}
+
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+
+
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+
+
+
+	public EggsTray getCarton() {
+		return carton;
+	}
+
+
+
+
+	public void setCarton(EggsTray carton) {
+		this.carton = carton;
+	}
+
+
+
+
 	public Double calculateAmount() {
 		return quantity.doubleValue()*carton.getPrice();
 	}
