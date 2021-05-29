@@ -1,5 +1,14 @@
 package com.globant.bootcamp.EggsShopping.enums;
 
 public enum Color {
-  RED, WHITE
+	STRING_RED{ 
+		public String toString() {
+        return "RED";
+		}
+	},
+	STRING_WHITE{ 
+		public String toString() {
+	        return "WHITE";
+			}
+	};
 }

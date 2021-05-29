@@ -1,83 +1,86 @@
 package com.globant.bootcamp.EggsShopping.models.animals;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.enums.Color;
-import com.globant.bootcamp.EggsShopping.factory.AnimalFactory;
+import com.globant.bootcamp.EggsShopping.models.EggsTray;
 
-public class Egg extends Animal<Egg> {
+@Entity
+@Table(name="eggs_shop")
+public class Egg implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-  private com.globant.bootcamp.EggsShopping.enums.Color color;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-  private Bird baby;
+	private Color color;
 
-  public Egg(Bird bird, Color color) {
+	@ManyToOne
+	@JoinColumn(name="carton_id")
+	private EggsTray carton;
 
-    super(randomGender());
+	public Long getId() {
+		return id;
+	}
 
-    this.baby = bird;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    this.color = color;
-  }
+	public Color getColor() {
+		return color;
+	}
 
-  public Egg() {
+	public void setColor(Color color) {
+		this.color = color;
+	}
 
-    super(null);
-  }
+	@Override
+	public String toString() {
 
-  public Color getColor() {
+		String eggStr = StringConstans.EMPTY_EGG;
 
-    return this.color;
-  }
+		if (Color.STRING_RED.equals(this.color)) {
 
-  public Animal<Bird> getBaby() {
-    return (Animal) this.baby;
-  }
+			eggStr = StringConstans.RED_EGG;
+		} else if (Color.STRING_WHITE.equals(this.color)) {
 
-  @Override
-  public String toString() {
+			eggStr = StringConstans.WHITE_EGG;
+		}
 
-    String eggStr = StringConstans.EMPTY_EGG;
+		return eggStr;
+	}
 
-    if (Color.RED.equals(this.color)) {
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Egg egg = (Egg) obj;
+		if (obj instanceof Egg) {
+			if (this.getColor() != null && egg.getColor() != null) {
 
-      eggStr = StringConstans.RED_EGG;
-    } else if (Color.WHITE.equals(this.color)) {
+				if (this.getColor().equals(egg.getColor())) {
+					return true;
+				}
+			} else {
+				return true;
+			}
+		}
 
-      eggStr = StringConstans.WHITE_EGG;
-    }
+		return false;
+	}
 
-    return eggStr;
-  }
-
-  @Override
-  public void makeSound() {
-
-    System.out.println(StringConstans.EGG_SOUND);
-  }
-
-  @Override
-  public Egg gaveBirth(Color color, AnimalFactory animalFactory) {
-
-    return null;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    // TODO Auto-generated method stub
-    Egg egg = (Egg) obj;
-    if (obj instanceof Egg) {
-      if (this.getColor() != null && egg.getColor() != null) {
-
-        if (this.getColor().equals(egg.getColor())) {
-          return true;
-        }
-      } else {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-	
 }
