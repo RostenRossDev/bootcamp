@@ -67,4 +67,13 @@ public class UserService implements IUserService, UserDetailsService{
 	public void delete(User user) {
 		userDao.delete(user);
 	}
+	
+	public List<User> allUsers() {
+		return (List<User>) userDao.findAll();
+	}
+	
+	public User findByNickName(String nickname) {
+
+		return userDao.findByNickname(nickname);	
+	}
 }

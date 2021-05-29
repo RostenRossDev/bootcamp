@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -85,7 +88,7 @@ public class UserController {
 	
 	
 	
-	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@PutMapping("/")
 	public  ResponseEntity<?> update(@RequestBody User user){
 		Map<String, Object> responseMap = new HashMap<>();
@@ -112,6 +115,7 @@ public class UserController {
 
 	}
 	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@DeleteMapping("/")
 	public  ResponseEntity<?> delete(){
 		Map<String, Object> responseMap = new HashMap<>();
@@ -131,7 +135,32 @@ public class UserController {
 
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		}
-		
-
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/all")
+	public  ResponseEntity<?> getAll(){
+		Map<String, Object> responseMap = new HashMap<>();
+		List<User> users = userService.allUsers();
+		responseMap.put("users", users);
+		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/{id}")
+	public  ResponseEntity<?> userById(@PathVariable("id") Long id){
+		Map<String, Object> responseMap = new HashMap<>();
+		User user = userService.findById(id);
+		responseMap.put("user", user);
+		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/{nickname}")
+	public  ResponseEntity<?> userByNickname(@PathVariable("nickname") String nickname){
+		Map<String, Object> responseMap = new HashMap<>();
+		User user = userService.findByNickName(nickname);
+		responseMap.put("user", user);
+		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 }

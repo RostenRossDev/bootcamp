@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,14 +19,14 @@ import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.animals.Egg;
-import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
 import com.globant.bootcamp.EggsShopping.models.service.UserService;
 
 @RestController
-@RequestMapping(value="/api/v1/admin")
-public class AdminController {
+@RequestMapping(value="/api/v1/eggTray")
+
+public class EggsTrayController {
 
 	@Autowired
 	EggsTrayService eggTrayService;
@@ -36,8 +37,9 @@ public class AdminController {
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("/EggsTrays")
-	public  ResponseEntity<?> startFarmin (@RequestBody Integer quiantity, @RequestBody Color color){
+	@Secured("ROLE_ADMIN")
+	@PostMapping("/")
+	public  ResponseEntity<?> addEggsTrays (@RequestBody Integer quiantity, @RequestBody Color color){
 		List<EggsTray> trays = new ArrayList<EggsTray>();
 		for (int i = 0; i < quiantity; i++) {
 			
@@ -59,35 +61,40 @@ public class AdminController {
 		return new ResponseEntity<String>("Upps!! something was wrong.", HttpStatus.OK);
 	}
 	
-	@GetMapping("/eggsTrays")
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/")
 	public ResponseEntity<?>  allEggsTray (){
 		List<EggsTray> trays = eggTrayService.findAll();
 		
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@GetMapping("/eggsTrays/{color}")
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/{color}")
 	public ResponseEntity<?>  allEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findByColor(color);
 		
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@GetMapping("/eggsTrays/sold/{color}")
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/sold/{color}")
 	public ResponseEntity<?>  allSoldEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findAllByColorAndSold(color, Constants.TRUE);
 
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 
-	@GetMapping("/eggsTrays/stock")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@GetMapping("/stock")
 	public ResponseEntity<?>  stockEggsTray (){
 		List<EggsTray> trays = eggTrayService.findByStock();
 
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@GetMapping("/eggsTray/stock/{color}")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@GetMapping("/stock/{color}")
 	public ResponseEntity<?>  stockEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findByStockByColor(color);
 

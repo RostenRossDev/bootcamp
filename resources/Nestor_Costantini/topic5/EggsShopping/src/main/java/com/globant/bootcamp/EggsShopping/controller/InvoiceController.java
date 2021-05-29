@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,23 +20,20 @@ import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
 
 @RestController
-@RequestMapping(value="/api/v1/invoice")
+@RequestMapping(value = "/api/v1/invoice")
 public class InvoiceController {
-	private final Log LOG  = LogFactory.getLog(this.getClass());
+	private final Log LOG = LogFactory.getLog(this.getClass());
 
-	
 	@Autowired
 	InvoiceService invoiceSerivice;
-	
-	
+
+	@Secured({ "ROLE_ADMIN", "ROLE_USER" })
 	@GetMapping("/")
-	public  ResponseEntity<?> allInvoices(){
+	public ResponseEntity<?> allInvoices() {
 		Map<String, Object> responseMap = new HashMap<>();
 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		LOG.info("username: "+principal);
-		
-		
+		LOG.info("username: " + principal);
 
 		try {
 			String userName = principal.toString();
@@ -44,21 +42,32 @@ public class InvoiceController {
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 
 		} catch (Exception e) {
-			
+
 			responseMap.put("error", e);
 			responseMap.put("msj", "Upps !! Something was wrong !!");
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		}
-		
+
 	}
-	
+
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/allUser/invoices")
+	public ResponseEntity<?> allUserInvoices() {
+
+		Map<String, List<Invoice>> responseMap = new HashMap<>();
+		List<Invoice> invoices = invoiceSerivice.allInvoice();
+		responseMap.put("invoices", invoices);
+		return new ResponseEntity<Map<String, List<Invoice>>>(responseMap, HttpStatus.OK);
+	}
+
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/{id}")
-	public  ResponseEntity<?> invoiceById(@PathVariable("id") Long id ){
+	public ResponseEntity<?> invoiceById(@PathVariable("id") Long id) {
 		Map<String, Object> responseMap = new HashMap<>();
 
 		List<Invoice> invoices = invoiceSerivice.findByUser(id);
 		responseMap.put("invoices", invoices);
-		
+
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 }
