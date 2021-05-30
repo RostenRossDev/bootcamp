@@ -27,7 +27,7 @@ public class InvoiceController {
 	@Autowired
 	InvoiceService invoiceSerivice;
 
-	@Secured({ "ROLE_ADMIN", "USER" })
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@GetMapping("/")
 	public ResponseEntity<?> allInvoices() {
 		Map<String, Object> responseMap = new HashMap<>();
@@ -50,8 +50,8 @@ public class InvoiceController {
 
 	}
 
-	@Secured("ADMIN")
-	@GetMapping("/allUser/invoices")
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/allUser")
 	public ResponseEntity<?> allUserInvoices() {
 
 		Map<String, List<Invoice>> responseMap = new HashMap<>();
@@ -60,7 +60,7 @@ public class InvoiceController {
 		return new ResponseEntity<Map<String, List<Invoice>>>(responseMap, HttpStatus.OK);
 	}
 
-	@Secured("ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/{id}")
 	public ResponseEntity<?> invoiceById(@PathVariable("id") Long id) {
 		Map<String, Object> responseMap = new HashMap<>();

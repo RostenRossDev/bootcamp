@@ -38,7 +38,7 @@ public class EggsTrayController {
 	@Autowired
 	UserService userService;
 	
-	@Secured("ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/")
 	public  ResponseEntity<?> addEggsTrays (@RequestBody IntegerColorTDA integerColorTDA){
 		List<EggsTray> trays = new ArrayList<EggsTray>();
@@ -62,7 +62,7 @@ public class EggsTrayController {
 		return new ResponseEntity<String>("Upps!! something was wrong.", HttpStatus.OK);
 	}
 	
-	@Secured("ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/")
 	public ResponseEntity<?>  allEggsTray (){
 		List<EggsTray> trays = eggTrayService.findAll();
@@ -70,7 +70,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@Secured("ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/{color}")
 	public ResponseEntity<?>  allEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findByColor(color);
@@ -78,7 +78,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@Secured("ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/sold/{color}")
 	public ResponseEntity<?>  allSoldEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findAllByColorAndSold(color, Constants.TRUE);
@@ -86,7 +86,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 
-	@Secured({"ADMIN","USER"})
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@GetMapping("/stock")
 	public ResponseEntity<?>  stockEggsTray (){
 		List<EggsTray> trays = eggTrayService.findByStock();
@@ -94,7 +94,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@Secured({"ADMIN","USER"})
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@GetMapping("/stock/{color}")
 	public ResponseEntity<?>  stockEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findByStockByColor(color);

@@ -32,7 +32,7 @@ public class EggsTray implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @JsonIgnore
+    @JsonIgnore 
 	@OneToMany(
 			mappedBy="carton",fetch=FetchType.LAZY,
 			cascade=CascadeType.ALL

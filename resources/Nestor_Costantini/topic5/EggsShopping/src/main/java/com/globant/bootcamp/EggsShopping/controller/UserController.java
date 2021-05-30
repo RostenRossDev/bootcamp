@@ -115,7 +115,7 @@ public class UserController {
 
 	}
 	
-	@Secured({"ADMIN","USER"})
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@DeleteMapping("/")
 	public  ResponseEntity<?> delete(){
 		Map<String, Object> responseMap = new HashMap<>();
@@ -137,7 +137,7 @@ public class UserController {
 		}
 	}
 	
-	@Secured("ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/all")
 	public  ResponseEntity<?> getAll(){
 		Map<String, Object> responseMap = new HashMap<>();
@@ -146,8 +146,8 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 	
-	@Secured("ADMIN")
-	@GetMapping("/{id}")
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/id:{id}")
 	public  ResponseEntity<?> userById(@PathVariable("id") Long id){
 		Map<String, Object> responseMap = new HashMap<>();
 		User user = userService.findById(id);
@@ -155,8 +155,8 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 	
-	@Secured("ADMIN")
-	@GetMapping("/{nickname}")
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/nickname:{nickname}")
 	public  ResponseEntity<?> userByNickname(@PathVariable("nickname") String nickname){
 		Map<String, Object> responseMap = new HashMap<>();
 		User user = userService.findByNickName(nickname);
