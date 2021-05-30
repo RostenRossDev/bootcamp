@@ -1,4 +1,4 @@
-package com.globant.bootcamp.EggsShopping.models.animals;
+package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
 
@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.enums.Color;
-import com.globant.bootcamp.EggsShopping.models.EggsTray;
 
 @Entity
 @Table(name="eggs_shop")

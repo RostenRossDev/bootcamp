@@ -1,4 +1,4 @@
-package com.globant.bootcamp.EggsShopping.models;
+package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,8 +16,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.globant.bootcamp.EggsShopping.enums.Color;
-import com.globant.bootcamp.EggsShopping.models.animals.Egg;
-import com.globant.bootcamp.EggsShopping.models.entity.InvoiceItem;
 
 @Entity
 @Table(name="eggs_cartons")

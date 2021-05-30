@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.globant.bootcamp.EggsShopping.models.EggsTray;
-
 @Entity
 @Table(name="invoice_items")
 public class InvoiceItem {

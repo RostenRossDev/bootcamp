@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
-import com.globant.bootcamp.EggsShopping.models.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.dao.IEggsTrayDao;
+import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 
 @Service
 public class EggsTrayService implements IEggsTrayService{

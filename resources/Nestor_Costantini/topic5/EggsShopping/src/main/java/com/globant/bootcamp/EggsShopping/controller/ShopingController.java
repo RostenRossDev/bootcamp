@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
-import com.globant.bootcamp.EggsShopping.models.EggsTray;
+import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.entity.InvoiceItem;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.BuyTrayTDA;
