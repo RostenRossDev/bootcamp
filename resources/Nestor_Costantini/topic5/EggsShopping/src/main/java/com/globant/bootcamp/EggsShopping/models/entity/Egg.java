@@ -47,6 +47,15 @@ public class Egg implements Serializable{
 		this.color = color;
 	}
 
+	
+	public EggsTray getCarton() {
+		return carton;
+	}
+
+	public void setCarton(EggsTray carton) {
+		this.carton = carton;
+	}
+
 	@Override
 	public String toString() {
 
@@ -66,19 +75,21 @@ public class Egg implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		Egg egg = (Egg) obj;
-		if (obj instanceof Egg) {
-			if (this.getColor() != null && egg.getColor() != null) {
+		try {
+			Egg egg = (Egg) obj;
+			if (obj instanceof Egg) {
+				if (this.getColor() != null && egg.getColor() != null) {
 
-				if (this.getColor().equals(egg.getColor())) {
+					if (this.getColor().equals(egg.getColor())) {
+						return true;
+					}
+				} else {
 					return true;
 				}
-			} else {
-				return true;
 			}
+		} catch (Exception e) {
+			return false;
 		}
-
 		return false;
 	}
-
 }
