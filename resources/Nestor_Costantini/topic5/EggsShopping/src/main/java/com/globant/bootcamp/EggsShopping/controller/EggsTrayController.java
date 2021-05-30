@@ -2,7 +2,9 @@ package com.globant.bootcamp.EggsShopping.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,11 @@ import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.animals.Egg;
+import com.globant.bootcamp.EggsShopping.models.entity.PriceEggs;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
 import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
+import com.globant.bootcamp.EggsShopping.models.service.PriceEggService;
 import com.globant.bootcamp.EggsShopping.models.service.UserService;
 
 @RestController
@@ -38,25 +42,37 @@ public class EggsTrayController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	PriceEggService priceTrayServie;
+	
 	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/")
 	public  ResponseEntity<?> addEggsTrays (@RequestBody IntegerColorTDA integerColorTDA){
+		Map<String, Object> response = new HashMap<>();
 		List<EggsTray> trays = new ArrayList<EggsTray>();
 		for (int i = 0; i < integerColorTDA.getQuantity(); i++) {
 			
 			EggsTray newTray = new EggsTray();
+			newTray.setColor(integerColorTDA.getColor());
+			newTray.setEggs(new ArrayList<>());
 
 			for (int j = 0; j < integerColorTDA.getQuantity()*30; j++) {
 				Egg newEgg = new Egg();
 				newEgg.setColor(integerColorTDA.getColor());
 				newTray.addEgg(newEgg);
 			}
+			newTray.setSold(false);
+			Double priceTray = priceTrayServie.priceByColor(integerColorTDA.getColor());
+			newTray.setPrice(priceTray);
 			trays.add(newTray);
 		}
-		
-		if (eggTrayService.saveTrayEggs(trays) != null ) {
+		trays=eggTrayService.saveTrayEggs(trays);
+		if (trays != null ) {
 			
-			return new ResponseEntity<String>("EggsTrays was added successfully!", HttpStatus.CREATED);
+			response.put("trays", trays);
+			response.put("msj", "EggsTrays was added successfully!");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		};
 
 		return new ResponseEntity<String>("Upps!! something was wrong.", HttpStatus.OK);
