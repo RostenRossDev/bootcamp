@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.animals.Egg;
 import com.globant.bootcamp.EggsShopping.models.entity.InvoiceItem;
@@ -31,6 +32,7 @@ public class EggsTray implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    @JsonIgnore
 	@OneToMany(
 			mappedBy="carton",fetch=FetchType.LAZY,
 			cascade=CascadeType.ALL

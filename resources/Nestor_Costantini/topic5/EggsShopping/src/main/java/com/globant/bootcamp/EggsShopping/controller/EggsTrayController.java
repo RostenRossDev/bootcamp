@@ -19,6 +19,7 @@ import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.animals.Egg;
+import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
 import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
 import com.globant.bootcamp.EggsShopping.models.service.UserService;
@@ -37,17 +38,17 @@ public class EggsTrayController {
 	@Autowired
 	UserService userService;
 	
-	@Secured("ROLE_ADMIN")
+	@Secured("ADMIN")
 	@PostMapping("/")
-	public  ResponseEntity<?> addEggsTrays (@RequestBody Integer quiantity, @RequestBody Color color){
+	public  ResponseEntity<?> addEggsTrays (@RequestBody IntegerColorTDA integerColorTDA){
 		List<EggsTray> trays = new ArrayList<EggsTray>();
-		for (int i = 0; i < quiantity; i++) {
+		for (int i = 0; i < integerColorTDA.getQuantity(); i++) {
 			
 			EggsTray newTray = new EggsTray();
 
-			for (int j = 0; j < quiantity*30; j++) {
+			for (int j = 0; j < integerColorTDA.getQuantity()*30; j++) {
 				Egg newEgg = new Egg();
-				newEgg.setColor(color);
+				newEgg.setColor(integerColorTDA.getColor());
 				newTray.addEgg(newEgg);
 			}
 			trays.add(newTray);
@@ -61,7 +62,7 @@ public class EggsTrayController {
 		return new ResponseEntity<String>("Upps!! something was wrong.", HttpStatus.OK);
 	}
 	
-	@Secured("ROLE_ADMIN")
+	@Secured("ADMIN")
 	@GetMapping("/")
 	public ResponseEntity<?>  allEggsTray (){
 		List<EggsTray> trays = eggTrayService.findAll();
@@ -69,7 +70,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@Secured("ROLE_ADMIN")
+	@Secured("ADMIN")
 	@GetMapping("/{color}")
 	public ResponseEntity<?>  allEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findByColor(color);
@@ -77,7 +78,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@Secured("ROLE_ADMIN")
+	@Secured("ADMIN")
 	@GetMapping("/sold/{color}")
 	public ResponseEntity<?>  allSoldEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findAllByColorAndSold(color, Constants.TRUE);
@@ -85,7 +86,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ADMIN","USER"})
 	@GetMapping("/stock")
 	public ResponseEntity<?>  stockEggsTray (){
 		List<EggsTray> trays = eggTrayService.findByStock();
@@ -93,7 +94,7 @@ public class EggsTrayController {
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ADMIN","USER"})
 	@GetMapping("/stock/{color}")
 	public ResponseEntity<?>  stockEggsTrayByColor (@PathVariable("color") Color color){
 		List<EggsTray> trays = eggTrayService.findByStockByColor(color);

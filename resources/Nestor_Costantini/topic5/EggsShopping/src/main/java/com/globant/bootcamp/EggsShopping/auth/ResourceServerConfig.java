@@ -13,7 +13,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/eggsShoping/home").permitAll()
+		http.authorizeRequests()
+		.antMatchers(HttpMethod.GET,"/api/v1/eggsShoping/home").permitAll()
 		.antMatchers(HttpMethod.POST,"/api/v1/user/").permitAll()
 		.anyRequest().authenticated();
 	}

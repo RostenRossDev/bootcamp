@@ -3,6 +3,8 @@ package com.globant.bootcamp.EggsShopping.models.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,25 +15,35 @@ import com.globant.bootcamp.EggsShopping.models.dao.IEggsTrayDao;
 
 @Service
 public class EggsTrayService implements IEggsTrayService{
+	private final Log LOG  = LogFactory.getLog(this.getClass());
 
 	@Autowired
 	IEggsTrayDao eggsTrayDao;
 	
 	@Override
 	public List<EggsTray> findByColorAndSold(Color color, Boolean sold, Integer quantity) {
-		List<EggsTray> eggsTrayrs = eggsTrayDao.findByColorAndSold(color, sold);
-		List<EggsTray> eggsTrayrsByQuantity =new ArrayList<EggsTray>();
+		List<EggsTray> eggsTraysByQuantity =new ArrayList<EggsTray>();
+		List<EggsTray> eggsTrays = eggsTrayDao.findBySoldAndColor(sold, color);
+		LOG.info("array 2 : "+ eggsTrays.size());
 		
-		for (int i = 0; i < quantity; i++) {
-			eggsTrayrsByQuantity.add(eggsTrayrs.get(i));
+		
+		for (int i = 0; i < quantity && i< eggsTrays.size(); i++) {
+			eggsTraysByQuantity.add(eggsTrays.get(i));
 		}
-		 
-		return eggsTrayrsByQuantity;
+		
+		List<EggsTray> soldEggsTrays =new ArrayList<EggsTray>();
+		for (EggsTray eggsTray : eggsTraysByQuantity) {
+			eggsTray.setSold(true);
+			soldEggsTrays.add(eggsTray);
+		}
+		
+		eggsTrayDao.saveAll(soldEggsTrays);
+		return soldEggsTrays;
 	}
 
 	@Override
 	public List<EggsTray> findAllByColorAndSold(Color color, Boolean sold) {
-		List<EggsTray> eggsTrayrs = eggsTrayDao.findByColorAndSold(color, sold);
+		List<EggsTray> eggsTrayrs = eggsTrayDao.findBySoldAndColor(sold, color);
 		
 		
 		return eggsTrayrs;
@@ -77,7 +89,7 @@ public class EggsTrayService implements IEggsTrayService{
 
 	@Override
 	public List<EggsTray> findByStockByColor(Color color) {
-		List<EggsTray> eggsTrayrs = eggsTrayDao.findByColorAndSold(color, Constants.FALSE);
+		List<EggsTray> eggsTrayrs = eggsTrayDao.findBySoldAndColor(Constants.FALSE,color);
 		
 		return eggsTrayrs;
 	}

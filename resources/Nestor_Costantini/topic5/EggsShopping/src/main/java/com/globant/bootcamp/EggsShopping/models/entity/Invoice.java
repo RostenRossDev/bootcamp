@@ -38,9 +38,16 @@ public class Invoice implements Serializable{
 	private User user;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
-	@JoinColumn(name="factura_id")
 	private List<InvoiceItem>items;
 	
+	public List<InvoiceItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<InvoiceItem> items) {
+		this.items = items;
+	}
+
 	@PrePersist
 	public void prePersist(){
 		createAt=new Timestamp(new Date().getTime());

@@ -9,7 +9,7 @@ import com.globant.bootcamp.EggsShopping.models.EggsTray;
 
 public interface IEggsTrayDao extends CrudRepository<EggsTray, Long> {
 	
-	public List<EggsTray> findByColorAndSold(Color color, Boolean sold);
+	public List<EggsTray> findBySoldAndColor(Boolean sold, Color color);
 	
 	public List<EggsTray> findBySold(Boolean sold);
 	

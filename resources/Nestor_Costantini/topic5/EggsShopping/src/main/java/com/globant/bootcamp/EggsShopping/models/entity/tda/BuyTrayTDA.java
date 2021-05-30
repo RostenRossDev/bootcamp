@@ -2,7 +2,7 @@ package com.globant.bootcamp.EggsShopping.models.entity.tda;
 
 import com.globant.bootcamp.EggsShopping.enums.Color;
 
-public class BuyTray {
+public class BuyTrayTDA {
 
 	private Integer quantity1;
 	

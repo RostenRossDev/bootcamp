@@ -36,9 +36,6 @@ public class InvoiceItem {
 		return id;
 	}
 
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -71,7 +68,13 @@ public class InvoiceItem {
 		this.cartons = cartons;
 	}
 
-
+	
+	public void addCartons(List<EggsTray> cartons) {
+		
+		for (EggsTray eggsTray : cartons) {
+			this.cartons.add(eggsTray);
+		}
+	}
 
 
 	public Double calculateAmount() {
