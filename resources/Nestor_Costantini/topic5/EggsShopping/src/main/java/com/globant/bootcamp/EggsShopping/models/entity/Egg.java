@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 
@@ -19,6 +22,8 @@ public class Egg implements Serializable{
 	/**
 	 * 
 	 */
+	private Log LOG = LogFactory.getLog(this.getClass());
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,6 +40,10 @@ public class Egg implements Serializable{
 		return id;
 	}
 
+	public EggsTray getCarton() {
+		return carton;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -45,11 +54,6 @@ public class Egg implements Serializable{
 
 	public void setColor(Color color) {
 		this.color = color;
-	}
-
-	
-	public EggsTray getCarton() {
-		return carton;
 	}
 
 	public void setCarton(EggsTray carton) {
@@ -72,24 +76,40 @@ public class Egg implements Serializable{
 		return eggStr;
 	}
 
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		try {
-			Egg egg = (Egg) obj;
-			if (obj instanceof Egg) {
-				if (this.getColor() != null && egg.getColor() != null) {
-
-					if (this.getColor().equals(egg.getColor())) {
-						return true;
-					}
-				} else {
-					return true;
-				}
-			}
-		} catch (Exception e) {
+		
+		if (obj == null)
 			return false;
-		}
-		return false;
+		
+		if (obj == this)
+			return true;
+		
+		if (!(obj instanceof Egg))
+			return false;
+		
+		LOG.info("Casteo");
+		Egg trayObj = (Egg) obj;
+		
+		LOG.info("id comparacion");
+		if ((id == null)?(trayObj.getId() != null): ! ((Long.compare(id, trayObj.getId())) == 0 ))
+			return false;
+		
+		LOG.info("color comparacion");
+		LOG.info("color 1: "+color+", color 2: "+trayObj.getColor());
+		LOG.info(!color.equals(trayObj.getColor()));
+		if ((color == null)?(trayObj.getColor() != null): !color.equals(trayObj.getColor()))
+			return false;
+		
+		LOG.info("carton comparacion");
+		LOG.info("carton 1: "+carton+", carton2: "+trayObj.getCarton());
+		if ((carton == null)?(trayObj.getCarton() != null): !carton.equals(trayObj.getCarton()))
+			return false;
+		
+		LOG.info("return true");
+		return true;
 	}
 }

@@ -14,12 +14,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 
 @Entity
-@Table(name="eggs_cartons")
-public class EggsTray implements Serializable{
+@Table(name = "eggs_cartons")
+public class EggsTray implements Serializable {
+
+	private Log LOG = LogFactory.getLog(this.getClass());
 
 	/**
 	 * 
@@ -30,24 +35,20 @@ public class EggsTray implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @JsonIgnore 
-	@OneToMany(
-			mappedBy="carton",fetch=FetchType.LAZY,
-			cascade=CascadeType.ALL
-			)
+	@JsonIgnore
+	@OneToMany(mappedBy = "carton", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Egg> eggs;
-	
+
 	@ManyToOne
-	@JoinColumn(name="invoice_id")
+	@JoinColumn(name = "invoice_id")
 	private InvoiceItem invoiceItem;
-	
+
 	private Double price;
 
 	private Color color;
 
 	private Boolean sold;
-	
-	
+
 	public List<Egg> getEggs() {
 		return eggs;
 	}
@@ -65,13 +66,11 @@ public class EggsTray implements Serializable{
 	}
 
 	public void addEgg(Egg egg) {
-		if (this.color.equals(egg.getColor()) && this.eggs.size()<30) {
+		if (this.color.equals(egg.getColor()) && this.eggs.size() < 30) {
 
 			this.eggs.add(egg);
 		}
 	}
-
-	
 
 	public Long getId() {
 		return id;
@@ -96,33 +95,48 @@ public class EggsTray implements Serializable{
 	public void setSold(Boolean sold) {
 		this.sold = sold;
 	}
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		boolean isEquals = false;
+		if (obj == null)
+			return false;
+		LOG.info("not null");
 
-		EggsTray eggCarton = (EggsTray) obj;
-		List<Egg> eggsObj = eggCarton.getEggs();
-		if (obj instanceof EggsTray) {
-			if (this.color.equals(eggCarton.getColor())) {
-				if (this.eggs.size()==eggCarton.getEggs().size()) {
+		if (obj == this)
+			return true;
+		
+		LOG.info("distinto");
+		if (!(obj instanceof EggsTray))
+			return false;
+		LOG.info("instanceof");
 
-					for (int i = 0; i < this.eggs.size(); i++) {
-						if (this.eggs.get(i) instanceof Egg && eggsObj.get(i) instanceof Egg) {
-							if (this.eggs.get(i).equals(eggsObj.get(i))) {
-								isEquals = true;
-							} else {
-								isEquals = false;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
+		EggsTray trayObj = (EggsTray) obj;
+		
+		LOG.info("id carton");
 
-		return isEquals;
+		if ((id == null)?(trayObj.getId() != null): !id.equals(trayObj.getId()))
+			return false;
+		LOG.info("color carton");
+
+		if ((color == null)?(trayObj.getColor() != null): !color.equals(trayObj.getColor()))
+			return false;
+		
+		if ((price == null)?(trayObj.getPrice() != null): ((Double.compare(price, trayObj.getPrice())) != 0 ))
+			return false;
+		LOG.info("sold carton");
+		
+		LOG.info("sold: "+!((Boolean.compare(sold, trayObj.getSold())) !=0));
+		LOG.info(((Boolean.compare(sold, trayObj.getSold()))));
+		if ((sold == null)?(trayObj.getSold() != null): ((Boolean.compare(sold, trayObj.getSold())) !=0))
+			return false;
+		
+		if ((eggs == null)?(trayObj.getEggs() != null): !eggs.equals(trayObj.getEggs()))
+			return false;
+		
+		return true;
 	}
 
 }
