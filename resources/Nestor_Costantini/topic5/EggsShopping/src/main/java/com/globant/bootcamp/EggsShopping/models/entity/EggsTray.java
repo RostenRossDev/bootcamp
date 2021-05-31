@@ -49,6 +49,7 @@ public class EggsTray implements Serializable {
 
 	private Boolean sold;
 
+	//methods
 	public List<Egg> getEggs() {
 		return eggs;
 	}

@@ -74,7 +74,7 @@ public class ShopingController {
 		
 		if(traysRed.size() >0 || traysWhite.size() > 0 ) {
 			newInvoice.setItems(new ArrayList<InvoiceItem>());
-			newInvoice.addItemFactura(newInvoiceItem);
+			newInvoice.addIteminvoice(newInvoiceItem);
 
 			if(traysRed.size()<1) {
 				response.put("stockMsj1","Upps! sorry no stock of red trays");

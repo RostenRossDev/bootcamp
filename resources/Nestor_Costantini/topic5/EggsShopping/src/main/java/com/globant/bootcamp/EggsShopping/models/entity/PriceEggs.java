@@ -8,11 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.globant.bootcamp.EggsShopping.enums.Color;
 
 @Entity
 @Table(name="tray_price")
 public class PriceEggs implements Serializable{
+	private Log LOG = LogFactory.getLog(this.getClass());
 
 	/**
 	 * 
@@ -31,8 +35,7 @@ public class PriceEggs implements Serializable{
 	
 	private Boolean actual;
 
-	
-	
+	//methods
 	public Color getColor() {
 		return color;
 	}
@@ -72,6 +75,7 @@ public class PriceEggs implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	
 	
 }
