@@ -24,7 +24,6 @@ import com.globant.bootcamp.EggsShopping.enums.Color;
 @Table(name = "eggs_cartons")
 public class EggsTray implements Serializable {
 
-	private Log LOG = LogFactory.getLog(this.getClass());
 
 	/**
 	 * 
@@ -104,33 +103,25 @@ public class EggsTray implements Serializable {
 		// TODO Auto-generated method stub
 		if (obj == null)
 			return false;
-		LOG.info("not null");
 
 		if (obj == this)
 			return true;
 		
-		LOG.info("distinto");
 		if (!(obj instanceof EggsTray))
 			return false;
-		LOG.info("instanceof");
 
 		EggsTray trayObj = (EggsTray) obj;
 		
-		LOG.info("id carton");
 
 		if ((id == null)?(trayObj.getId() != null): !id.equals(trayObj.getId()))
 			return false;
-		LOG.info("color carton");
 
 		if ((color == null)?(trayObj.getColor() != null): !color.equals(trayObj.getColor()))
 			return false;
 		
 		if ((price == null)?(trayObj.getPrice() != null): ((Double.compare(price, trayObj.getPrice())) != 0 ))
 			return false;
-		LOG.info("sold carton");
 		
-		LOG.info("sold: "+!((Boolean.compare(sold, trayObj.getSold())) !=0));
-		LOG.info(((Boolean.compare(sold, trayObj.getSold()))));
 		if ((sold == null)?(trayObj.getSold() != null): ((Boolean.compare(sold, trayObj.getSold())) !=0))
 			return false;
 		

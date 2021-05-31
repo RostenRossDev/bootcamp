@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name="invoices")
 public class Invoice implements Serializable{
-	private Log LOG = LogFactory.getLog(this.getClass());
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -117,36 +116,24 @@ public class Invoice implements Serializable{
 		if (!(obj instanceof Invoice))
 			return false;
 		
-		LOG.info("Casteo");
 		Invoice trayObj = (Invoice) obj;
 		
-		LOG.info("id comparacion");
 		if ((id == null)?(trayObj.getId() != null): ! ((Long.compare(id, trayObj.getId())) == 0 ))
 			return false;
 		
-		LOG.info("description comparacion");
-		LOG.info("description 1: "+description+", description 2: "+trayObj.getDescription());
-		LOG.info(!description.equals(trayObj.getDescription()));
 		if ((description == null)?(trayObj.getDescription() != null): !description.equals(trayObj.getDescription()))
 			return false;
 		
-		LOG.info("createAt comparacion");
-		LOG.info("createAt 1: "+createAt+", createAt 2: "+trayObj.getCreateAt());
 		if ((createAt == null)?(trayObj.getCreateAt() != null): !createAt.equals(trayObj.getCreateAt()))
 			return false;
 		
-		LOG.info("user comparacion");
-		LOG.info("user 1: "+createAt+", user 2: "+trayObj.getUser());
 		if ((user == null)?(trayObj.getUser() != null): !user.equals(trayObj.getUser()))
 			return false;
 		
-		LOG.info("items comparacion");
-		LOG.info("items 1: "+items+", items 2: "+trayObj.getItems());
 		if ((items == null)?(trayObj.getItems() != null): !items.equals(trayObj.getItems()))
 			return false;
 		
 		
-		LOG.info("return true");
 		return true;	
 	}
 

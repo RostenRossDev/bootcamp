@@ -22,7 +22,6 @@ public class Egg implements Serializable{
 	/**
 	 * 
 	 */
-	private Log LOG = LogFactory.getLog(this.getClass());
 
 	private static final long serialVersionUID = 1L;
 
@@ -91,25 +90,17 @@ public class Egg implements Serializable{
 		if (!(obj instanceof Egg))
 			return false;
 		
-		LOG.info("Casteo");
 		Egg trayObj = (Egg) obj;
 		
-		LOG.info("id comparacion");
 		if ((id == null)?(trayObj.getId() != null): ! ((Long.compare(id, trayObj.getId())) == 0 ))
 			return false;
 		
-		LOG.info("color comparacion");
-		LOG.info("color 1: "+color+", color 2: "+trayObj.getColor());
-		LOG.info(!color.equals(trayObj.getColor()));
 		if ((color == null)?(trayObj.getColor() != null): !color.equals(trayObj.getColor()))
 			return false;
 		
-		LOG.info("carton comparacion");
-		LOG.info("carton 1: "+carton+", carton2: "+trayObj.getCarton());
 		if ((carton == null)?(trayObj.getCarton() != null): !carton.equals(trayObj.getCarton()))
 			return false;
 		
-		LOG.info("return true");
 		return true;
 	}
 }

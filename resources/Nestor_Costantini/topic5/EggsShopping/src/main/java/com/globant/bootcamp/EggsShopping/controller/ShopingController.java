@@ -27,7 +27,7 @@ import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
 
 @RestController
-@RequestMapping("/api/v1/eggsShoping")
+@RequestMapping(value= "/api/v1/eggsShoping")
 public class ShopingController {
 	
 	private final Log LOG  = LogFactory.getLog(this.getClass());

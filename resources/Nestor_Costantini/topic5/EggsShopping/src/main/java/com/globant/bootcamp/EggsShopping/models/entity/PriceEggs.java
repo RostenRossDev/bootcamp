@@ -16,7 +16,6 @@ import com.globant.bootcamp.EggsShopping.enums.Color;
 @Entity
 @Table(name="tray_price")
 public class PriceEggs implements Serializable{
-	private Log LOG = LogFactory.getLog(this.getClass());
 
 	/**
 	 * 

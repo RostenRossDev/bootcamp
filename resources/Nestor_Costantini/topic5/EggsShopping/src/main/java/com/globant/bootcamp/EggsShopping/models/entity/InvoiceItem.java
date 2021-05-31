@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
 @Entity
 @Table(name="invoice_items")
 public class InvoiceItem {
-	private Log LOG = LogFactory.getLog(this.getClass());
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -112,25 +111,17 @@ public class InvoiceItem {
 		if (!(obj instanceof InvoiceItem))
 			return false;
 		
-		LOG.info("Casteo");
 		InvoiceItem invoiceObj = (InvoiceItem) obj;
 		
-		LOG.info("id comparacion");
 		if ((id == null)?(invoiceObj.getId() != null): ! ((Long.compare(id, invoiceObj.getId())) == 0 ))
 			return false;
 		
-		LOG.info("Quantity comparacion");
-		LOG.info("Quantity 1: "+quantity+", Quantity 2: "+invoiceObj.getQuantity());
-		LOG.info(quantity.equals(invoiceObj.getQuantity()));
 		if ((quantity == null)?(invoiceObj.getQuantity() != null): ((Integer.compare(quantity, invoiceObj.getQuantity())) != 0 ))
 			return false;
 		
-		LOG.info("carton comparacion");
-		LOG.info("carton 1: "+cartons+", carton2: "+invoiceObj.getCartons());
 		if ((cartons == null)?(invoiceObj.getCartons() != null): !cartons.equals(invoiceObj.getCartons()))
 			return false;
 		
-		LOG.info("return true");
 		return true;
 	}
 	

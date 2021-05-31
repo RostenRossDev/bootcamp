@@ -6,5 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class EggsShoppingApplicationTests {
 
-	
+	@Test
+	void contextLoads() {
+	}
 }
