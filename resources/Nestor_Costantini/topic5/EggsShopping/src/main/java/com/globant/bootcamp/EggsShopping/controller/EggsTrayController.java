@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +48,7 @@ public class EggsTrayController {
 	
 	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/")
-	public  ResponseEntity<?> addEggsTrays (@RequestBody IntegerColorTDA integerColorTDA){
+	public  ResponseEntity<?> addEggsTrays (@Valid @RequestBody IntegerColorTDA integerColorTDA){
 		Map<String, Object> response = new HashMap<>();
 		List<EggsTray> trays = new ArrayList<EggsTray>();
 		for (int i = 0; i < integerColorTDA.getQuantity(); i++) {

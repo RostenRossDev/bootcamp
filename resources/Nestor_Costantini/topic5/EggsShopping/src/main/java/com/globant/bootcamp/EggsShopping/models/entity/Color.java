@@ -10,14 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="role_shop")
-public class Role implements Serializable{
-	
-	/**
-	 * 
-	 */
+@Table(name="color_shop")
+public class Color implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,29 +23,38 @@ public class Role implements Serializable{
 	@Column(unique=true, length=20 , nullable = false)
 	@NotBlank(message = "Role name must contain at least onenon-whitespace character")
 	@NotEmpty(message = "Role name cannot be null")	
-	private String name;
+	private String color;
 	
-	
+	@Column(nullable = false)
+	@NotNull(message = "Role enable cannot be null")
+	private Boolean enable;
+
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public String getName() {
-		return name;
+	public String getColor() {
+		return color;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setColor(String color) {
+		color = color;
 	}
 
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
+	}
 	
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 }

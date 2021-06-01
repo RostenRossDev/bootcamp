@@ -1,6 +1,9 @@
 INSERT INTO role_shop (name) VALUES ('ROLE_USER');
 INSERT INTO role_shop (name) VALUES ('ROLE_ADMIN');
 
+INSERT INTO color_shop (color, enable) VALUES ('RED', 1);
+INSERT INTO color_shop (color, enable) VALUES ('WHITE', 1);
+
 INSERT INTO tray_price (price, description, color, actual) VALUES (30, 'price per unit of white eggs tray',1,1);
 INSERT INTO tray_price (price, description, color, actual) VALUES (35, 'price per unit of red eggs tray',0,1);
 

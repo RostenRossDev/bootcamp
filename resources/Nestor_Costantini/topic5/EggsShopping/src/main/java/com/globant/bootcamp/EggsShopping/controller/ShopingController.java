@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,7 @@ public class ShopingController {
 	
 	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@PostMapping("/BuyEggTray")
-	public ResponseEntity<?> buyEggsTray(@RequestBody BuyTrayTDA buyTray){
+	public ResponseEntity<?> buyEggsTray(@Valid @RequestBody BuyTrayTDA buyTray){
 		Map<String, Object> response = new HashMap<>();
 		List<EggsTray> traysRed =new ArrayList<>();
 		List<EggsTray> traysWhite = new ArrayList<>();

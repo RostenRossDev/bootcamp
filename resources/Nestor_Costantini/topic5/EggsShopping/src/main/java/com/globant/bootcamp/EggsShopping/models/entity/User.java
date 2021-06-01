@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -25,15 +27,22 @@ public class User implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique= true, length=20)
+	@Column(unique= true, length=20, nullable = false)
+	@NotBlank(message = "User username must contain at least onenon-whitespace character")
+	@NotEmpty(message = "User username cannot be null")
 	private String username;
 	
-	@Column(length=20)
+	@Column(unique= true, length=20, nullable = false)
+	@NotBlank(message = "User nickname must contain at least onenon-whitespace character")
+	@NotEmpty(message = "User nickname cannot be null")
 	private String nickname;
 	
-	@Column(length=60)
+	@Column(length=60, nullable = false)
+	@NotBlank(message = "User password must contain at least onenon-whitespace character")
+	@NotEmpty(message = "User password cannot be null")	
 	private String password;
 	
+	@Column(nullable = false)
 	private Boolean enabled;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

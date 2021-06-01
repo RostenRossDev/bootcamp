@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +53,7 @@ public class UserController {
 	
 	
 	@PostMapping("/")
-	public ResponseEntity<?> create(@Validated @RequestBody User user, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
 		Map<String, Object> response= new HashMap<>(); 
 		User userNew = null;
 
@@ -90,7 +91,7 @@ public class UserController {
 	
 	@Secured({"ADMIN","USER"})
 	@PutMapping("/")
-	public  ResponseEntity<?> update(@RequestBody User user){
+	public  ResponseEntity<?> update(@Valid @RequestBody User user){
 		Map<String, Object> responseMap = new HashMap<>();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		LOG.info("username: "+principal);

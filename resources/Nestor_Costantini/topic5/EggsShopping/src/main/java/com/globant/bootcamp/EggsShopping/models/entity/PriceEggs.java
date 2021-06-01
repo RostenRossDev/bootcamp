@@ -2,14 +2,16 @@ package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.globant.bootcamp.EggsShopping.enums.Color;
 
@@ -26,12 +28,21 @@ public class PriceEggs implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable = false)
+	@Positive(message = "Price Eggs must be greather than zero '0'.")
+	@NotNull(message = "Price Eggs must not be null")
 	private Double price;
 	
+	@Column(nullable = false)
+	@NotBlank(message = "PriceEggs description must contain at least onenon-whitespace character")
+	@NotEmpty(message = "PriceEggs description cannot be null")
 	private String description;
 	
+	@Column(nullable = false)
+	@NotNull(message = "PriceEggs color must not be null")
 	private Color color;
 	
+	@Column(nullable = false)
 	private Boolean actual;
 
 	//methods

@@ -2,6 +2,7 @@ package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.enums.Color;
@@ -29,10 +28,11 @@ public class Egg implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	private Color color;
 
 	@ManyToOne
-	@JoinColumn(name="carton_id")
+	@JoinColumn(name="carton_id", nullable = false)
 	private EggsTray carton;
 
 	public Long getId() {
