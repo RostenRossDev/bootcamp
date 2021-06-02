@@ -26,5 +26,6 @@ public interface IEggsTrayService {
 	
 	public List<EggsTray> findByStockByColor(Color color);
 
+	public EggsTray saveEggTray (EggsTray tray);
 
 }

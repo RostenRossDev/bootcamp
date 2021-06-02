@@ -16,4 +16,6 @@ public interface IInvoiceService {
 	
 	public List<Invoice> findByUsername(String username);
 
+	public List<Invoice> allInvoice();
+
 }

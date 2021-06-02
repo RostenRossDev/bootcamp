@@ -44,34 +44,47 @@ public class UserService implements IUserService, UserDetailsService{
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
 	}
 
-	
+    @Transactional(readOnly = true)
+	@Override
 	public User findByUsername(String username) {
 		// TODO Auto-generated method stub
 		return userDao.findByUsername(username);
 	}
 	
+    @Transactional(readOnly = true)
+	@Override
 	public User findById(Long id) {
 		User user =userDao.findById(id).orElse(null);
 		return user;
 	}
 	
+	@Transactional
+	@Override
 	public User createUser(User user) {
 		return userDao.save(user);
 	}
 
+	@Transactional
+	@Override
 	public User update (User user) {
 		
 		return userDao.save(user);
 	}
 	
+	@Transactional
+	@Override
 	public void delete(User user) {
 		userDao.delete(user);
 	}
 	
+    @Transactional(readOnly = true)
+	@Override
 	public List<User> allUsers() {
 		return (List<User>) userDao.findAll();
 	}
 	
+    @Transactional(readOnly = true)
+	@Override
 	public User findByNickName(String nickname) {
 
 		return userDao.findByNickname(nickname);	

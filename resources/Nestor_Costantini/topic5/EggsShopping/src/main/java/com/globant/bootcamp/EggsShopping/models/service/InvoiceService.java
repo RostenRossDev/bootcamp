@@ -39,11 +39,13 @@ public class InvoiceService implements IInvoiceService{
 		return invoiceDao.findById(id).orElse(null);
 	}
 	
+    @Transactional
 	@Override
 	public void deleteInvoice(Long id) {
 		invoiceDao.deleteById(id);
 	}
 
+    @Transactional(readOnly = true)
 	@Override
 	public List<Invoice> findByUser(Long id) {
 		// TODO Auto-generated method stub
@@ -52,10 +54,13 @@ public class InvoiceService implements IInvoiceService{
 		return invoiceDao.findByUser(user);
 	}
 	
+    @Transactional(readOnly = true)
+    @Override
 	public List<Invoice> allInvoice(){
 		return (List<Invoice>) invoiceDao.findAll();
 	}
-
+	
+    @Transactional(readOnly = true)
 	@Override
 	public List<Invoice> findByUsername(String username) {
 		// TODO Auto-generated method stub

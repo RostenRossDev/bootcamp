@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
@@ -21,6 +22,7 @@ public class EggsTrayService implements IEggsTrayService{
 	@Autowired
 	IEggsTrayDao eggsTrayDao;
 	
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findByColorAndSold(Color color, Boolean sold, Integer quantity) {
 		List<EggsTray> eggsTraysByQuantity =new ArrayList<EggsTray>();
@@ -42,6 +44,7 @@ public class EggsTrayService implements IEggsTrayService{
 		return soldEggsTrays;
 	}
 
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findAllByColorAndSold(Color color, Boolean sold) {
 		List<EggsTray> eggsTrayrs = eggsTrayDao.findBySoldAndColor(sold, color);
@@ -51,18 +54,21 @@ public class EggsTrayService implements IEggsTrayService{
 	}
 
 	
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findAll() {
 		List<EggsTray> eggsTrayrs = (List<EggsTray>) eggsTrayDao.findAll();
 		return eggsTrayrs;
 	}
-
+	
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findBySold(Boolean sold) {
 		List<EggsTray> eggsTrayrs =  eggsTrayDao.findBySold(sold);
 		return eggsTrayrs;
 	}
 
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findByColor(Color color) {
 		// TODO Auto-generated method stub
@@ -70,11 +76,13 @@ public class EggsTrayService implements IEggsTrayService{
 		return eggsTrayrs;
 	}
 	
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findByStock() {
 		return eggsTrayDao.findBySold(Constants.FALSE);
 	}
 	
+    @Transactional
 	@Override
 	public List<EggsTray> updateEggsTray(List<EggsTray> trays) {
 		// TODO Auto-generated method stub
@@ -82,12 +90,14 @@ public class EggsTrayService implements IEggsTrayService{
 		return (List<EggsTray>) eggsTrayDao.saveAll(trays);
 	}
 
+    @Transactional
 	@Override
 	public List<EggsTray> saveTrayEggs(List<EggsTray> trays) {
 		// TODO Auto-generated method stub
 		return (List<EggsTray>) eggsTrayDao.saveAll(trays);
 	}
 
+    @Transactional(readOnly = true)
 	@Override
 	public List<EggsTray> findByStockByColor(Color color) {
 		List<EggsTray> eggsTrayrs = eggsTrayDao.findBySoldAndColor(Constants.FALSE,color);
@@ -95,7 +105,8 @@ public class EggsTrayService implements IEggsTrayService{
 		return eggsTrayrs;
 	}
 
-	
+    @Transactional
+    @Override
 	public EggsTray saveEggTray (EggsTray tray) {
 		return eggsTrayDao.save(tray);
 	}
