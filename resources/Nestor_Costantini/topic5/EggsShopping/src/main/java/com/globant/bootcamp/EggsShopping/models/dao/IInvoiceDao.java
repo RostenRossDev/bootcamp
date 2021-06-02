@@ -11,8 +11,6 @@ import com.globant.bootcamp.EggsShopping.models.entity.User;
 @Repository
 public interface IInvoiceDao extends CrudRepository<Invoice, Long> {
 	
-	public List<Invoice> findAll();
-	
 	public List<Invoice> findByUser(User user);
 
 	

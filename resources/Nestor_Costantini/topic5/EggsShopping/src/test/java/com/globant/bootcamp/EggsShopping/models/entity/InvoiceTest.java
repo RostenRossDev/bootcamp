@@ -11,21 +11,26 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 
 class InvoiceTest {
 
-	@Test
+	//@Test
 	void test() {
+		Color colorRed = new Color();
+		colorRed.setColor(StringConstans.RED);
+		colorRed.setEnable(Constants.TRUE);
+		colorRed.setId(1L);
 		Egg egg1 = new Egg();
-		egg1.setColor(Color.STRING_RED);
+		egg1.setColor(colorRed);
 		egg1.setId(1L);	
 		
 		User user1 = new User();
 		User user2 = new User();
 		user1.setUsername("RostenRoss");
 		EggsTray tray1= new EggsTray();
-		tray1.setColor(Color.STRING_RED);
+		tray1.setColor(colorRed);
 		tray1.setId(1L);
 		tray1.setPrice(35D);
 		tray1.setSold(Constants.FALSE);

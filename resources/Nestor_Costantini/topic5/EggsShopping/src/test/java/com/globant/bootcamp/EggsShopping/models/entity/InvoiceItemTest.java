@@ -9,30 +9,41 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 
 class InvoiceItemTest {
 
 	@Test
 	void test() {
+		Color colorRed = new Color();
+		colorRed.setColor(StringConstans.RED);
+		colorRed.setEnable(Constants.TRUE);
+		colorRed.setId(1L);
+		
+		Color colorWhite = new Color();
+		colorWhite.setColor(StringConstans.WHITE);
+		colorWhite.setEnable(Constants.TRUE);
+		colorWhite.setId(2L);
+		
 		Egg egg1 = new Egg();
-		egg1.setColor(Color.STRING_RED);
+		egg1.setColor(colorRed);
 		egg1.setId(1L);
 		Egg egg2 = new Egg();
-		egg2.setColor(Color.STRING_RED);
+		egg2.setColor(colorRed);
 		egg2.setId(2L);
 		Egg egg3 = new Egg();
-		egg3.setColor(Color.STRING_RED);
+		egg3.setColor(colorRed);
 		egg3.setId(1L);
 		Egg egg4 = new Egg();
-		egg4.setColor(Color.STRING_WHITE);
+		egg4.setColor(colorWhite);
 		egg4.setId(3L);
 		Egg egg5 = new Egg();
-		egg5.setColor(Color.STRING_WHITE);
+		egg5.setColor(colorWhite);
 		egg5.setId(4L);
 		
 		EggsTray eggTray1 = new EggsTray();
-		eggTray1.setColor(Color.STRING_RED);
+		eggTray1.setColor(colorRed);
 		eggTray1.setId(1L);
 		eggTray1.setPrice(35D);
 		eggTray1.setSold(Constants.FALSE);
@@ -47,7 +58,7 @@ class InvoiceItemTest {
 		eggTray2=eggTray1;
 		
 		EggsTray eggTray3 = new EggsTray();
-		eggTray3.setColor(Color.STRING_RED);
+		eggTray3.setColor(colorRed);
 		eggTray3.setId(1L);
 		eggTray3.setPrice(35D);
 		eggTray3.setSold(Constants.FALSE);

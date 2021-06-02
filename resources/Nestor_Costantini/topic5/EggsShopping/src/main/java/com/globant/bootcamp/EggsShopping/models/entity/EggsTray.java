@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 
 @Entity
 @Table(name = "eggs_cartons")
@@ -44,7 +44,9 @@ public class EggsTray implements Serializable {
 
 	private Double price;
 
-	@Column(nullable = false)
+
+	@ManyToOne
+	@JoinColumn(name="color_id", nullable = false)
 	@NotNull
 	private Color color;
 
@@ -99,6 +101,12 @@ public class EggsTray implements Serializable {
 	}
 	
 	
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
 
 	@Override
 	public boolean equals(Object obj) {

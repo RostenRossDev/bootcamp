@@ -1,6 +1,7 @@
 package com.globant.bootcamp.EggsShopping.models.service;
 
 
+
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -9,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.dao.IEggPriceDao;
+import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.PriceEggs;
 
 @Service
@@ -22,15 +23,19 @@ public class PriceEggService {
 	IEggPriceDao priceDao;
 	
 	public Double priceByColor(Color color) {
-		PriceEggs price=  priceDao.findByActualAndColor(Constants.TRUE, color);
-	
+
+
+		LOG.info("color: "+color.getId());
+		PriceEggs price=  priceDao.findByColorAndActual(color, Constants.TRUE);
+		
+		LOG.info("price: "+price);
 		return price.getPrice();
 	}
+	 
+	 
 	
-	
-	
-	public PriceEggs newPrice(Color color, Double price) {
-		PriceEggs oldprice=  priceDao.findByActualAndColor(Constants.TRUE, color);
+	/*public PriceEggs newPrice(Color color, Double price) {
+		PriceEggs oldprice=  priceDao.findByColorAndActual(color, Constants.TRUE);
 	
 		oldprice.setActual(false);
 		priceDao.save(oldprice);
@@ -41,7 +46,7 @@ public class PriceEggService {
 		newPrice.setPrice(price);
 		
 		return priceDao.save(newPrice);
-	}
+	}*/
 	
 	
 }

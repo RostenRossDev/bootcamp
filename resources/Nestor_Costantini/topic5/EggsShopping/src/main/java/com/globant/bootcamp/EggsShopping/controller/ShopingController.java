@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
+import com.globant.bootcamp.EggsShopping.models.entity.Color;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.entity.InvoiceItem;
+import com.globant.bootcamp.EggsShopping.models.entity.User;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.BuyTrayTDA;
+import com.globant.bootcamp.EggsShopping.models.service.ColorService;
 import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
+import com.globant.bootcamp.EggsShopping.models.service.UserService;
 
 @RestController
 @RequestMapping(value= "/api/v1/eggsShoping")
@@ -39,6 +45,12 @@ public class ShopingController {
 
 	@Autowired
 	InvoiceService invoiceService;
+	
+	@Autowired 
+	ColorService colorService;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/home")
 	public ResponseEntity<?>  home() {
@@ -60,23 +72,47 @@ public class ShopingController {
 		List<EggsTray> traysWhite = new ArrayList<>();
 		Invoice newInvoice = new Invoice();
 		InvoiceItem newInvoiceItem = new InvoiceItem();
+		InvoiceItem newInvoiceItem2 = new InvoiceItem();
+		String description1 = "";
+		String description2 = ""; 
 		newInvoiceItem.setCartons(new ArrayList<EggsTray>());
+		newInvoiceItem2.setCartons(new ArrayList<EggsTray>());
+		LOG.info("buyTray: "+buyTray.getQuantity1());
+		LOG.info("buyTray: "+buyTray.getQuantity2());
 		
-		if(Color.STRING_RED.equals(buyTray.getColor1())  && buyTray.getQuantity1() != null && buyTray.getQuantity1()>0) {
-			traysRed=eggTrayService.findByColorAndSold(Color.STRING_RED, Constants.FALSE,buyTray.getQuantity1());
+		if(buyTray.getQuantity1() != null && buyTray.getQuantity1()>0) {
+			Color color = colorService.findByColor(StringConstans.RED);
+			LOG.info("color: "+color.getColor());
+			LOG.info("color: "+color.getId());
+
+			traysRed=eggTrayService.findByColorAndSold(color, Constants.FALSE,buyTray.getQuantity1());
+			LOG.info("TRAYSRED: "+traysRed.size());
+			LOG.info("TRAYSRED: "+traysRed.get(0).getPrice());
+			
 			newInvoiceItem.setQuantity(buyTray.getQuantity1());
 			newInvoiceItem.addCartons(traysRed);
+			newInvoiceItem.setItemMout(newInvoiceItem.calculateAmount());
+			description1="Red eggs tray :"+traysRed.size();
 		}
 		
-		if(Color.STRING_WHITE.equals(buyTray.getColor2())  && buyTray.getQuantity2() != null && buyTray.getQuantity2()>0) {
-			traysWhite=eggTrayService.findByColorAndSold(Color.STRING_WHITE, Constants.FALSE,buyTray.getQuantity2());
-			newInvoiceItem.setQuantity(buyTray.getQuantity2());
-			newInvoiceItem.addCartons(traysWhite);
+		if(buyTray.getQuantity2() != null && buyTray.getQuantity2()>0) {
+			Color color = colorService.findByColor(StringConstans.WHITE);
+			LOG.info("color: "+color.getColor());
+			LOG.info("color: "+color.getId());
+
+			traysWhite=eggTrayService.findByColorAndSold(color, Constants.FALSE,buyTray.getQuantity2());
+			LOG.info("TRAYSRED: "+traysWhite.size());
+
+			newInvoiceItem2.setQuantity(buyTray.getQuantity2());
+			newInvoiceItem2.addCartons(traysWhite);
+			newInvoiceItem2.setItemMout(newInvoiceItem2.calculateAmount());
+			description2="White eggs tray :"+traysWhite.size();
 		}
 		
 		if(traysRed.size() >0 || traysWhite.size() > 0 ) {
 			newInvoice.setItems(new ArrayList<InvoiceItem>());
 			newInvoice.addIteminvoice(newInvoiceItem);
+			newInvoice.addIteminvoice(newInvoiceItem2);
 
 			if(traysRed.size()<1) {
 				response.put("stockMsj1","Upps! sorry no stock of red trays");
@@ -86,11 +122,16 @@ public class ShopingController {
 			if(traysWhite.size()<1) {
 				response.put("stockMsj2", "Upps! sorry no stock of white trays");
 			}
-
+			
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			LOG.info("username: "+principal);
+			String userName = principal.toString();
+			User user = userService.findByUsername(userName);
+			newInvoice.setUser(user);
+			newInvoice.setDescription(description1.concat("\n".concat(description2)));
 			newInvoice=invoiceService.saveInvoice(newInvoice);
 
 			if(newInvoice != null) {
-
 				response.put("msj","tray successfully purchased!");
 				response.put("invoice", newInvoice);
 

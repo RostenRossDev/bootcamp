@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.globant.bootcamp.EggsShopping.enums.Color;
+import com.globant.bootcamp.EggsShopping.models.entity.Color;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 
 @Repository

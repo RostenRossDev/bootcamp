@@ -14,8 +14,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.GET,"/api/v1/eggsShoping/home","/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/api-docs","/").permitAll()
-		.antMatchers(HttpMethod.POST,"/api/v1/user/").permitAll()
+		.antMatchers(HttpMethod.GET,"/api/v1/eggsShoping/home","/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/api-docs","/","/h2/**","/").permitAll()
+		.antMatchers(HttpMethod.POST,"/api/v1/user/","/h2/**","/").permitAll()
 		.anyRequest().authenticated();
 	}
 

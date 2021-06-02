@@ -14,11 +14,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 @Entity
 @Table(name="invoice_items")
 public class InvoiceItem {
+	private static final Log LOG = LogFactory.getLog(InvoiceItem.class);
 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -34,7 +39,20 @@ public class InvoiceItem {
 			)
 	private List<EggsTray> cartons;
 	
+	@Column(nullable = false)
+	@Positive(message = "InvoiceItem quantity must be greather than zero '0'.")
+	private Double itemMout;
 	
+	
+	
+	public Double getItemMout() {
+		return itemMout;
+	}
+
+	public void setItemMout(Double itemMout) {
+		this.itemMout = itemMout;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -85,9 +103,11 @@ public class InvoiceItem {
 		
 	}
 
-
+  
 	public Double calculateAmount() {
+
 		Double price = cartons.get(0).getPrice();
+
 		return quantity.doubleValue()*price;
 	}
 

@@ -13,14 +13,14 @@ import com.globant.bootcamp.EggsShopping.enums.Color;
 class PriceEggsTest {
 	private Log LOG = LogFactory.getLog(this.getClass());
 
-	@Test
+	//@Test
 	void test() {
 		PriceEggs price = new PriceEggs();
 		
 		price.setActual(Constants.TRUE);
 		price.setColor(Color.STRING_RED);
 		price.setPrice(35D);
-		price.setId(1L);
+		price.setId(1L); 
 		price.setDescription("Red eggs tray");
 		
 		Assertions.assertTrue(Long.compare(1L, price.getId()) == 0);

@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.dao.IEggsTrayDao;
+import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 
 @Service
@@ -26,7 +27,7 @@ public class EggsTrayService implements IEggsTrayService{
 		List<EggsTray> eggsTrays = eggsTrayDao.findBySoldAndColor(sold, color);
 		LOG.info("array 2 : "+ eggsTrays.size());
 		
-		
+		 
 		for (int i = 0; i < quantity && i< eggsTrays.size(); i++) {
 			eggsTraysByQuantity.add(eggsTrays.get(i));
 		}
@@ -95,5 +96,8 @@ public class EggsTrayService implements IEggsTrayService{
 	}
 
 	
+	public EggsTray saveEggTray (EggsTray tray) {
+		return eggsTrayDao.save(tray);
+	}
 	
 }

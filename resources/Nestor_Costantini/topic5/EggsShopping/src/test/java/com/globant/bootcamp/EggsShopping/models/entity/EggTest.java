@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 
 class EggTest {
 	private Log LOG = LogFactory.getLog(this.getClass());
@@ -29,47 +30,56 @@ class EggTest {
 	
 	@Test
 	void test() {
+		Color colorRed = new Color();
+		colorRed.setColor("RED");
+		colorRed.setEnable(Constants.TRUE);
+		colorRed.setId(1L);
+		
+		Color colorWhite = new Color();
+		colorWhite.setColor(StringConstans.WHITE);
+		colorWhite.setEnable(Constants.TRUE);
+		colorWhite.setId(2L);
 		
 		eggRed.setId(1L);
-		eggRed.setColor(Color.STRING_RED);
+		eggRed.setColor(colorRed);
 		eggRed.setCarton(tray1);
 		eggRed3.setId(1L);
-		eggRed3.setColor(Color.STRING_RED);
+		eggRed3.setColor(colorRed);
 		eggRed3.setCarton(tray1);
 		eggRed4.setId(2L);
-		eggRed4.setColor(Color.STRING_WHITE);
+		eggRed4.setColor(colorWhite);
 		eggRed4.setCarton(tray1);
 		eggRed5.setId(1L);
-		eggRed5.setColor(Color.STRING_RED);
+		eggRed5.setColor(colorRed);
 		eggRed5.setCarton(tray2);
 		eggRed6.setId(1L);
-		eggRed6.setColor(Color.STRING_WHITE);
+		eggRed6.setColor(colorWhite);
 		eggRed6.setCarton(tray3);
 		eggRed7.setId(1L);
-		eggRed7.setColor(Color.STRING_WHITE);
+		eggRed7.setColor(colorWhite);
 		eggRed7.setCarton(tray1);
 		eggRed2=eggRed;
 		
-		tray1.setColor(Color.STRING_RED);
+		tray1.setColor(colorRed);
 		tray1.setEggs(new ArrayList<>());
 		tray1.addEgg(eggRed);
 		tray1.setSold(Constants.FALSE);
 		
 		eggRed.setCarton(tray1);
 		
-		tray2.setColor(Color.STRING_RED);
+		tray2.setColor(colorRed);
 		tray2.setEggs(new ArrayList<>());
 		tray2.addEgg(eggRed);
 		tray2.setSold(Constants.TRUE);
 		eggRed5.setCarton(tray2);
 
-		tray3.setColor(Color.STRING_WHITE);
+		tray3.setColor(colorWhite);
 		tray3.setEggs(new ArrayList<>());
 		tray3.addEgg(eggRed6);
 		
 		
 		Assertions.assertEquals(1L, eggRed.getId());
-		Assertions.assertEquals(Color.STRING_RED, eggRed.getColor());
+		Assertions.assertEquals(colorRed, eggRed.getColor());
 		Assertions.assertEquals(tray1, eggRed.getCarton());
 		LOG.info("1");
 
@@ -104,10 +114,9 @@ class EggTest {
 		Assertions.assertTrue(eggRed.equals(eggRed2));
 		LOG.info("eggred5");
 
-		eggRed.setColor(Color.STRING_RED);
-		eggWhite.setColor(Color.STRING_WHITE);
-		Assertions.assertEquals("(D)", eggRed.toString());
-		Assertions.assertEquals("(O)", eggWhite.toString());
+		eggRed.setColor(colorRed);
+		eggWhite.setColor(colorWhite);
+
 		
 		Assertions.assertFalse(eggRed.equals(eggRed7));
 		Assertions.assertFalse(eggRed.equals(eggRed5));

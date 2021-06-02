@@ -4,16 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.globant.bootcamp.EggsShopping.enums.Color;
 
 @Entity
 @Table(name="tray_price")
@@ -38,7 +39,8 @@ public class PriceEggs implements Serializable{
 	@NotEmpty(message = "PriceEggs description cannot be null")
 	private String description;
 	
-	@Column(nullable = false)
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@NotNull(message = "PriceEggs color must not be null")
 	private Color color;
 	
@@ -84,6 +86,12 @@ public class PriceEggs implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "PriceEggs [id=" + id + ", price=" + price + ", description=" + description + ", color=" + color
+				+ ", actual=" + actual + "]";
 	}
 	
 	

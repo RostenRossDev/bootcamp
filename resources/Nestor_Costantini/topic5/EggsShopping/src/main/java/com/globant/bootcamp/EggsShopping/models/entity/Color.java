@@ -1,16 +1,21 @@
 package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="color_shop")
@@ -21,14 +26,20 @@ public class Color implements Serializable {
 	private Long id;
 	
 	@Column(unique=true, length=20 , nullable = false)
-	@NotBlank(message = "Role name must contain at least onenon-whitespace character")
-	@NotEmpty(message = "Role name cannot be null")	
+	@NotBlank(message = "Color name must contain at least onenon-whitespace character")
+	@NotEmpty(message = "Color name cannot be null")	
 	private String color;
 	
 	@Column(nullable = false)
-	@NotNull(message = "Role enable cannot be null")
 	private Boolean enable;
-
+	
+	@OneToMany(
+	        mappedBy = "color",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	    )
+	private List<PriceEggs> prices;
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,7 +53,7 @@ public class Color implements Serializable {
 	}
 
 	public void setColor(String color) {
-		color = color;
+		this.color = color;
 	}
 
 	public Boolean getEnable() {

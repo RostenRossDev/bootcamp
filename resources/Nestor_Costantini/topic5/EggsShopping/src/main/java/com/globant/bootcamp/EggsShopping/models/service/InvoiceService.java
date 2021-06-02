@@ -4,6 +4,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,9 @@ import com.globant.bootcamp.EggsShopping.models.entity.User;
 
 @Service
 public class InvoiceService implements IInvoiceService{
+	private final Log LOG = LogFactory.getLog(this.getClass());
 
+	
 	@Autowired
 	IInvoiceDao invoiceDao;
 	
@@ -49,15 +53,20 @@ public class InvoiceService implements IInvoiceService{
 	}
 	
 	public List<Invoice> allInvoice(){
-		return invoiceDao.findAll();
+		return (List<Invoice>) invoiceDao.findAll();
 	}
 
 	@Override
 	public List<Invoice> findByUsername(String username) {
 		// TODO Auto-generated method stub
 		User user = userDao.findByUsername(username);
-		
-		return invoiceDao.findByUser(user);
+		LOG.info("user : "+user.getUsername());
+		LOG.info("user : "+user.getNickname());
+		LOG.info("user : "+user.getId());
+		List<Invoice> invoices = invoiceDao.findByUser(user);
+		LOG.info("invoices : "+invoices.size());
+
+		return  invoices;
 	}
-	
+	 
 }

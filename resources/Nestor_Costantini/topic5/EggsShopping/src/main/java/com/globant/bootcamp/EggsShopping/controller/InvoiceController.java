@@ -38,7 +38,10 @@ public class InvoiceController {
 		try {
 			String userName = principal.toString();
 			List<Invoice> invoices = invoiceSerivice.findByUsername(userName);
+
+
 			responseMap.put("invoices", invoices);
+			
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -49,15 +52,15 @@ public class InvoiceController {
 		}
 
 	}
-
+ 
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/allUser")
 	public ResponseEntity<?> allUserInvoices() {
 
-		Map<String, List<Invoice>> responseMap = new HashMap<>();
+		Map<String, Object> responseMap = new HashMap<>();
 		List<Invoice> invoices = invoiceSerivice.allInvoice();
 		responseMap.put("invoices", invoices);
-		return new ResponseEntity<Map<String, List<Invoice>>>(responseMap, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 
 	@Secured({"ROLE_ADMIN"})

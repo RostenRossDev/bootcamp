@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 
 @Entity
 @Table(name="eggs_shop")
@@ -27,8 +27,9 @@ public class Egg implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(nullable = false)
+	
+	@ManyToOne
+	@JoinColumn(name="color", nullable = false)
 	private Color color;
 
 	@ManyToOne
@@ -59,23 +60,6 @@ public class Egg implements Serializable{
 		this.carton = carton;
 	}
 
-	@Override
-	public String toString() {
-
-		String eggStr = StringConstans.EMPTY_EGG;
-
-		if (Color.STRING_RED.equals(this.color)) {
-
-			eggStr = StringConstans.RED_EGG;
-		} else if (Color.STRING_WHITE.equals(this.color)) {
-
-			eggStr = StringConstans.WHITE_EGG;
-		}
-
-		return eggStr;
-	}
-
-	
 	
 	@Override
 	public boolean equals(Object obj) {

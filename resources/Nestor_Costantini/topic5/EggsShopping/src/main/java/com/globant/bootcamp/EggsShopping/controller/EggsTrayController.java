@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +22,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
+import com.globant.bootcamp.EggsShopping.models.entity.Color;
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.Egg;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
+import com.globant.bootcamp.EggsShopping.models.entity.PriceEggs;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
+import com.globant.bootcamp.EggsShopping.models.service.ColorService;
 import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;
 import com.globant.bootcamp.EggsShopping.models.service.InvoiceService;
 import com.globant.bootcamp.EggsShopping.models.service.PriceEggService;
 import com.globant.bootcamp.EggsShopping.models.service.UserService;
 
+
 @RestController
 @RequestMapping(value="/api/v1/eggTray")
 
 public class EggsTrayController {
+	
+	private final Log LOG  = LogFactory.getLog(this.getClass());
+
 
 	@Autowired
 	EggsTrayService eggTrayService;
@@ -46,32 +55,50 @@ public class EggsTrayController {
 	@Autowired
 	PriceEggService priceTrayServie;
 	
+	@Autowired
+	ColorService colorService;
+	 
 	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/")
 	public  ResponseEntity<?> addEggsTrays (@Valid @RequestBody IntegerColorTDA integerColorTDA){
+		
 		Map<String, Object> response = new HashMap<>();
 		List<EggsTray> trays = new ArrayList<EggsTray>();
+		Color color =colorService.findByColor(integerColorTDA.getColor());
 		for (int i = 0; i < integerColorTDA.getQuantity(); i++) {
+			LOG.info("aca 1");
 			
+			Double price = priceTrayServie.priceByColor(color);
+			LOG.info("price: "+price);
 			EggsTray newTray = new EggsTray();
-			newTray.setColor(integerColorTDA.getColor());
-			newTray.setEggs(new ArrayList<>());
+			newTray.setColor(color);
+			newTray.setSold(false);
+			newTray.setPrice(price);
+			newTray = eggTrayService.saveEggTray(newTray);
+			newTray.setEggs(new ArrayList<>()); 
+			LOG.info("aca 2");
 
 			for (int j = 0; j < integerColorTDA.getQuantity()*30; j++) {
 				Egg newEgg = new Egg();
-				newEgg.setColor(integerColorTDA.getColor());
+				newEgg.setColor(color);
+				newEgg.setCarton(newTray);
 				newTray.addEgg(newEgg);
 			}
-			newTray.setSold(false);
-			Double priceTray = priceTrayServie.priceByColor(integerColorTDA.getColor());
+			LOG.info("aca 3");
+			LOG.info("tray id: "+newTray.getId());
+			Double priceTray = priceTrayServie.priceByColor(color);
 			newTray.setPrice(priceTray);
 			trays.add(newTray);
+			LOG.info("aca 4");
+
 		}
 		trays=eggTrayService.saveTrayEggs(trays);
 		if (trays != null ) {
-			
+			LOG.info("aca 5");
+
 			response.put("trays", trays);
 			response.put("msj", "EggsTrays was added successfully!");
+			LOG.info("aca 6");
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		};
@@ -89,7 +116,11 @@ public class EggsTrayController {
 	
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/{color}")
-	public ResponseEntity<?>  allEggsTrayByColor (@PathVariable("color") Color color){
+	public ResponseEntity<?>  allEggsTrayByColor (@Valid @PathVariable("color") String sColor){
+		
+		Color color =colorService.findByColor(sColor.toUpperCase());
+		LOG.info("color: "+color.getColor());
+		LOG.info("color: "+color.getId());
 		List<EggsTray> trays = eggTrayService.findByColor(color);
 		
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
@@ -97,7 +128,10 @@ public class EggsTrayController {
 	
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/sold/{color}")
-	public ResponseEntity<?>  allSoldEggsTrayByColor (@PathVariable("color") Color color){
+	public ResponseEntity<?>  allSoldEggsTrayByColor (@PathVariable("color") String sColor){
+		
+		Color color =colorService.findByColor(sColor.toUpperCase());
+
 		List<EggsTray> trays = eggTrayService.findAllByColorAndSold(color, Constants.TRUE);
 
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);
@@ -113,7 +147,9 @@ public class EggsTrayController {
 	
 	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@GetMapping("/stock/{color}")
-	public ResponseEntity<?>  stockEggsTrayByColor (@PathVariable("color") Color color){
+	public ResponseEntity<?>  stockEggsTrayByColor (@PathVariable("color") String sColor){
+		Color color =colorService.findByColor(sColor.toUpperCase());
+
 		List<EggsTray> trays = eggTrayService.findByStockByColor(color);
 
 		return new ResponseEntity<List<EggsTray>>(trays, HttpStatus.OK);

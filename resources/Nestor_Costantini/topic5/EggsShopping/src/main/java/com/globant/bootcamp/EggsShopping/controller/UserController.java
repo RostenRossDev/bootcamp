@@ -89,7 +89,7 @@ public class UserController {
 	
 	
 	
-	@Secured({"ADMIN","USER"})
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@PutMapping("/")
 	public  ResponseEntity<?> update(@Valid @RequestBody User user){
 		Map<String, Object> responseMap = new HashMap<>();

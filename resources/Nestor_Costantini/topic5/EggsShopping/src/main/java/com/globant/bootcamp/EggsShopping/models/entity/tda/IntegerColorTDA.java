@@ -1,13 +1,14 @@
 package com.globant.bootcamp.EggsShopping.models.entity.tda;
 
-import com.globant.bootcamp.EggsShopping.enums.Color;
+
+//import com.globant.bootcamp.EggsShopping.enums.Color;
 
 public class IntegerColorTDA {
 
 	private Integer quantity;
 	
-	private Color color;
-
+	private String color;
+ 
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -16,11 +17,11 @@ public class IntegerColorTDA {
 		this.quantity = quantity;
 	}
 
-	public Color getColor() {
+	public String getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 	
