@@ -38,7 +38,7 @@ public class Color implements Serializable {
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true
 	    )
-	private List<PriceEggs> prices;
+	private List<EggsPrice> prices;
 	
 	public Long getId() {
 		return id;

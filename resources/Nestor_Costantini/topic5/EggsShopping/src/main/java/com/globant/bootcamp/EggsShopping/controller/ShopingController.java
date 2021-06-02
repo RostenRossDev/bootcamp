@@ -108,7 +108,7 @@ public class ShopingController {
 			newInvoiceItem2.setItemMout(newInvoiceItem2.calculateAmount());
 			description2="White eggs tray :"+traysWhite.size();
 		}
-		
+		 
 		if(traysRed.size() >0 || traysWhite.size() > 0 ) {
 			newInvoice.setItems(new ArrayList<InvoiceItem>());
 			newInvoice.addIteminvoice(newInvoiceItem);

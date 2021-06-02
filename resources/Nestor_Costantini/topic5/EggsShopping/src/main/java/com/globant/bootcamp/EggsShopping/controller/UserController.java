@@ -75,7 +75,7 @@ public class UserController {
 	        List<Role> roles = new ArrayList<>();
 	        roles.add(roleServie.findOne(1L));
 	        user.setRoles(roles);
-			userNew = userService.createUser(user);
+			userNew = userService.createUser(user); 
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Failed to insert into database");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

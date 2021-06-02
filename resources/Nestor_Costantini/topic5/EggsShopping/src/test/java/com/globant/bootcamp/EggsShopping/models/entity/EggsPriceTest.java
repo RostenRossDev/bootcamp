@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.enums.Color;
 
-class PriceEggsTest {
+class EggsPriceTest {
 	private Log LOG = LogFactory.getLog(this.getClass());
 
 	//@Test
 	void test() {
-		PriceEggs price = new PriceEggs();
+		EggsPrice price = new EggsPrice();
 		
 		price.setActual(Constants.TRUE);
 		price.setColor(Color.STRING_RED);

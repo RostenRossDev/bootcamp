@@ -26,7 +26,7 @@ import com.globant.bootcamp.EggsShopping.models.entity.Color;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.Egg;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
-import com.globant.bootcamp.EggsShopping.models.entity.PriceEggs;
+import com.globant.bootcamp.EggsShopping.models.entity.EggsPrice;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
 import com.globant.bootcamp.EggsShopping.models.service.ColorService;
 import com.globant.bootcamp.EggsShopping.models.service.EggsTrayService;

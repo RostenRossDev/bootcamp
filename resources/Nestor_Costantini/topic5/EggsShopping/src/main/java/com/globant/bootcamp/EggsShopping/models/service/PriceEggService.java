@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.models.dao.IEggPriceDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
-import com.globant.bootcamp.EggsShopping.models.entity.PriceEggs;
+import com.globant.bootcamp.EggsShopping.models.entity.EggsPrice;
 
 @Service
 public class PriceEggService {
@@ -26,7 +26,7 @@ public class PriceEggService {
 
 
 		LOG.info("color: "+color.getId());
-		PriceEggs price=  priceDao.findByColorAndActual(color, Constants.TRUE);
+		EggsPrice price=  priceDao.findByColorAndActual(color, Constants.TRUE);
 		
 		LOG.info("price: "+price);
 		return price.getPrice();

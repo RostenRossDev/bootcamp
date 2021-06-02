@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name="tray_price")
-public class PriceEggs implements Serializable{
+public class EggsPrice implements Serializable{
 
 	/**
 	 * 
