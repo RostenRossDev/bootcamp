@@ -41,8 +41,14 @@ public class InvoiceService implements IInvoiceService{
 	
     @Transactional
 	@Override
-	public void deleteInvoice(Long id) {
-		invoiceDao.deleteById(id);
+	public Boolean deleteInvoice(Long id) {
+    	
+    	try {
+    		invoiceDao.deleteById(id);
+		} catch (Exception e) {
+			return false;
+		}
+    	return true;
 	}
 
     @Transactional(readOnly = true)

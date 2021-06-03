@@ -10,7 +10,7 @@ public interface IInvoiceService {
 	
 	public Invoice findInvoiceById(Long id);
 	
-	public void deleteInvoice(Long id);
+	public Boolean deleteInvoice(Long id);
 	
 	public List<Invoice> findByUser(Long id);
 	
