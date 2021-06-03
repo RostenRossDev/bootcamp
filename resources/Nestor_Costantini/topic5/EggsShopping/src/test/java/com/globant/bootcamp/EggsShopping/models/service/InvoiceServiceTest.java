@@ -16,12 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.globant.bootcamp.EggsShopping.models.Repository.IEggsTrayDao;
 import com.globant.bootcamp.EggsShopping.models.Repository.IInvoiceDao;
 import com.globant.bootcamp.EggsShopping.models.Repository.IUserDao;
-import com.globant.bootcamp.EggsShopping.models.entity.Color;
-import com.globant.bootcamp.EggsShopping.models.entity.Egg;
-import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.entity.InvoiceItem;
 import com.globant.bootcamp.EggsShopping.models.entity.User;

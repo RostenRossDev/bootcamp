@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.globant.bootcamp.EggsShopping.models.Repository.IEggDao;
 import com.globant.bootcamp.EggsShopping.models.Repository.IEggsTrayDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.Egg;
@@ -73,6 +72,7 @@ class EggsTrayServiceTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		closeable.close();
 	}
 
 	@Test

@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.models.Repository.IEggPriceDao;
@@ -22,6 +23,7 @@ public class PriceEggService {
 	@Autowired
 	IEggPriceDao priceDao;
 	
+    @Transactional(readOnly = true)
 	public Double priceByColor(Color color) {
 
 
@@ -33,20 +35,20 @@ public class PriceEggService {
 	}
 	 
 	 
-	
-	/*public PriceEggs newPrice(Color color, Double price) {
-		PriceEggs oldprice=  priceDao.findByColorAndActual(color, Constants.TRUE);
+    @Transactional
+	public EggsPrice updatePrice(Color color, Double price) {
+		EggsPrice oldprice=  priceDao.findByColorAndActual(color, Constants.TRUE);
 	
 		oldprice.setActual(false);
 		priceDao.save(oldprice);
-		PriceEggs newPrice = new PriceEggs();
+		EggsPrice newPrice = new EggsPrice();
 		newPrice.setActual(true);
 		newPrice.setColor(oldprice.getColor());
 		newPrice.setDescription(oldprice.getDescription());
 		newPrice.setPrice(price);
 		
 		return priceDao.save(newPrice);
-	}*/
+	}
 	
 	
 }
