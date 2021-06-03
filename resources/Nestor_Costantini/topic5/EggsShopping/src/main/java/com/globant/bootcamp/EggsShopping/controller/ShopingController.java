@@ -62,7 +62,7 @@ public class ShopingController {
 		response.put("message", msj);
 		response.put("urlRegister", url);
 		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+	} 
 	
 	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@PostMapping("/BuyEggTray")
@@ -73,7 +73,7 @@ public class ShopingController {
 		Invoice newInvoice = new Invoice();
 		InvoiceItem newInvoiceItem = new InvoiceItem();
 		InvoiceItem newInvoiceItem2 = new InvoiceItem();
-		String description1 = "";
+		String description1 = ""; 
 		String description2 = ""; 
 		newInvoiceItem.setCartons(new ArrayList<EggsTray>());
 		newInvoiceItem2.setCartons(new ArrayList<EggsTray>());

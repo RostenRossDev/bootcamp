@@ -118,7 +118,7 @@ class InvoiceTest {
 		Assertions.assertFalse(invoice1.equals(invoice5));
 		Assertions.assertFalse(invoice1.equals(invoice6));
 
-		Assertions.assertNotEquals(20D,invoice1.getTotal());
+		Assertions.assertNotEquals(20D,invoice1.calculateTotal());
 		
 		
 	}

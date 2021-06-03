@@ -16,7 +16,7 @@ public interface IEggsTrayService {
 	
 	public List<EggsTray> findAll();
 	
-	public List<EggsTray> updateEggsTray(List<EggsTray> trays);
+	public List<EggsTray> updateEggsTrayList(List<EggsTray> trays);
 	
 	public List<EggsTray> saveTrayEggs( List<EggsTray> trays);
 	

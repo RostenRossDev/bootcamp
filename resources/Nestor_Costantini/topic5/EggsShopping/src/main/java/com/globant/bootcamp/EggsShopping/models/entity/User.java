@@ -18,6 +18,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="users_shop")
@@ -28,17 +30,18 @@ public class User implements Serializable{
 	private Long id;
 	
 	@Column(unique= true, length=20, nullable = false)
-	@NotBlank(message = "User username must contain at least onenon-whitespace character")
+	@NotBlank(message = "User username must contain at least one non-whitespace character")
 	@NotEmpty(message = "User username cannot be null")
 	private String username;
 	
 	@Column(unique= true, length=20, nullable = false)
-	@NotBlank(message = "User nickname must contain at least onenon-whitespace character")
+	@NotBlank(message = "User nickname must contain at least one non-whitespace character")
 	@NotEmpty(message = "User nickname cannot be null")
 	private String nickname;
 	
 	@Column(length=60, nullable = false)
-	@NotBlank(message = "User password must contain at least onenon-whitespace character")
+	//@JsonIgnore
+	@NotBlank(message = "User password must contain at least one non-whitespace character")
 	@NotEmpty(message = "User password cannot be null")	
 	private String password;
 	
@@ -46,7 +49,8 @@ public class User implements Serializable{
 	private Boolean enabled;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="users_roles", joinColumns = @JoinColumn(name="user_id")
+	@JoinTable(name="users_roles", 
+	joinColumns = @JoinColumn(name="user_id")
 	, inverseJoinColumns = @JoinColumn(name="role_id")
 	, uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","role_id"})})
 	private List<Role> roles;

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.enums.Color;
 
 class EggsPriceTest {
 	private Log LOG = LogFactory.getLog(this.getClass());
@@ -16,9 +15,12 @@ class EggsPriceTest {
 	//@Test
 	void test() {
 		EggsPrice price = new EggsPrice();
-		
+		Color color = new Color();
+		color.setColor("RED");
+		color.setId(1L);
+		color.setEnable(Constants.TRUE);
 		price.setActual(Constants.TRUE);
-		price.setColor(Color.STRING_RED);
+		price.setColor(color);
 		price.setPrice(35D);
 		price.setId(1L); 
 		price.setDescription("Red eggs tray");
@@ -26,7 +28,7 @@ class EggsPriceTest {
 		Assertions.assertTrue(Long.compare(1L, price.getId()) == 0);
 		Assertions.assertFalse(Long.compare(1L, price.getId()) != 0);
 		
-		Assertions.assertTrue(Color.STRING_RED.equals(price.getColor()));
+		Assertions.assertTrue(color.equals(price.getColor()));
 		
 		Assertions.assertTrue("Red eggs tray".equals(price.getDescription()) );
 		

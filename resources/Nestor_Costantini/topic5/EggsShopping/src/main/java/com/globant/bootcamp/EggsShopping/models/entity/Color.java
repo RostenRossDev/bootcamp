@@ -64,6 +64,38 @@ public class Color implements Serializable {
 		this.enable = enable;
 	}
 	
+	
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		
+		if (obj == this)
+			return true;
+		
+		if (!(obj instanceof Color))
+			return false;
+		
+		Color colorObj = (Color) obj;
+		
+		if ((id == null)?(colorObj.getId() != null): ! ((Long.compare(id, colorObj.getId())) == 0 ))
+			return false;
+		
+		if ((color == null)?(colorObj.getColor() != null): !color.equals(colorObj.getColor()))
+			return false;
+		
+		if ((enable == null)?(colorObj.getEnable() != null): !enable == colorObj.getEnable())
+			return false;
+		
+		return true;
+
+	}
+
+
+
+
 	/**
 	 * 
 	 */

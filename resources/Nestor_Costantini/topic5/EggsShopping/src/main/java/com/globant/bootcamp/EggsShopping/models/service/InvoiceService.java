@@ -9,8 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.globant.bootcamp.EggsShopping.models.dao.IInvoiceDao;
-import com.globant.bootcamp.EggsShopping.models.dao.IUserDao;
+import com.globant.bootcamp.EggsShopping.models.Repository.IInvoiceDao;
+import com.globant.bootcamp.EggsShopping.models.Repository.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
 import com.globant.bootcamp.EggsShopping.models.entity.User;
 

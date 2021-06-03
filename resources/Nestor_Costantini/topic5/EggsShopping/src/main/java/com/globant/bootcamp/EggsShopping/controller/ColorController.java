@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.models.dao.IColorDao;
+import com.globant.bootcamp.EggsShopping.models.Repository.IColorDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
 

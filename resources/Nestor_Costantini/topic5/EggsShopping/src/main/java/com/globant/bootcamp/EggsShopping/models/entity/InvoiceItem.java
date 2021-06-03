@@ -37,6 +37,7 @@ public class InvoiceItem {
 			mappedBy="invoiceItem",fetch=FetchType.LAZY,
 			cascade=CascadeType.ALL
 			)
+	
 	private List<EggsTray> cartons;
 	
 	@Column(nullable = false)

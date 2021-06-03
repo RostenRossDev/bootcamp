@@ -1,4 +1,4 @@
-package com.globant.bootcamp.EggsShopping.models.dao;
+package com.globant.bootcamp.EggsShopping.models.Repository;
 
 import java.util.List;
 

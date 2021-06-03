@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.models.dao.IEggPriceDao;
+import com.globant.bootcamp.EggsShopping.models.Repository.IEggPriceDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsPrice;
 

@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-//import com.globant.bootcamp.EggsShopping.enums.Color;
-import com.globant.bootcamp.EggsShopping.models.dao.IEggsTrayDao;
+import com.globant.bootcamp.EggsShopping.models.Repository.IEggsTrayDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
 
@@ -39,7 +38,7 @@ public class EggsTrayService implements IEggsTrayService{
 			eggsTray.setSold(true);
 			soldEggsTrays.add(eggsTray);
 		}
-		
+		 
 		eggsTrayDao.saveAll(soldEggsTrays);
 		return soldEggsTrays;
 	}
@@ -84,7 +83,7 @@ public class EggsTrayService implements IEggsTrayService{
 	
     @Transactional
 	@Override
-	public List<EggsTray> updateEggsTray(List<EggsTray> trays) {
+	public List<EggsTray> updateEggsTrayList(List<EggsTray> trays) {
 		// TODO Auto-generated method stub
 		
 		return (List<EggsTray>) eggsTrayDao.saveAll(trays);

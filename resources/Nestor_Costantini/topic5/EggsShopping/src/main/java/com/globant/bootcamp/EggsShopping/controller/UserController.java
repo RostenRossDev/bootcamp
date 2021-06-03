@@ -66,7 +66,7 @@ public class UserController {
 			
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+		} 
 		
 		try {
 	        String passwordBcrypt = passwordEncoder.encode(user.getPassword());
@@ -80,7 +80,7 @@ public class UserController {
 			response.put("mensaje", "Failed to insert into database");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		} 
 		
 		response.put("mensaje", "User was created succsessfully!");
 		response.put("usuario", userNew);
@@ -132,7 +132,7 @@ public class UserController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			responseMap.put("msj", "Upps !! Something was wrong!!");
-			responseMap.put("error", e);
+			responseMap.put("error", e.getCause().getMessage());
 
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		}
