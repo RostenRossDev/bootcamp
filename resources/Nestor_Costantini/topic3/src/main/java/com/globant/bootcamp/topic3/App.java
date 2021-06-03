@@ -15,7 +15,7 @@ public class App {
   public static Logger logg = Logger.getLogger(App.class);
 
   public static void main(String[] args) {
-    BasicConfigurator.configure();
+    BasicConfigurator.configure(); 
     logg.info("This is Logger Info");
 
     EggFactory eggFactory = new EggFactory(); // Create an egg factory.

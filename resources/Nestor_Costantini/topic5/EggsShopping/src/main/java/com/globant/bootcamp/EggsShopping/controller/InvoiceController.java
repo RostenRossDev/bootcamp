@@ -64,7 +64,7 @@ public class InvoiceController {
 	}
 
 	@Secured({"ROLE_ADMIN"})
-	@GetMapping("/{id}")
+	@GetMapping("/user:{id}")
 	public ResponseEntity<?> invoiceById(@PathVariable("id") Long id) {
 		Map<String, Object> responseMap = new HashMap<>();
 

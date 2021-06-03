@@ -17,35 +17,28 @@ import javax.validation.constraints.Positive;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 @Entity
-@Table(name="invoice_items")
+@Table(name = "invoice_items")
 public class InvoiceItem {
 	private static final Log LOG = LogFactory.getLog(InvoiceItem.class);
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	@Positive(message = "InvoiceItem quantity must be greather than zero '0'.")
 	@NotNull(message = "InvoiceItem quantity must not be null")
 	private Integer quantity;
-	
-	@OneToMany(
-			mappedBy="invoiceItem",fetch=FetchType.LAZY,
-			cascade=CascadeType.ALL
-			)
-	
+
+	@OneToMany(mappedBy = "invoiceItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
 	private List<EggsTray> cartons;
-	
+
 	@Column(nullable = false)
 	@Positive(message = "InvoiceItem quantity must be greather than zero '0'.")
 	private Double itemMout;
-	
-	
-	
+
 	public Double getItemMout() {
 		return itemMout;
 	}
@@ -62,54 +55,40 @@ public class InvoiceItem {
 		this.id = id;
 	}
 
-
-
-
 	public Integer getQuantity() {
 		return quantity;
 	}
-
-
-
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-
-
-
 	public List<EggsTray> getCartons() {
 		return cartons;
 	}
-
-
-
 
 	public void setCartons(List<EggsTray> cartons) {
 		this.cartons = cartons;
 	}
 
-	
 	public void addCartons(List<EggsTray> cartons) {
-		
+
 		for (EggsTray eggsTray : cartons) {
 			this.cartons.add(eggsTray);
 		}
 	}
 
 	public void addCarton(EggsTray cartons) {
-		
+
 		this.cartons.add(cartons);
-		
+
 	}
 
-  
 	public Double calculateAmount() {
 
 		Double price = cartons.get(0).getPrice();
 
-		return quantity.doubleValue()*price;
+		return quantity.doubleValue() * price;
 	}
 
 	@Override
@@ -124,28 +103,29 @@ public class InvoiceItem {
 
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (obj == null)
 			return false;
-		
+
 		if (obj == this)
 			return true;
-		
+
 		if (!(obj instanceof InvoiceItem))
 			return false;
-		
+
 		InvoiceItem invoiceObj = (InvoiceItem) obj;
-		
-		if ((id == null)?(invoiceObj.getId() != null): ! ((Long.compare(id, invoiceObj.getId())) == 0 ))
+
+		if ((id == null) ? (invoiceObj.getId() != null) : !((Long.compare(id, invoiceObj.getId())) == 0))
 			return false;
-		
-		if ((quantity == null)?(invoiceObj.getQuantity() != null): ((Integer.compare(quantity, invoiceObj.getQuantity())) != 0 ))
+
+		if ((quantity == null) ? (invoiceObj.getQuantity() != null)
+				: ((Integer.compare(quantity, invoiceObj.getQuantity())) != 0))
 			return false;
-		
-		if ((cartons == null)?(invoiceObj.getCartons() != null): !cartons.equals(invoiceObj.getCartons()))
+
+		if ((cartons == null) ? (invoiceObj.getCartons() != null) : !cartons.equals(invoiceObj.getCartons()))
 			return false;
-		
+
 		return true;
 	}
-	
+
 }
