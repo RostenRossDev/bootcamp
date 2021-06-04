@@ -11,6 +11,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter@Setter@ToString
 @Entity
 @Table(name="role_shop")
 public class Role implements Serializable{
@@ -28,27 +33,5 @@ public class Role implements Serializable{
 	@NotEmpty(message = "Role name cannot be null")	
 	private String name;
 	
-	
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	
-
 	private static final long serialVersionUID = 1L;
 }

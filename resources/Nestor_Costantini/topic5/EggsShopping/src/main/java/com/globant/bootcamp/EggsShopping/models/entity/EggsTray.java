@@ -20,6 +20,11 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter@Setter@ToString
 @Entity
 @Table(name = "eggs_cartons")
 public class EggsTray implements Serializable {
@@ -52,61 +57,11 @@ public class EggsTray implements Serializable {
 
 	private Boolean sold;
 
-	//methods
-	public List<Egg> getEggs() {
-		return eggs;
-	}
-
-	public void setEggs(List<Egg> eggs) {
-		this.eggs = eggs;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
 	public void addEgg(Egg egg) {
-		if (this.color.equals(egg.getColor()) && this.eggs.size() < 30) {
-
-			this.eggs.add(egg);
-		}
+		
+		if (this.color.equals(egg.getColor()) && this.eggs.size() < 30) this.eggs.add(egg);
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Boolean getSold() {
-		return sold;
-	}
-
-	public void setSold(Boolean sold) {
-		this.sold = sold;
-	}
-	
-	
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
 
 	@Override
 	public boolean equals(Object obj) {

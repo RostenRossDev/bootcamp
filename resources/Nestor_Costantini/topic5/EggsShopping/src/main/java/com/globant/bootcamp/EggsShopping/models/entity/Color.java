@@ -17,6 +17,11 @@ import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter@Setter@ToString
 @Entity
 @Table(name="color_shop")
 public class Color implements Serializable {
@@ -39,33 +44,6 @@ public class Color implements Serializable {
 	        orphanRemoval = true
 	    )
 	private List<EggsPrice> prices;
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public Boolean getEnable() {
-		return enable;
-	}
-
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
-	}
-	
-	
-	
 	
 	@Override
 	public boolean equals(Object obj) {

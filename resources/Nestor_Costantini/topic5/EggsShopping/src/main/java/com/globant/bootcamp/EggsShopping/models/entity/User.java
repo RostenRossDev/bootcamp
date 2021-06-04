@@ -20,7 +20,11 @@ import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter@Setter@ToString
 @Entity
 @Table(name="users_shop")
 public class User implements Serializable{
@@ -40,7 +44,7 @@ public class User implements Serializable{
 	private String nickname;
 	
 	@Column(length=60, nullable = false)
-	//@JsonIgnore
+	@JsonIgnore
 	@NotBlank(message = "User password must contain at least one non-whitespace character")
 	@NotEmpty(message = "User password cannot be null")	
 	private String password;
@@ -54,66 +58,6 @@ public class User implements Serializable{
 	, inverseJoinColumns = @JoinColumn(name="role_id")
 	, uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","role_id"})})
 	private List<Role> roles;
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public String getNickname() {
-		return nickname;
-	}
-
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public Boolean getEnabled() {
-		return enabled;
-	}
-
-
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 
 	public void updateUser(User user) {
 		if(user.getNickname() != null) {
@@ -132,7 +76,6 @@ public class User implements Serializable{
 			this.password = user.getPassword();
 		}
 	}
-
 
 	private static final long serialVersionUID = 1L;
 }

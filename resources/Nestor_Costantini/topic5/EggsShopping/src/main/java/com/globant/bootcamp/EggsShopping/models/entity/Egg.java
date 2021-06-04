@@ -15,6 +15,11 @@ import javax.persistence.Table;
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter@Setter@ToString
 @Entity
 @Table(name="eggs_shop")
 public class Egg implements Serializable{
@@ -36,30 +41,7 @@ public class Egg implements Serializable{
 	@JoinColumn(name="carton_id", nullable = false)
 	private EggsTray carton;
 
-	public Long getId() {
-		return id;
-	}
-
-	public EggsTray getCarton() {
-		return carton;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
-	public void setCarton(EggsTray carton) {
-		this.carton = carton;
-	}
-
+	
 	
 	@Override
 	public boolean equals(Object obj) {

@@ -22,6 +22,11 @@ import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter@Setter@ToString
 @Entity
 @Table(name="invoices")
 public class Invoice implements Serializable{
@@ -46,49 +51,9 @@ public class Invoice implements Serializable{
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<InvoiceItem>items;
 	
-	public List<InvoiceItem> getItems() {
-		return items;
-	}
-
-	public void setItems(List<InvoiceItem> items) {
-		this.items = items;
-	}
-
 	@PrePersist
 	public void prePersist(){
 		createAt=new Timestamp(new Date().getTime());
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Timestamp createAt) {
-		this.createAt = createAt;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 	
 	public void addIteminvoice(InvoiceItem item){
@@ -98,14 +63,13 @@ public class Invoice implements Serializable{
 	public Double calculateTotal(){
 		Double total=0.0;
 		
-		int size=items.size();
 		for (InvoiceItem item: items) {
+			
 			total+=item.calculateAmount();
 		}
+		
 		return total;
 	}
-	
-	
 	
 	@Override
 	public boolean equals(Object obj) {

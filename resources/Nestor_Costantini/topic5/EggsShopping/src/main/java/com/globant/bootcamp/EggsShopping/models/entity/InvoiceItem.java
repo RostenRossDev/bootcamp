@@ -17,6 +17,11 @@ import javax.validation.constraints.Positive;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter@Setter@ToString
 @Entity
 @Table(name = "invoice_items")
 public class InvoiceItem {
@@ -38,38 +43,6 @@ public class InvoiceItem {
 	@Column(nullable = false)
 	@Positive(message = "InvoiceItem quantity must be greather than zero '0'.")
 	private Double itemMout;
-
-	public Double getItemMout() {
-		return itemMout;
-	}
-
-	public void setItemMout(Double itemMout) {
-		this.itemMout = itemMout;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public List<EggsTray> getCartons() {
-		return cartons;
-	}
-
-	public void setCartons(List<EggsTray> cartons) {
-		this.cartons = cartons;
-	}
 
 	public void addCartons(List<EggsTray> cartons) {
 

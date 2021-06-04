@@ -15,7 +15,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter@Setter@ToString
 @Entity
 @Table(name="tray_price")
 public class EggsPrice implements Serializable{
@@ -47,53 +51,5 @@ public class EggsPrice implements Serializable{
 	@Column(nullable = false)
 	private Boolean actual;
 
-	//methods
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
-	public Boolean getActual() {
-		return actual;
-	}
-
-	public void setActual(Boolean actual) {
-		this.actual = actual;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@Override
-	public String toString() {
-		return "PriceEggs [id=" + id + ", price=" + price + ", description=" + description + ", color=" + color
-				+ ", actual=" + actual + "]";
-	}
-	
-	
 	
 }
