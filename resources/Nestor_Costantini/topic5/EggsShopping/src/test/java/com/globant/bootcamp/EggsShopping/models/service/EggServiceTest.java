@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.globant.bootcamp.EggsShopping.constants.Constants;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.models.Repository.IColorDao;
 import com.globant.bootcamp.EggsShopping.models.Repository.IEggDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
@@ -32,14 +34,9 @@ class EggServiceTest {
 	void setUp() throws Exception {
 		closeable =  MockitoAnnotations.openMocks(this);
 
-		color = new Color();
-		color.setId(1L);
-		color.setColor("RED");
-		color.setEnable(true);
-		
-		egg = new Egg();
-		egg.setId(1L);
-		egg.setColor(color);
+		color = Color.builder().id(1L).color(StringConstans.RED).enable(Constants.TRUE).build();
+	
+		egg = Egg.builder().id(1L).color(color).build();
 		
 	}
 
@@ -49,12 +46,23 @@ class EggServiceTest {
 	}
 
 	@Test
-	void saveTest() {
+	void eggSaveTestSouldReturnEgg() {
+		
 		given(repository.save(egg)).willReturn(egg);
 		
 		Egg eggTest = service.save(egg);
 			    
 	    assertEquals(egg, eggTest);
+	}
+	
+	@Test
+	void eggSaveTestSouldReturnNull() {
+		
+		given(repository.save(null)).willReturn(null);
+		
+		Egg eggTest = service.save(null);
+			    
+	    assertEquals(null, eggTest);
 	}
 
 }

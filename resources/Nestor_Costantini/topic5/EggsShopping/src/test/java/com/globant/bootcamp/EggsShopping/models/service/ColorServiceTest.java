@@ -35,14 +35,12 @@ class ColorServiceTest {
 
 	private Color anotherColor;
 	
-	private Color anotherColor2;
 		
     
 	@BeforeEach
 	void setUp() throws Exception {
 		color = Color.builder().color("RED").enable(Constants.TRUE).id(1L).build();
 		anotherColor = Color.builder().color("RED_STRONG").enable(Constants.TRUE).id(2L).build();
-		anotherColor2 =  Color.builder().color("RED").enable(Constants.TRUE).id(1L).build();
 			
 		colorOp =  Optional.of(color);
 		colorOp.orElse(null);

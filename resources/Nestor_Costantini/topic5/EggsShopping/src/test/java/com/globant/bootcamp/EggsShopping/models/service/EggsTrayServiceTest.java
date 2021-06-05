@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.globant.bootcamp.EggsShopping.constants.Constants;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.models.Repository.IEggsTrayDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.Egg;
@@ -30,7 +32,9 @@ class EggsTrayServiceTest {
     
 	private Egg egg;
 	
-	private Color color;
+	private Color colorRed;
+	
+	private Color colorBlue;
 	
 	private EggsTray tray;
 	
@@ -39,34 +43,23 @@ class EggsTrayServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		closeable =  MockitoAnnotations.openMocks(this);
-		tray = new EggsTray();
-		anotherTraty = new EggsTray();
-		egg = new Egg();
-		color = new Color();
 		
-		color.setColor("RED");
-		color.setId(1L);
-		color.setEnable(true);
+		colorRed = Color.builder().color(StringConstans.RED).id(1L).enable(Constants.TRUE).build();
 		
-		tray.setId(1L);
-		tray.setColor(color);
-		tray.setSold(false);
-		tray.setPrice(35D);
-		tray.setEggs(new ArrayList<>());
+		colorBlue = Color.builder().color(StringConstans.BLUE).id(2L).enable(Constants.TRUE).build();
+
+		egg = Egg.builder().id(1L).color(colorRed).build();
+		
+		
+		tray = EggsTray.builder().id(1L).color(colorRed).sold(Constants.FALSE).price(35D).eggs(new ArrayList<>()).build();
+
 		tray.addEgg(egg);
 		
-		anotherTraty.setId(2L);
-		anotherTraty.setColor(color);
-		anotherTraty.setSold(false);
-		anotherTraty.setPrice(35D);
-		anotherTraty.setEggs(new ArrayList<>());
+		anotherTraty = EggsTray.builder().id(2L).color(colorRed).sold(Constants.FALSE).price(35D).eggs(new ArrayList<>()).build();
+
 		anotherTraty.addEgg(egg);
 		
-		egg.setId(1L);
 		egg.setCarton(tray);
-		egg.setColor(color);
-		
-		
 
 	}
 
@@ -76,7 +69,7 @@ class EggsTrayServiceTest {
 	}
 
 	@Test
-	void saveEggTrayTest() {
+	void saveEggTrayTestShouldSaveTray() {
 		
 		given(repository.save(tray)).willReturn(tray);
 		
@@ -86,12 +79,33 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void updateEggsTrayListTest() {
+	void saveEggTrayTestShoulReturnNull() {
+		
+		given(repository.save(null)).willReturn(null);
+		
+		EggsTray eggTray = service.saveEggTray(null);
+			    
+	    assertEquals(tray, eggTray);
+	}
+	
+	@Test
+	void updateEggsTrayListTestShouldReturnUpdatedEggsTray() {
 		
 		Collection<EggsTray> trays = List.of(tray, anotherTraty);
 		
 		given(repository.saveAll(trays)).willReturn(trays);
 		
+		List<EggsTray> traysTest = service.updateEggsTrayList((List)trays);
+			    
+	    assertEquals(trays, traysTest);
+	}
+	
+	@Test
+	void updateEggsTrayListTestShouldReturnNotFound() {
+		
+		Collection<EggsTray> trays = List.of(tray, anotherTraty);
+		
+		given(repository.saveAll(trays)).willReturn(trays);
 		
 		List<EggsTray> traysTest = service.updateEggsTrayList((List)trays);
 			    
@@ -99,7 +113,19 @@ class EggsTrayServiceTest {
 	}
 	 
 	@Test
-	void saveTrayEggsTest() {
+	void saveEggTrayListTestShouldReturnNull() {
+		
+		Collection<EggsTray> eggsTrays = null;
+		
+		given(repository.saveAll(eggsTrays)).willReturn(null);
+		
+		List<EggsTray> eggTrayTest = service.saveTrayEggs((List)eggsTrays);
+			    
+	    assertEquals(eggsTrays, eggTrayTest);
+	}
+	
+	@Test
+	void saveEggTrayListTestShouldReturnList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -109,26 +135,25 @@ class EggsTrayServiceTest {
 			    
 	    assertEquals(eggsTrays, eggTrayTest);
 	}
-
 	
 	@Test
-	void findByStockByColorTest() {
+	void findByStockByColorTestShouldReturnColorList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySoldAndColor(false, color)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySoldAndColor(false, colorRed)).willReturn(List.of(tray, anotherTraty));
 		
-		List<EggsTray> eggTrayTest = service.findByStockByColor(color);
+		List<EggsTray> eggTrayTest = service.findByStockByColor(colorRed);
 			    
 	    assertEquals(eggsTrays, eggTrayTest);
 	}
 	
 	@Test
-	void findByStockTest() {
+	void findByStockTestTestShouldReturnNull() {
 		
-		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
+		Collection<EggsTray> eggsTrays = null;
 		
-		given(repository.findBySold(false)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySold(Constants.FALSE)).willReturn(null);
 		
 		List<EggsTray> eggTrayTest = service.findByStock();
 			    
@@ -136,25 +161,48 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByColorTest() {
+	void findByStockTestTesByNonExistinEggsTraytShouldReturnEmptyList() {
+				
+		given(repository.findBySold(Constants.FALSE)).willReturn(List.of());
+		
+		List<EggsTray> eggTrayTest = service.findByStock();
+			    
+	    assertEquals(List.of(), eggTrayTest);
+	}
+	
+	@Test
+	void findByColorTestShouldReturnEggsTrayList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findByColor(color)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findByColor(colorRed)).willReturn(List.of(tray, anotherTraty));
 		
-		List<EggsTray> eggTrayTest = service.findByColor(color);
+		List<EggsTray> eggTrayTest = service.findByColor(colorRed);
 			    
 	    assertEquals(eggsTrays, eggTrayTest);
 	}
 	
 	@Test
-	void findBySoldTest() {
+	void findByColorTestShouldReturnEmptyEggsTrayList() {
+		
+		Collection<EggsTray> eggsTrays = List.of();
+		
+		given(repository.findByColor(colorBlue)).willReturn(List.of());
+		
+		List<EggsTray> eggTrayTest = service.findByColor(colorBlue);
+			    
+	    assertEquals(eggsTrays, eggTrayTest);
+	}
+	
+	
+	@Test
+	void findBySoldTestShouldReturnSoldEggTrayList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySold(false)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySold(Constants.FALSE)).willReturn(List.of(tray, anotherTraty));
 		
-		List<EggsTray> eggTrayTest = service.findBySold(false);
+		List<EggsTray> eggTrayTest = service.findBySold(Constants.FALSE);
 			    
 	    assertEquals(eggsTrays, eggTrayTest);
 	}
@@ -176,9 +224,9 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySoldAndColor(false, color)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySoldAndColor(false, colorRed)).willReturn(List.of(tray, anotherTraty));
 		
-		List<EggsTray> eggTrayTest = service.findAllByColorAndSold(color, false);
+		List<EggsTray> eggTrayTest = service.findAllByColorAndSold(colorRed, false);
 			    
 	    assertEquals(eggsTrays, eggTrayTest);
 	}
@@ -188,9 +236,9 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySoldAndColor(false, color)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySoldAndColor(false, colorRed)).willReturn(List.of(tray, anotherTraty));
 		
-		List<EggsTray> eggTrayTest = service.findByColorAndSold(color, false, 2);
+		List<EggsTray> eggTrayTest = service.findByColorAndSold(colorRed, false, 2);
 			    
 	    assertEquals(eggsTrays, eggTrayTest);
 	}

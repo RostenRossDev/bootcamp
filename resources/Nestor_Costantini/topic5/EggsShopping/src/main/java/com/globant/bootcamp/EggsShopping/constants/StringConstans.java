@@ -2,7 +2,6 @@ package com.globant.bootcamp.EggsShopping.constants;
 
 public class StringConstans {
 
-  public static final String KAKAREO = "kakareo kakareo!!!";
 
   public static final String EGG_SOUND = "No sound.";
 
@@ -15,6 +14,8 @@ public class StringConstans {
   public static final String RED = "RED";
   
   public static final String WHITE = "WHITE";
+  
+  public static final String BLUE = "BLUE";
   
 
 }
