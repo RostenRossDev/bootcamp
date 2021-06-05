@@ -12,6 +12,6 @@ public interface IColorDao extends CrudRepository<Color, Long>{
 
 	public Color findByColor(String color);
 	
-	public List<Color> findAllByColor(String color);
+	public List<Color> findAllByColorfindByColorContaining(String color);
 	
 }

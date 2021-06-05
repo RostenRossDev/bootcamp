@@ -70,58 +70,46 @@ public class ShopingController {
 		Map<String, Object> response = new HashMap<>();
 		List<EggsTray> traysRed =new ArrayList<>();
 		List<EggsTray> traysWhite = new ArrayList<>();
-		Invoice newInvoice = new Invoice();
-		InvoiceItem newInvoiceItem = new InvoiceItem();
-		InvoiceItem newInvoiceItem2 = new InvoiceItem();
+		Invoice newInvoice = Invoice.builder().items(new ArrayList<InvoiceItem>()).items(new ArrayList<InvoiceItem>()).build();
+		InvoiceItem newInvoiceItem2 = InvoiceItem.builder().cartons(new ArrayList<EggsTray>()).build();
 		String description1 = ""; 
 		String description2 = ""; 
-		newInvoiceItem.setCartons(new ArrayList<EggsTray>());
-		newInvoiceItem2.setCartons(new ArrayList<EggsTray>());
-		LOG.info("buyTray: "+buyTray.getQuantity1());
-		LOG.info("buyTray: "+buyTray.getQuantity2());
 		
 		if(buyTray.getQuantity1() != null && buyTray.getQuantity1()>0) {
-			Color color = colorService.findByColor(StringConstans.RED);
-			LOG.info("color: "+color.getColor());
-			LOG.info("color: "+color.getId());
-
-			traysRed=eggTrayService.findByColorAndSold(color, Constants.FALSE,buyTray.getQuantity1());
-			LOG.info("TRAYSRED: "+traysRed.size());
-			LOG.info("TRAYSRED: "+traysRed.get(0).getPrice());
 			
-			newInvoiceItem.setQuantity(buyTray.getQuantity1());
+			Color color = colorService.findByColor(StringConstans.RED);
+			traysRed=eggTrayService.findByColorAndSold(color, Constants.FALSE,buyTray.getQuantity1());
+			InvoiceItem newInvoiceItem = InvoiceItem.builder().cartons(new ArrayList<EggsTray>())
+					.quantity(buyTray.getQuantity1())
+					.build();
+
 			newInvoiceItem.addCartons(traysRed);
 			newInvoiceItem.setItemMout(newInvoiceItem.calculateAmount());
 			description1="Red eggs tray :"+traysRed.size();
+			newInvoice.addIteminvoice(newInvoiceItem);
+			
+			if(traysRed.size()<1) response.put("stockMsj1","Upps! sorry no stock of red trays");
+
 		}
 		
 		if(buyTray.getQuantity2() != null && buyTray.getQuantity2()>0) {
-			Color color = colorService.findByColor(StringConstans.WHITE);
-			LOG.info("color: "+color.getColor());
-			LOG.info("color: "+color.getId());
 
-			traysWhite=eggTrayService.findByColorAndSold(color, Constants.FALSE,buyTray.getQuantity2());
-			LOG.info("TRAYSRED: "+traysWhite.size());
+			Color color = colorService.findByColor(StringConstans.RED);
+			traysRed=eggTrayService.findByColorAndSold(color, Constants.FALSE,buyTray.getQuantity1());
+			InvoiceItem newInvoiceItem = InvoiceItem.builder().cartons(new ArrayList<EggsTray>())
+					.quantity(buyTray.getQuantity1())
+					.build();
 
-			newInvoiceItem2.setQuantity(buyTray.getQuantity2());
-			newInvoiceItem2.addCartons(traysWhite);
-			newInvoiceItem2.setItemMout(newInvoiceItem2.calculateAmount());
-			description2="White eggs tray :"+traysWhite.size();
+			newInvoiceItem.addCartons(traysRed);
+			newInvoiceItem.setItemMout(newInvoiceItem.calculateAmount());
+			description1="Red eggs tray :"+traysRed.size();
+			newInvoice.addIteminvoice(newInvoiceItem);
+			
+			if(traysWhite.size()<1) response.put("stockMsj2", "Upps! sorry no stock of white trays");
+			
 		}
 		 
 		if(traysRed.size() >0 || traysWhite.size() > 0 ) {
-			newInvoice.setItems(new ArrayList<InvoiceItem>());
-			newInvoice.addIteminvoice(newInvoiceItem);
-			newInvoice.addIteminvoice(newInvoiceItem2);
-
-			if(traysRed.size()<1) {
-				response.put("stockMsj1","Upps! sorry no stock of red trays");
-				
-			}
-
-			if(traysWhite.size()<1) {
-				response.put("stockMsj2", "Upps! sorry no stock of white trays");
-			}
 			
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			LOG.info("username: "+principal);

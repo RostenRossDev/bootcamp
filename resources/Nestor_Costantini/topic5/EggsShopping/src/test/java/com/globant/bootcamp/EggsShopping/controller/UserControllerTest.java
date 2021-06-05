@@ -44,6 +44,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.models.Repository.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Role;
 import com.globant.bootcamp.EggsShopping.models.entity.User;
@@ -91,19 +92,12 @@ class UserControllerTest {
     
 	@BeforeEach
 	void before() {
-		role = new Role();
-		user=new User();
-		this.role.setId(1L);
-		this.role.setName("ROLE_USER");
+		role = Role.builder().id(1L).name("ROLE_USER").build();
+		
 		this.roles = new ArrayList<>();
 		this.roles.add(role);
-		this.  user.setId(5L);
-		this. user.setEnabled(true);
-		this. user.setUsername("Rosten");
-		this. user.setNickname("RostenRoss");
-		this. user.setPassword("12345");
-		this. user.setRoles(roles);
-		this. user.setId(1L);
+		user= User.builder().id(5L).enabled(Constants.TRUE).username("Rosten").nickname("RostenRoss")
+				.password("12345").roles(roles).build();
 		
 		closeable =  MockitoAnnotations.openMocks(this);
 
@@ -161,16 +155,10 @@ class UserControllerTest {
 	//@Test
 	void updateUserTest() throws Exception {
   
-        this. user.setPassword("12345");
-		this. user.setRoles(roles);
-		User updateUser = new User();
-		
-		updateUser.setId(user.getId());
-		updateUser.setNickname(user.getUsername());
-		updateUser.setUsername("Holanda");
-		updateUser.setEnabled(user.getEnabled());
-		updateUser.setRoles(user.getRoles());
-		updateUser.setPassword(user.getPassword());
+        this.user.setPassword("12345");
+		this.user.setRoles(roles);
+		User updateUser = User.builder().id(user.getId()).nickname(user.getUsername()).username("Holanda").enabled(user.getEnabled())
+				.roles(user.getRoles()).password(user.getPassword()).build();
 		
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

@@ -38,13 +38,12 @@ public class PriceController {
 	@PostMapping("/")
 	public ResponseEntity<?> create(@Valid @RequestBody PriceTda priceTda) {
 		Map<String, Object> response= new HashMap<>(); 
-		EggsPrice eggPrice = new EggsPrice();
+		
 		try {
 			Color color = colorDao.findByColor(priceTda.getColor());
-			eggPrice.setColor(color);
-			eggPrice.setActual(priceTda.getActual());
-			eggPrice.setDescription(priceTda.getDescription());
-			eggPrice.setPrice(priceTda.getPrice());	
+			EggsPrice eggPrice = EggsPrice.builder().color(color).actual(priceTda.getActual())
+					.description(priceTda.getDescription()).price(priceTda.getPrice()).build();
+			
 			eggPrice = eggPriceDao.save(eggPrice);
 			
 			if (eggPrice != null) {

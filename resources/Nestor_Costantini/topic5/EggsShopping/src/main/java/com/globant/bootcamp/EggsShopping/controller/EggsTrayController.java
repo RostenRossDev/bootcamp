@@ -70,18 +70,13 @@ public class EggsTrayController {
 			
 			Double price = priceTrayServie.priceByColor(color);
 			LOG.info("price: "+price);
-			EggsTray newTray = new EggsTray();
-			newTray.setColor(color);
-			newTray.setSold(false);
-			newTray.setPrice(price);
+			EggsTray newTray =  EggsTray.builder().color(color).sold(Constants.FALSE).price(price).build();
 			newTray = eggTrayService.saveEggTray(newTray);
 			newTray.setEggs(new ArrayList<>()); 
 			LOG.info("aca 2");
 
 			for (int j = 0; j < integerColorTDA.getQuantity()*30; j++) {
-				Egg newEgg = new Egg();
-				newEgg.setColor(color);
-				newEgg.setCarton(newTray);
+				Egg newEgg = Egg.builder().color(color).carton(newTray).build();
 				newTray.addEgg(newEgg);
 			}
 			LOG.info("aca 3");

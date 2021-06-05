@@ -14,16 +14,11 @@ class EggsPriceTest {
 
 	//@Test
 	void test() {
-		EggsPrice price = new EggsPrice();
-		Color color = new Color();
-		color.setColor("RED");
-		color.setId(1L);
-		color.setEnable(Constants.TRUE);
-		price.setActual(Constants.TRUE);
-		price.setColor(color);
-		price.setPrice(35D);
-		price.setId(1L); 
-		price.setDescription("Red eggs tray");
+		
+		Color color = Color.builder().color("RED").id(1L).build();
+
+		EggsPrice price = EggsPrice.builder().color(color).id(1L).actual(true)
+				.color(color).price(35D).description("Red eggs tray").build();
 		
 		Assertions.assertTrue(Long.compare(1L, price.getId()) == 0);
 		Assertions.assertFalse(Long.compare(1L, price.getId()) != 0);

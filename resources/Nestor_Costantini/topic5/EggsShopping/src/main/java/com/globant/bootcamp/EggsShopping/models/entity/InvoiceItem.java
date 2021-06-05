@@ -17,11 +17,12 @@ import javax.validation.constraints.Positive;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter@Setter@ToString
+@Getter@Setter@ToString@Builder
 @Entity
 @Table(name = "invoice_items")
 public class InvoiceItem {

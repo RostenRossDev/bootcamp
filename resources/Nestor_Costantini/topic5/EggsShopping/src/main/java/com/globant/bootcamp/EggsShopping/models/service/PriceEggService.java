@@ -2,7 +2,6 @@ package com.globant.bootcamp.EggsShopping.models.service;
 
 
 
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,11 +40,10 @@ public class PriceEggService {
 	
 		oldprice.setActual(false);
 		priceDao.save(oldprice);
-		EggsPrice newPrice = new EggsPrice();
-		newPrice.setActual(true);
-		newPrice.setColor(oldprice.getColor());
-		newPrice.setDescription(oldprice.getDescription());
-		newPrice.setPrice(price);
+		
+		EggsPrice newPrice = EggsPrice.builder()
+				.actual(Constants.TRUE).color(oldprice.getColor())
+				.description(oldprice.getDescription()).price(price).build();
 		
 		return priceDao.save(newPrice);
 	}

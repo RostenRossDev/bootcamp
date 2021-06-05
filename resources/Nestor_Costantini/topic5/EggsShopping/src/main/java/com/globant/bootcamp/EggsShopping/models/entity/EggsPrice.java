@@ -1,6 +1,7 @@
 package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +16,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter@Setter@ToString
+@Getter@Setter@ToString@Builder
 @Entity
 @Table(name="tray_price")
 public class EggsPrice implements Serializable{

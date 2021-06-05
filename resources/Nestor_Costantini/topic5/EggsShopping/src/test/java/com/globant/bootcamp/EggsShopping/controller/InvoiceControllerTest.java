@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.globant.bootcamp.EggsShopping.constants.Constants;
 import com.globant.bootcamp.EggsShopping.errors.ErrorHandler;
 import com.globant.bootcamp.EggsShopping.errors.ErrorInfo;
 import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
@@ -63,18 +64,10 @@ class InvoiceControllerTest {
 
 		mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new ErrorHandler()).build();
 
-		item = new InvoiceItem();
-		item.setQuantity(1);
-		item.setId(1L);
-
-		user = new User();
-		user.setId(1L);
-		user.setNickname("RostenRoss");
-		user.setEnabled(true);
-		user.setUsername("Nestor Matias");
-		user.setPassword("12345");
-
+		item = InvoiceItem.builder().quantity(1).id(1L).build();
 		
+		user = User.builder().id(1L).nickname("RostenRoss").enabled(Constants.TRUE).username("Nestor Matias").password("12345").build();
+
 	}
 
 	@AfterEach
@@ -84,12 +77,9 @@ class InvoiceControllerTest {
 
 	@Test
 	void invoiceByIdTest() throws Exception {
-		invoice = new Invoice();
-		invoice.setCreateAt(new Timestamp(new Date().getTime()));
-		invoice.setDescription("Some text");
-		invoice.setId(1L);
-		invoice.setItems(new ArrayList<>());
-		invoice.setUser(user);
+		invoice = Invoice.builder().createAt(new Timestamp(new Date().getTime()))
+				.description("Some text").id(1L).items(new ArrayList<>()).user(user).build();
+	
 		invoice.addIteminvoice(item);
 		
 		given(service.findByUser(1L)).willReturn(List.of(invoice));

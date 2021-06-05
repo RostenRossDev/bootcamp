@@ -15,66 +15,46 @@ import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 
 class EggTest {
 	private Log LOG = LogFactory.getLog(this.getClass());
-	private EggsTray tray1 = new EggsTray();
-	private EggsTray tray2 = new EggsTray();
-	private EggsTray tray3 = new EggsTray();
-	private Egg eggRed = new Egg();
-	private Egg eggRed2 = new Egg();
-	private Egg eggRed3 = new Egg();
-	private Egg eggRed4 = new Egg();
-	private Egg eggRed5 = new Egg();
-	private Egg eggRed6 = new Egg();
-	private Egg eggRed7 = new Egg();
-	private Egg eggWhite = new Egg();
+	private EggsTray tray1 ;
+	private EggsTray tray2;
+	private EggsTray tray3;
+	private Egg eggRed;
+	private Egg eggRed2;
+	private Egg eggRed3;
+	private Egg eggRed4;
+	private Egg eggRed5;
+	private Egg eggRed6;
+	private Egg eggRed7;
+	private Egg eggWhite;
 	 
 	
 	@Test
 	void test() {
-		Color colorRed = new Color();
-		colorRed.setColor("RED");
-		colorRed.setEnable(Constants.TRUE);
-		colorRed.setId(1L);
+		Color colorRed = Color.builder().color("RED").enable(Constants.TRUE).id(1L).build();
+	
+		Color colorWhite = Color.builder().color("WHITE").enable(Constants.TRUE).id(2L).build();
 		
-		Color colorWhite = new Color();
-		colorWhite.setColor(StringConstans.WHITE);
-		colorWhite.setEnable(Constants.TRUE);
-		colorWhite.setId(2L);
+		eggRed = Egg.builder().id(1L).color(colorRed).build();
+		eggRed3 = Egg.builder().id(2L).color(colorRed).build();
+		eggRed4 = Egg.builder().id(1L).color(colorWhite).build();
+		eggRed5= Egg.builder().id(1L).color(colorRed).build();
+		eggRed6= Egg.builder().id(1L).color(colorWhite).build();
+		eggRed7= Egg.builder().id(1L).color(colorWhite).build();
+
+		tray1 = EggsTray.builder().color(colorRed).eggs(new ArrayList<>()).sold(Constants.FALSE).build();
+		tray2 = EggsTray.builder().color(colorRed).eggs(new ArrayList<>()).sold(Constants.FALSE).build();
+		tray3 = EggsTray.builder().color(colorWhite).eggs(new ArrayList<>()).sold(Constants.FALSE).build();
 		
-		eggRed.setId(1L);
-		eggRed.setColor(colorRed);
 		eggRed.setCarton(tray1);
-		eggRed3.setId(1L);
-		eggRed3.setColor(colorRed);
 		eggRed3.setCarton(tray1);
-		eggRed4.setId(2L);
-		eggRed4.setColor(colorWhite);
 		eggRed4.setCarton(tray1);
-		eggRed5.setId(1L);
-		eggRed5.setColor(colorRed);
 		eggRed5.setCarton(tray2);
-		eggRed6.setId(1L);
-		eggRed6.setColor(colorWhite);
 		eggRed6.setCarton(tray3);
-		eggRed7.setId(1L);
-		eggRed7.setColor(colorWhite);
 		eggRed7.setCarton(tray1);
 		eggRed2=eggRed;
 		
-		tray1.setColor(colorRed);
-		tray1.setEggs(new ArrayList<>());
 		tray1.addEgg(eggRed);
-		tray1.setSold(Constants.FALSE);
-		
-		eggRed.setCarton(tray1);
-		
-		tray2.setColor(colorRed);
-		tray2.setEggs(new ArrayList<>());
 		tray2.addEgg(eggRed);
-		tray2.setSold(Constants.TRUE);
-		eggRed5.setCarton(tray2);
-
-		tray3.setColor(colorWhite);
-		tray3.setEggs(new ArrayList<>());
 		tray3.addEgg(eggRed6);
 		
 		

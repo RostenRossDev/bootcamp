@@ -10,88 +10,53 @@ import com.globant.bootcamp.EggsShopping.constants.Constants;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 
+import io.swagger.annotations.Contact;
+
 class EggsTrayTest {
 
-	private EggsTray newEggsTrayRed = new EggsTray();
-	private EggsTray newEggsTrayWhite = new EggsTray();
+	private EggsTray newEggsTrayRed;
+	private EggsTray newEggsTrayWhite;
 	
 	@Test
 	void test() {
-		Color colorRed = new Color();
-		colorRed.setColor(StringConstans.RED);
-		colorRed.setEnable(Constants.TRUE);
-		colorRed.setId(1L);
+		Color colorRed = Color.builder().color(StringConstans.RED).enable(Constants.TRUE).id(1L).build();
 		
-		Color colorWhite = new Color();
-		colorWhite.setColor(StringConstans.WHITE);
-		colorWhite.setEnable(Constants.TRUE);
-		colorWhite.setId(2L);
+		Color colorWhite = Color.builder().color(StringConstans.WHITE).enable(Constants.TRUE).id(2L).build();
+	
+		newEggsTrayRed = EggsTray.builder().eggs(new ArrayList<>()).id(1L).color(colorRed).price(35D)
+				.sold(Constants.FALSE).build();
+		newEggsTrayWhite = EggsTray.builder().eggs(new ArrayList<>()).id(2L).color(colorWhite).price(30D)
+				.sold(Constants.FALSE).build();
 		
-		newEggsTrayRed.setEggs(new ArrayList<Egg>());
-		newEggsTrayWhite.setEggs(new ArrayList<Egg>());
-		newEggsTrayWhite.setId(2L);
-		newEggsTrayWhite.setColor(colorWhite);
-
-		Egg egg =new Egg();
-		Egg egg2 =new Egg();
-		egg.setColor(colorRed);
-		egg2.setColor(colorRed);
-		newEggsTrayWhite.addEgg(egg);
-		newEggsTrayWhite.setPrice(30D);
-		newEggsTrayWhite.setSold(Constants.FALSE);
 		
-		newEggsTrayRed.setId(1L);
-		newEggsTrayRed.setColor(colorRed);
-		newEggsTrayRed.setEggs(new ArrayList<>());
-		newEggsTrayRed.setPrice(35D);
-		newEggsTrayRed.setSold(Constants.FALSE);
-
-		newEggsTrayRed.addEgg(new Egg());
+		Egg egg =Egg.builder().color(colorRed).build();
+		
+		Egg egg2 =Egg.builder().color(colorWhite).build();		
+		
+		newEggsTrayWhite.addEgg(egg2);
+		
+		newEggsTrayRed.addEgg(egg);
 
 		
 		EggsTray newEggsTrayRed2 = newEggsTrayRed;
-		EggsTray newEggsTrayRed3 = new EggsTray();
-		EggsTray newEggsTrayRed4 = new EggsTray();
-		EggsTray newEggsTrayRed5 = new EggsTray();
-		EggsTray newEggsTrayRed6 = new EggsTray();
-		EggsTray newEggsTrayRed7 = new EggsTray();
 		
-		newEggsTrayRed3.setId(1L);
-		newEggsTrayRed3.setColor(colorRed);
-		newEggsTrayRed3.setEggs(new ArrayList<>());
-		newEggsTrayRed3.setPrice(35D);
-		newEggsTrayRed3.setSold(Constants.FALSE);
+		EggsTray newEggsTrayRed3 = EggsTray.builder().id(1L).color(colorRed).eggs(new ArrayList<>())
+				.price(35D).sold(Constants.FALSE).build();
 		
-		newEggsTrayRed4.setId(1L);
-		newEggsTrayRed4.setColor(null);
-		newEggsTrayRed4.setEggs(new ArrayList<>());
-		newEggsTrayRed4.setPrice(35D);
-		newEggsTrayRed4.setSold(Constants.FALSE);
+		EggsTray newEggsTrayRed4 = EggsTray.builder().id(1L).color(null).eggs(new ArrayList<>())
+				.price(35D).sold(Constants.FALSE).build();
 		
-		newEggsTrayRed4.setId(1L);
-		newEggsTrayRed4.setColor(null);
-		newEggsTrayRed4.setEggs(new ArrayList<>());
-		newEggsTrayRed4.setPrice(30D);
-		newEggsTrayRed4.setSold(Constants.FALSE);
+		EggsTray newEggsTrayRed5 = EggsTray.builder().id(1L).color(colorRed).eggs(new ArrayList<>())
+				.price(30D).sold(Constants.FALSE).build();
 		
-		newEggsTrayRed5.setId(1L);
-		newEggsTrayRed5.setColor(colorRed);
-		newEggsTrayRed5.setEggs(new ArrayList<>());
-		newEggsTrayRed5.setPrice(30D);
-		newEggsTrayRed5.setSold(Constants.FALSE);
+		EggsTray newEggsTrayRed6 = EggsTray.builder().id(1L).color(colorRed).eggs(new ArrayList<>())
+				.price(35D).sold(Constants.TRUE).build();
 		
-		newEggsTrayRed6.setId(1L);
-		newEggsTrayRed6.setColor(colorRed);
-		newEggsTrayRed6.setEggs(new ArrayList<>());
-		newEggsTrayRed6.setPrice(35D);
-		newEggsTrayRed6.setSold(Constants.TRUE);
+		EggsTray newEggsTrayRed7 = EggsTray.builder().id(1L).color(colorRed).eggs(new ArrayList<>())
+				.price(35D).sold(Constants.FALSE).build();
 		
-		newEggsTrayRed7.setId(1L);
-		newEggsTrayRed7.setColor(colorRed);
-		newEggsTrayRed7.setEggs(new ArrayList<>());
-		newEggsTrayRed7.setPrice(35D);
-		newEggsTrayRed7.setSold(Constants.FALSE);
 		newEggsTrayRed7.addEgg(egg2);
+
 
 		Assertions.assertFalse(newEggsTrayRed.equals(null));
 		Assertions.assertTrue(newEggsTrayRed == newEggsTrayRed2);

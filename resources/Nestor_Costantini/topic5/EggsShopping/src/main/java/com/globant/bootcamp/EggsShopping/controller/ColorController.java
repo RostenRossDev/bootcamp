@@ -34,10 +34,8 @@ public class ColorController {
 	public ResponseEntity<?> create(@Valid @RequestBody IntegerColorTDA integerColorTda) {
 		Map<String, Object> response= new HashMap<>(); 
 
-		Color color = new Color();
-		color.setColor(integerColorTda.getColor().toUpperCase());
-		color.setEnable(Constants.TRUE);
-		
+		Color color = Color.builder().color(integerColorTda.getColor().toUpperCase()).enable(Constants.TRUE).build();
+			
 		try {
 			color = colorDao.save(color);
 			if (color != null) {

@@ -18,13 +18,13 @@ public class ColorService implements IColorService{
 	@Override
 	public Color findByColor(String color) {
 		// TODO Auto-generated method stub
-		return colorDao.findByColor(color);
+		return colorDao.findByColor(color.toUpperCase());
 	}
 	
 	@Override
 	public List<Color> findAllByColor(String color) {
 		// TODO Auto-generated method stub
-		return colorDao.findAllByColor(color);
+		return colorDao.findAllByColorfindByColorContaining(color.toUpperCase());
 	}
 
 	@Override

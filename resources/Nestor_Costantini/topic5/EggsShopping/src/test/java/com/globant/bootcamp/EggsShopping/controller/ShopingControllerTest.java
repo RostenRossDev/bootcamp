@@ -49,6 +49,8 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.globant.bootcamp.EggsShopping.constants.Constants;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.models.Repository.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.Egg;
@@ -116,47 +118,28 @@ class ShopingControllerTest {
 
 	@BeforeEach
 	void before() {
-		role = new Role();
-		user = new User();
-		this.role.setId(1L);
-		this.role.setName("ROLE_USER");
+		role = Role.builder().id(1L).name("ROLE_USER").build();
+		
 		this.roles = new ArrayList<>();
 		this.roles.add(role);
-		this.user.setId(1L);
-		this.user.setEnabled(true);
-		this.user.setUsername("Rosten");
-		this.user.setNickname("RostenRoss");
-		this.user.setPassword("12345");
-		this.user.setRoles(roles);
-		this.user.setId(1L);
-		invoice= new Invoice();
-		this.invoice.setId(1L);
-		this.invoice.setCreateAt(new Timestamp(new Date().getTime()));
-		this.invoice.setDescription("Rosten");
-		this.invoice.setId(1L);
-		this.invoice.setItems(new ArrayList<>());
-		this.invoice.setUser(user);
-		color = new Color();
-		color.setColor("RED");
-		color.setEnable(true);
-		color.setId(1L);
-		egg = new Egg();
-		egg.setColor(color);
-		eggsTray = new EggsTray();
-		eggsTray.setColor(color);
-		eggsTray.setEggs(new ArrayList<>());
-		egg.setCarton(eggsTray);
-		egg.setId(1L);
+		
+		user = User.builder().id(1L).enabled(Constants.TRUE).username("Rosten")
+				.nickname("RostenRoss").password("12345").roles(roles).build();
+
+		invoice= Invoice.builder().id(1L).createAt(new Timestamp(new Date().getTime()))
+				.description("Rosten").items(new ArrayList<>()).user(user).build();
+		
+		color = Color.builder().color(StringConstans.RED).enable(Constants.TRUE).id(1L).build();
+		
+		eggsTray = EggsTray.builder().color(color).eggs(new ArrayList<>()).build();
+		
+		egg = Egg.builder().color(color).carton(eggsTray).id(1L).build();
+		
 		eggsTray.addEgg(egg);
 
-		invoiceItem = new InvoiceItem();
-		invoiceItem.setCartons(new ArrayList<>());
-		invoiceItem.addCarton(eggsTray);
-		invoiceItem.setId(1L);
-		invoiceItem.setQuantity(1);
-		invoiceItem.setItemMout(35D);	
+		invoiceItem = InvoiceItem.builder().cartons(new ArrayList<>()).id(1L).quantity(1).itemMout(35D).build();
 		invoice.addIteminvoice(invoiceItem);
-		
+			
 		closeable = MockitoAnnotations.openMocks(this);
 
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();

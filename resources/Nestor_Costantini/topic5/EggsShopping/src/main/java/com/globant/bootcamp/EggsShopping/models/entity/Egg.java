@@ -1,6 +1,7 @@
 package com.globant.bootcamp.EggsShopping.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +16,12 @@ import javax.persistence.Table;
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter@Setter@ToString
+@Getter@Setter@ToString@Builder
 @Entity
 @Table(name="eggs_shop")
 public class Egg implements Serializable{

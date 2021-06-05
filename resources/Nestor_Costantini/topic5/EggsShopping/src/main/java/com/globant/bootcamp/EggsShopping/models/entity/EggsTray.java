@@ -20,11 +20,12 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.globant.bootcamp.EggsShopping.enums.Color;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter@Setter@ToString
+@Getter@Setter@ToString@Builder
 @Entity
 @Table(name = "eggs_cartons")
 public class EggsTray implements Serializable {
