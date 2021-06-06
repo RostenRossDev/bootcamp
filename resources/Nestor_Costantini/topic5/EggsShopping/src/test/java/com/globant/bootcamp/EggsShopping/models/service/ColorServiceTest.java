@@ -67,7 +67,7 @@ class ColorServiceTest {
 	}
 	
 	@Test
-	void findAllByColorTestShouldReturnEmptyListWhenWRepositoryNotFoundColors() {
+	void findAllByColorTestShouldReturnEmptyListWhenWRepositoryNotContainsMatches() {
 		
 		given(colorDao.findAll()).willReturn(List.of());
 		
@@ -77,7 +77,7 @@ class ColorServiceTest {
 	}
 			
 	@Test
-	void findAByColorTestSouldReturnColor() {
+	void findAByColorTestSouldReturnColorWhenRepositoryContainsMatches() {
 		
 		given(colorDao.findByColor("RED")).willReturn(color);
 		
@@ -87,7 +87,7 @@ class ColorServiceTest {
 	}
 	
 	@Test
-	void findAByColorTestSouldReturnNulWhenRepositoryNotFoundColor() {
+	void findAByColorTestSouldReturnNulWhenRepositoryNotContainsMatches() {
 		
 		given(colorDao.findByColor("RED")).willReturn(null);
 		
@@ -97,7 +97,7 @@ class ColorServiceTest {
 	}
 	
 	@Test
-	void findByIdTestShouldReturnColorById() {
+	void findByIdTestShouldReturnColorWhenRepositoryContainsMatches() {
 		
 		given(colorDao.findById(1L)).willReturn(colorOp);
 		
@@ -108,7 +108,7 @@ class ColorServiceTest {
 	}
 	
 	@Test
-	void findByIdTestShouldReturnNulWhenRepositoryNotFoundId() {
+	void findByIdTestShouldReturnNulWhenRepositoryNotContainsMatches() {
 		
 		Optional<Color> op =Optional.ofNullable(null);
 	

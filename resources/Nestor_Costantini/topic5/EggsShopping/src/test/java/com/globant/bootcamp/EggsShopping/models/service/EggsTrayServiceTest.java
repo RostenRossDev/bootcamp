@@ -85,7 +85,7 @@ class EggsTrayServiceTest {
 		
 		EggsTray eggTray = service.saveEggTray(null);
 			    
-	    assertEquals(tray, eggTray);
+	    assertEquals(null, eggTray);
 	}
 	
 	@Test
@@ -129,7 +129,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.saveAll(eggsTrays)).willReturn(List.of(tray, anotherTraty));
+		given(repository.saveAll(eggsTrays)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.saveTrayEggs((List)eggsTrays);
 			    
@@ -141,7 +141,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySoldAndColor(false, colorRed)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySoldAndColor(false, colorRed)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findByStockByColor(colorRed);
 			    
@@ -153,7 +153,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = null;
 		
-		given(repository.findBySold(Constants.FALSE)).willReturn(null);
+		given(repository.findBySold(Constants.FALSE)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findByStock();
 			    
@@ -175,7 +175,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findByColor(colorRed)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findByColor(colorRed)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findByColor(colorRed);
 			    
@@ -187,7 +187,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of();
 		
-		given(repository.findByColor(colorBlue)).willReturn(List.of());
+		given(repository.findByColor(colorBlue)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findByColor(colorBlue);
 			    
@@ -200,7 +200,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySold(Constants.FALSE)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySold(Constants.FALSE)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findBySold(Constants.FALSE);
 			    
@@ -208,11 +208,35 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findAllTest() {
+	void findBySoldTestShouldReturnEmptyEggTrayList() {
+		
+		Collection<EggsTray> eggsTrays = List.of();
+		
+		given(repository.findBySold(Constants.FALSE)).willReturn((List)eggsTrays);
+		
+		List<EggsTray> eggTrayTest = service.findBySold(Constants.FALSE);
+			    
+	    assertEquals(eggsTrays, eggTrayTest);
+	}
+	
+	@Test
+	void findAllTestShouldReturnEggsTrayList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findAll()).willReturn(List.of(tray, anotherTraty));
+		given(repository.findAll()).willReturn(eggsTrays);
+		
+		List<EggsTray> eggTrayTest = service.findAll();
+			    
+	    assertEquals(eggsTrays, eggTrayTest);
+	}
+	
+	@Test
+	void findAllTestShouldReturnEmptyEggsTrayList() {
+		
+		Collection<EggsTray> eggsTrays = List.of();
+		
+		given(repository.findAll()).willReturn(eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findAll();
 			    
@@ -224,7 +248,7 @@ class EggsTrayServiceTest {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySoldAndColor(false, colorRed)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySoldAndColor(Constants.FALSE, colorRed)).willReturn(List.of(tray, anotherTraty));
 		
 		List<EggsTray> eggTrayTest = service.findAllByColorAndSold(colorRed, false);
 			    
@@ -232,11 +256,36 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByColorAndSoldTest() {
+	void findAllByColorAndSoldTestShoulReturnEmptyList() {
+		
+		Collection<EggsTray> eggsTrays = List.of( );
+		
+		given(repository.findBySoldAndColor(Constants.FALSE, colorRed)).willReturn((List) eggsTrays);
+		
+		List<EggsTray> eggTrayTest = service.findAllByColorAndSold(colorRed, false);
+			    
+	    assertEquals(eggsTrays, eggTrayTest);
+	}
+	
+	@Test
+	void findAllByColorAndSoldTestShoulReturnAllEggsTrayColorSoldList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
-		given(repository.findBySoldAndColor(false, colorRed)).willReturn(List.of(tray, anotherTraty));
+		given(repository.findBySoldAndColor(Constants.FALSE, colorRed)).willReturn(List.of(tray, anotherTraty));
+		
+		List<EggsTray> eggTrayTest = service.findAllByColorAndSold(colorRed, false);
+			    
+	    assertEquals(eggsTrays, eggTrayTest);
+	}
+	
+	
+	@Test
+	void findByColorAndSoldTestShouldReturnEmptyEggsTrayList() {
+		
+		Collection<EggsTray> eggsTrays = List.of();
+		
+		given(repository.findBySoldAndColor(Constants.FALSE, colorRed)).willReturn((List)eggsTrays);
 		
 		List<EggsTray> eggTrayTest = service.findByColorAndSold(colorRed, false, 2);
 			    

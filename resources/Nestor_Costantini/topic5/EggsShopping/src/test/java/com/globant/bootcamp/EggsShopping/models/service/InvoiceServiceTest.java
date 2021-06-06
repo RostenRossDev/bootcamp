@@ -36,6 +36,8 @@ class InvoiceServiceTest {
 	private AutoCloseable closeable;
 
 	private Invoice invoice;
+	
+	private List<Invoice> emptyInvoice;
 
 	private User user;
 
@@ -50,24 +52,19 @@ class InvoiceServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		closeable = MockitoAnnotations.openMocks(this);
+		
+		emptyInvoice = List.of();
 
-		invoice = new Invoice();
+		invoice = Invoice.builder().id(1L).description("Some Text").createAt(new Timestamp(new Date().getTime()))
+				.user(User.builder().build()).items(new ArrayList<>()).build();
 
-		invoice.setId(1L);
-		invoice.setDescription("Some text");
-		invoice.setCreateAt(new Timestamp(new Date().getTime()));
-		invoice.setUser(new User());
-		invoice.setItems(new ArrayList<>());
-		invoice.addIteminvoice(new InvoiceItem());
+		invoice.addIteminvoice(InvoiceItem.builder().build());
 
 		invoiceOp = Optional.of(invoice);
 		invoiceOp.orElse(null);
 		
-		user = new User();
-		user.setId(1L);
-		user.setNickname("RostenRoss");
-		user.setUsername("Nestor");
-		
+		user = User.builder().id(1L).nickname("RostenRoss").username("Nestor").build();
+				
 		userOp = Optional.of(user);
 		userOp.orElse(null);
 		
@@ -79,7 +76,7 @@ class InvoiceServiceTest {
 	}
 
 	@Test
-	void saveInvoiceTest() {
+	void saveInvoiceTestShouldReturnInvoiceWhenRepositoryPersist() {
 
 		given(repository.save(invoice)).willReturn(invoice);
 
@@ -89,7 +86,17 @@ class InvoiceServiceTest {
 	}
 
 	@Test
-	void findInvoiceByIdTest() {
+	void saveInvoiceTestShouldReturnNullWhenRepositoryNotPersist() {
+
+		given(repository.save(invoice)).willReturn(null);
+
+		Invoice invoiceTest = service.saveInvoice(invoice);
+
+		assertEquals(null, invoiceTest);
+	}
+	
+	@Test
+	void findInvoiceByIdTestShouldReturnInvoiceWhenRepositoryContainsMatches() {
 
 		given(repository.findById(1L)).willReturn(invoiceOp);
 
@@ -97,9 +104,19 @@ class InvoiceServiceTest {
 
 		assertEquals(invoice, invoiceTest);
 	}
+	
+	@Test
+	void findInvoiceByIdTestShouldReturnWhenRepositoryNotContainsMatches() {
+
+		given(repository.findById(1L)).willReturn(null);
+
+		Invoice invoiceTest = service.findInvoiceById(1L);
+
+		assertEquals(null, invoiceTest);
+	}
 
 	@Test
-	void allInvoiceTest() {
+	void allInvoiceTestShouldReturnInvoiceListWhenRepositoryContainsMatches() {
 
 		given(repository.findAll()).willReturn(List.of(invoice));
 
@@ -107,9 +124,19 @@ class InvoiceServiceTest {
 
 		assertEquals(List.of(invoice), invoiceTest);
 	}
+	
+	@Test
+	void allInvoiceTestShouldReturnEmptyInvoiceListWhenRepositoryNotContainsMatches() {
+
+		given(repository.findAll()).willReturn(emptyInvoice);
+
+		List<Invoice> invoiceTest = service.allInvoice();
+
+		assertEquals(emptyInvoice, invoiceTest);
+	}
 
 	@Test
-	void findByUsernameTest() {
+	void findByUsernameTestShouldReturnListWhenRepositoryContainsMatches() {
 		
 		given(repositoryUser.findByUsername("Nestor")).willReturn(user);
 
@@ -119,9 +146,21 @@ class InvoiceServiceTest {
 
 		assertEquals(List.of(invoice), invoiceTest);
 	}
+	
+	@Test
+	void findByUsernameTestShouldReturnEmptyListWhenRepositoryNotContainsMatches() {
+		
+		given(repositoryUser.findByUsername("Nestor")).willReturn(user);
+
+		given(repository.findByUser(user)).willReturn(emptyInvoice);
+
+		List<Invoice> invoiceTest = service.findByUsername("Nestor");
+
+		assertEquals(emptyInvoice, invoiceTest);
+	}
 
 	@Test
-	void findByUserTest() {
+	void findByUserTestShouldReturnListWhenRepositoryContainsMatches() {
 
 		given(repositoryUser.findById(1L)).willReturn(userOp);
 
@@ -132,4 +171,15 @@ class InvoiceServiceTest {
 		assertEquals(List.of(invoice), invoiceTest);
 	}
 
+	@Test
+	void findByUserTestShouldReturnEmptyListWhenRepositoryNotContainsMatches() {
+
+		given(repositoryUser.findById(1L)).willReturn(userOp);
+
+		given(repository.findByUser(user)).willReturn(emptyInvoice);
+
+		List<Invoice> invoiceTest = service.findByUser(1L);
+
+		assertEquals(emptyInvoice, invoiceTest);
+	}
 }
