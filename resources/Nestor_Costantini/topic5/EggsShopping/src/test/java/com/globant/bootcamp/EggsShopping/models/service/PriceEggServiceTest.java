@@ -2,7 +2,16 @@ package com.globant.bootcamp.EggsShopping.models.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.PersistenceException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,17 +19,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.globant.bootcamp.EggsShopping.constants.Constants;
+import com.globant.bootcamp.EggsShopping.constants.StringConstans;
 import com.globant.bootcamp.EggsShopping.models.Repository.IEggPriceDao;
-import com.globant.bootcamp.EggsShopping.models.Repository.IInvoiceDao;
-import com.globant.bootcamp.EggsShopping.models.Repository.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
-import com.globant.bootcamp.EggsShopping.models.entity.Egg;
 import com.globant.bootcamp.EggsShopping.models.entity.EggsPrice;
-import com.globant.bootcamp.EggsShopping.models.entity.EggsTray;
-import com.globant.bootcamp.EggsShopping.models.entity.Invoice;
-import com.globant.bootcamp.EggsShopping.models.entity.User;
 
 class PriceEggServiceTest {
+	
+	private final Log LOG = LogFactory.getLog(this.getClass());	
+
 	@Mock
 	private IEggPriceDao repository;
 
@@ -33,20 +41,21 @@ class PriceEggServiceTest {
 	
 	private EggsPrice price;
 	
+	private EggsPrice anotherPrice;
+		
+	EggsPrice updatePrice;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		closeable =  MockitoAnnotations.openMocks(this);
-		color = new Color();
-		color.setColor("RED");
-		color.setId(1L);
-		color.setEnable(true);
 		
-		price = new EggsPrice();
-		price.setActual(true);
-		price.setColor(color);
-		price.setDescription("Some text");
-		price.setId(1L);
-		price.setPrice(35D);
+		color = Color.builder().color(StringConstans.RED).id(1L).enable(Constants.TRUE).build();
+				
+		price = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").id(1L).price(35D).build();
+		
+		anotherPrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").id(2L).price(35D).build();
+	
+		
 	}
 
 	@AfterEach
@@ -55,7 +64,7 @@ class PriceEggServiceTest {
 	}
 
 	@Test
-	void priceByColorTest() {
+	void priceByColorTestShouldReturnDoubleWhenRepositoryContainsMatches() {
 
 		given(repository.findByColorAndActual(color, true)).willReturn(price);
 		
@@ -65,24 +74,108 @@ class PriceEggServiceTest {
 	}
 	
 	@Test
-	void updatePriceTest() {
-		EggsPrice updatePrice = new EggsPrice();
-		updatePrice.setActual(true);
-		updatePrice.setColor(color);
-		updatePrice.setDescription("Some text");
-		updatePrice.setId(2L);
-		updatePrice.setPrice(40D);
-				
+	void priceByColorTestShouldReturnNullWhenRepositoryNotContainsMatches() {
+
+		given(repository.findByColorAndActual(color, true)).willReturn(null);
+		
+		Double priceD = service.priceByColor(color);
+			    
+	    assertEquals(null, priceD);
+	}
+	
+	@Test
+	void updatePriceTestShouldReturnPriceWhenRepositoryPersist() {
+						
+		updatePrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some text").id(3L).price(40D).build();
+
+		given(repository.findByColorAndActual(color, true)).willReturn(price);
+						
+		given(repository.save(updatePrice)).willReturn(updatePrice);
+		
+		EggsPrice priceTest = service.updatePrice(color, 40D);
+		
+		LOG.info(priceTest);
+			    
+	    assertEquals(updatePrice, priceTest);
+	}
+	
+	@Test
+	void updatePriceTestShouldThrowPersistenceExceptionWhenSaveOldPriceRepositoryFail() throws PersistenceException{
+		
+		given(repository.findByColorAndActual(color, true)).willReturn(price);
+		
+		given(repository.save(price)).willThrow(new PersistenceException("The expected message"));
+		
+		given(repository.save(updatePrice)).willReturn(updatePrice);		    
+	}
+	
+	@Test
+	void updatePriceTestShouldThrowPersistenceExceptionWhenSaveNewPriceRepositoryFail() throws PersistenceException{
+		
 		given(repository.findByColorAndActual(color, true)).willReturn(price);
 		
 		given(repository.save(price)).willReturn(price);
 		
-		given(repository.save(updatePrice)).willReturn(updatePrice);
-		
-		EggsPrice priceTest = service.updatePrice(color, 40D);
-			    
-	    assertNotEquals(price, priceTest);
+		given(repository.save(updatePrice)).willThrow(new PersistenceException("The expected message"));			    
 	}
 
+	@Test
+	void deletePriceByIdTestShouldThrowPersistenceExceptionWhenDeletePriceRepositoryFail(){
+		
+	        // perform the call
+		 	service.deletePriceById(price.getId());
 
+	        // verify the mocks
+	        verify(repository, times(1)).deleteById(price.getId());
+    }
+	
+	@Test
+	void allEggsPricesTestShouldReturnListWhenRepositoryContainsMatches(){
+		
+		Collection<EggsPrice> prices = List.of(price, anotherPrice);
+		
+		given(repository.findAll()).willReturn((List)prices);
+				
+		List<EggsPrice> priceTest = service.allEggsPrices();
+	    
+	    assertEquals(prices, priceTest);
+	}
+	
+	@Test
+	void allEggsPricesTestShouldReturnEmptyListWhenRepositoryNotContainsMatches(){
+		
+		Collection<EggsPrice> prices = List.of();
+		
+		given(repository.findAll()).willReturn((List)prices);
+				
+		List<EggsPrice> priceTest = service.allEggsPrices();
+	    
+	    assertEquals(prices, priceTest);
+	}
+	
+
+	@Test
+	void allEggsByColorPricesTestShouldReturnListWhenRepositoryContainsMatches(){
+		
+		Collection<EggsPrice> prices = List.of(price, anotherPrice);
+		
+		given(repository.findByColor(color)).willReturn((List)prices);
+				
+		List<EggsPrice> priceTest = service.allEggsPriceByColor(color);
+	    
+	    assertEquals(prices, priceTest);
+	}
+	
+	@Test
+	void allEggsPriceByColorTestShouldReturnEmptyListWhenRepositoryContainsMatches(){
+		
+		Collection<EggsPrice> prices = List.of();
+		
+		given(repository.findByColor(color)).willReturn((List)prices);
+				
+		List<EggsPrice> priceTest = service.allEggsPrices();
+	    
+	    assertEquals(prices, priceTest);
+	}
+	
 }
