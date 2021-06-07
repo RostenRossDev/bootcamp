@@ -2,6 +2,8 @@ package com.globant.bootcamp.EggsShopping.models.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -107,8 +109,10 @@ class InvoiceServiceTest {
 	
 	@Test
 	void findInvoiceByIdTestShouldReturnWhenRepositoryNotContainsMatches() {
+		
+		invoiceOp =Optional.ofNullable(null);
 
-		given(repository.findById(1L)).willReturn(null);
+		given(repository.findById(1L)).willReturn(invoiceOp);
 
 		Invoice invoiceTest = service.findInvoiceById(1L);
 
@@ -182,4 +186,14 @@ class InvoiceServiceTest {
 
 		assertEquals(emptyInvoice, invoiceTest);
 	}
+	
+	@Test
+	void deleteRoleTestShouldThrowPersistenceExceptionWhenDeletePriceRepositoryFail() {
+		  // perform the call
+	 	service.deleteInvoice(1L);
+
+        // verify the mocks
+        verify(repository, times(1)).delete(invoice);
+	}
+	
 }
