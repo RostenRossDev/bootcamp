@@ -3,6 +3,8 @@ package com.globant.bootcamp.EggsShopping.models.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
+import javax.persistence.PersistenceException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,13 +58,10 @@ class EggServiceTest {
 	}
 	
 	@Test
-	void eggSaveTestSouldReturnNull() {
+	void eggSaveTestSouldReturnNull() throws PersistenceException{
 		
-		given(repository.save(null)).willReturn(null);
-		
-		Egg eggTest = service.save(null);
-			    
-	    assertEquals(null, eggTest);
+		given(repository.save(egg)).willThrow(new PersistenceException("The expected message"));			    
+
 	}
 
 }

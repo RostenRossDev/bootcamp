@@ -18,8 +18,13 @@ public class RoleService implements IRoleService{
     @Transactional(readOnly = true)
 	@Override
 	public Role findOne(Long id) {
-		 Optional<Role> role =roleDao.findById(id);
-		return role.get();
+    	return roleDao.findById(id).orElse(null);
 	}
+    
+    @Transactional
+    public Role createRole(Role role) {
+    	
+    	return roleDao.save(role); 
+    }	
 
 }
