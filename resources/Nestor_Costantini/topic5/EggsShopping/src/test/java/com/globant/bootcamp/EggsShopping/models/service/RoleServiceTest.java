@@ -2,6 +2,8 @@ package com.globant.bootcamp.EggsShopping.models.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Optional;
 
@@ -88,7 +90,30 @@ class RoleServiceTest {
 		Role roleTest = service.createRole(role);
 				
 	    assertEquals(role, roleTest);
-    
+	}
+	
+	@Test
+	void deleteRoleTestShouldThrowPersistenceExceptionWhenDeletePriceRepositoryFail() {
+		  // perform the call
+	 	service.deleteRole(role);
+
+        // verify the mocks
+        verify(repository, times(1)).delete(role);
 	}
 
+	@Test
+	void updateRoleTestShouldThrowPersistenceExceptionWhenSaveNewPriceRepositoryFail()  throws PersistenceException {
+				
+		given(repository.save(role)).willThrow(new PersistenceException("The expected message"));			    
+	}
+	
+	@Test
+	void updateRoleTestShouldReturnRoleWhenRepositoryPersist() throws PersistenceException {
+		
+		given(repository.save(role)).willReturn(role);
+		
+		Role roleTest = service.updateRoles(role);
+				
+	    assertEquals(role, roleTest);
+	}
 }

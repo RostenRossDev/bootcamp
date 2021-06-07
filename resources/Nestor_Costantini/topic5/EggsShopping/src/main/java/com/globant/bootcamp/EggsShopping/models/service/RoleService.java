@@ -26,5 +26,16 @@ public class RoleService implements IRoleService{
     	
     	return roleDao.save(role); 
     }	
-
+    
+    @Transactional
+    public void deleteRole(Role role) {
+    	
+    	roleDao.delete(role); 
+    }
+    
+    @Transactional
+    public Role updateRoles(Role role) {
+    	
+    	return roleDao.save(role); 
+    }
 }
