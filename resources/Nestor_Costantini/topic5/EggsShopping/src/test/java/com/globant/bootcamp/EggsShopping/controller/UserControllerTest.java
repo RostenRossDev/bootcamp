@@ -15,11 +15,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.globant.bootcamp.EggsShopping.constants.Constants;
@@ -64,6 +67,7 @@ class UserControllerTest {
 	
 	
 	private ResponseEntity<?> response ;
+	private ResponseEntity<?> response500 ;
 	
 	private ResponseEntity<?> EmptyListResponse ;
 	
@@ -94,6 +98,7 @@ class UserControllerTest {
 		responseMap.put("user", updateUser);
 		
 		response = new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
+		response500 = new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
 
 		Map<String, Object> mapResponse = new HashMap<String, Object>();
 		mapResponse.put("list", List.of());
@@ -130,6 +135,31 @@ class UserControllerTest {
 	 * }
 	 */
 	
+	
+	//create user
+	
+	@Test
+	void CreateTestShouldResponsUserWhenCreateIsCalled() {
+		BindingResult errors = new BindException("error", "error");
+
+		Mockito.doReturn(response).when(controller).create(user,errors);
+	    Assertions.assertEquals(response, controller.create(user,errors));
+	}
+	
+	@Test
+	void CreateTestShouldResponsStatus200OkWhenCreateIsCalled() {
+		BindingResult errors = new BindException("error", "error");
+
+		Mockito.doReturn(response).when(controller).create(user,errors);
+	    Assertions.assertEquals(HttpStatus.OK, controller.create(user,errors).getStatusCode());
+	}
+	@Test
+	void CreateTestShouldResponsStatus500InternalServerErrorWhenCreateIsCalled() {
+		BindingResult errors = new BindException("error", "error");
+		Mockito.doReturn(response500).when(controller).create(user,errors);
+	    Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, controller.create(user,errors).getStatusCode());
+	}
+	
 	//allUser
 
 	@Test
@@ -139,7 +169,7 @@ class UserControllerTest {
 	}
 	
 	@Test
-	void AllUserTesReturnResponseStatusCode200OkWhenAllUser() throws Exception {
+	void AllUserTesShouldResponseStatusCode200OkWhenAllUser() throws Exception {
 
 		Mockito.doReturn(EmptyListResponse).when(controller).getAll();
 	    Assertions.assertEquals(HttpStatus.OK, controller.getAll().getStatusCode());

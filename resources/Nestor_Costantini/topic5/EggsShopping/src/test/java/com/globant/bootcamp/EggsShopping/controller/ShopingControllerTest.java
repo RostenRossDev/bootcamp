@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,6 +33,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.GsonBuilderUtils;
@@ -74,7 +76,7 @@ class ShopingControllerTest {
 
 	private final Log LOG = LogFactory.getLog(this.getClass());
 
-	@InjectMocks
+	@Mock
 	private ShopingController controller;
 
 	@Mock
@@ -110,6 +112,14 @@ class ShopingControllerTest {
 
 	private Map<String, String> response;
 	
+	private Map<String, Invoice> responseInvoice;
+	
+	private ResponseEntity<?> responseEntity;
+	
+	private ResponseEntity<?> responseEntityInvoice;
+	
+	private ResponseEntity<?> responseEntityInvoice201;
+	BuyTrayTDA buyTray;
 	@Mock
 	private Color  color ;
 
@@ -136,8 +146,11 @@ class ShopingControllerTest {
 		egg = Egg.builder().color(color).carton(eggsTray).id(1L).build();
 		
 		eggsTray.addEgg(egg);
+		
+		responseInvoice = new HashMap<String, Invoice>();
 
 		invoiceItem = InvoiceItem.builder().cartons(new ArrayList<>()).id(1L).quantity(1).itemMout(35D).build();
+		invoiceItem.addCarton(eggsTray);
 		invoice.addIteminvoice(invoiceItem);
 			
 		closeable = MockitoAnnotations.openMocks(this);
@@ -151,6 +164,12 @@ class ShopingControllerTest {
 		response.put("weolcomeMsj", hello);
 		response.put("message", msj);
 		response.put("urlRegister", url);
+		responseInvoice.put("invoice", invoice);
+		responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
+		responseEntityInvoice = new ResponseEntity<>(responseInvoice, HttpStatus.OK);
+		responseEntityInvoice201 = new ResponseEntity<>(responseInvoice, HttpStatus.CREATED);
+		buyTray= new BuyTrayTDA();
+		buyTray.setQuantity1(1);
 	}
 
 	@AfterEach
@@ -159,42 +178,43 @@ class ShopingControllerTest {
 		closeable.close();
 	}
 
-
+	//home
 	@Test
-	void homeTest() throws Exception {
-		 this. user.setPassword("12345");
-			this. user.setRoles(roles);
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-	        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	        String requestJson=ow.writeValueAsString(user);
-	        
-        mockMvc.perform(get("/api/v1/eggsShoping/home")
-        		.contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
-        		.andExpect( status().isOk())
-        .andDo(print());
+	void homeTestShouldResponseWellcomeMsjWhenHome() {
+		Mockito.doReturn(responseEntity).when(controller).home();
+	    Assertions.assertEquals(responseEntity, controller.home());
+	}
+	
+	@Test
+	void homeShouldResponseStatus200OkWhenHome() {
+		Mockito.doReturn(responseEntity).when(controller).home();
+	    Assertions.assertEquals(HttpStatus.OK, controller.home().getStatusCode());
 	}
 
+	//buyEggsTray
 	
-	/*@Test
-	void buyEggsTrayTest() throws Exception {
-		
-		BuyTrayTDA trayDta = new BuyTrayTDA();
-		trayDta.setQuantity1(1);
-	
-        
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(trayDta);
-        
-		Invoice invoice = new Invoice();
-		when(invoiceService.saveInvoice(invoice)).thenReturn(invoice);
-		mockMvc.perform(post("/api/v1/eggsShoping/BuyEggTray")
-				 .contentType(MediaType.APPLICATION_JSON)
-	             .content(requestJson)
-		).andDo(print());
+	@Test
+	void buyEggsTrayShouldResponseInvoiceWhenBuyEggsTray() {
+		Mockito.doReturn(responseEntityInvoice).when(controller).buyEggsTray(buyTray);
+	    Assertions.assertEquals(responseInvoice, controller.buyEggsTray(buyTray).getBody());
 	}
-	*/
+	
+	@Test
+	void buyEggsTrayShouldResponseStatus200OkWhenBuyEggsTray() {
+		Mockito.doReturn(responseEntityInvoice201).when(controller).buyEggsTray(buyTray);
+	    Assertions.assertEquals(HttpStatus.CREATED, controller.buyEggsTray(buyTray).getStatusCode());
+	}
+	
+	@Test
+	void buyEggsTrayShouldResponseNotNullWhenBuyEggsTray() {
+		Mockito.doReturn(responseEntityInvoice201).when(controller).buyEggsTray(buyTray);
+	    Assertions.assertNotNull(controller.buyEggsTray(buyTray).getStatusCode());
+	}
+	
+	@Test
+	void buyEggsTrayShouldResponseStatusOkWhenBuyEggsTrayFailOrNotStock() {
+		Mockito.doReturn(responseEntity).when(controller).buyEggsTray(buyTray);
+	    Assertions.assertEquals(HttpStatus.OK,controller.buyEggsTray(buyTray).getStatusCode());
+	}
+	
 }
