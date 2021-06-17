@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.globant.bootcamp.EggsShopping.models.Repository.IInvoiceDao;
@@ -88,7 +89,7 @@ class InvoiceServiceTest {
 	}
 
 	@Test
-	void saveInvoiceTestShouldReturnNullWhenRepositoryNotPersist() {
+	void saveInvoiceTestShouldReturnNullWhenRepositoryFailPersist() {
 
 		given(repository.save(invoice)).willReturn(null);
 
@@ -191,9 +192,10 @@ class InvoiceServiceTest {
 	void deleteRoleTestShouldThrowPersistenceExceptionWhenDeletePriceRepositoryFail() {
 		  // perform the call
 	 	service.deleteInvoice(1L);
-
         // verify the mocks
-        verify(repository, times(1)).delete(invoice);
+	 	Mockito.verify(repository, times(1))
+        .deleteById(invoice.getId());
+        //verify(repository, times(1)).delete(invoice);
 	}
 	
 }

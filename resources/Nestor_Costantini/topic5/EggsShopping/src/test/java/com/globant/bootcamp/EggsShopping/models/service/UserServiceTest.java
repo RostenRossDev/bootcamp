@@ -2,21 +2,32 @@ package com.globant.bootcamp.EggsShopping.models.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.globant.bootcamp.EggsShopping.models.Repository.IUserDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Role;
@@ -25,6 +36,8 @@ import com.globant.bootcamp.EggsShopping.models.entity.User;
 import javassist.NotFoundException;
 
 class UserServiceTest {
+	private final Log LOG = LogFactory.getLog(this.getClass());	
+
 	@Mock
 	private IUserDao repository;
 
@@ -39,6 +52,8 @@ class UserServiceTest {
 	
 	private User updateuser;
 	
+	private User nullUser;
+	
 	private Optional<User> userOp;
 	
 	private org.springframework.security.core.userdetails.User userDetail;
@@ -47,27 +62,22 @@ class UserServiceTest {
 	void setUp() throws Exception {
 		closeable =  MockitoAnnotations.openMocks(this);
 
-		role= new Role();
-		role.setId(1l);
-		role.setName("ROLE_ADMIN");
+		nullUser = null;
 		
-		user = new User();
-		user.setEnabled(true);
-		user.setId(1L);
-		user.setNickname("RostenRoss");
-		user.setUsername("Nestor");
-		user.setPassword("12345");
+		role= Role.builder().id(1L).name("ROLE_ADMIN").build();
+		
+		user = User.builder().enabled(true).id(1L).nickname("RostenRoss")
+				.username("Nestor").password("12345").build();
+		
 		List<Role> roles = new ArrayList<>();
 		roles.add(role);
 		user.setRoles(roles);
 		
-		updateuser = new User();
-		updateuser.setEnabled(true);
-		updateuser.setId(1L);
-		updateuser.setNickname("RostenRoss");
-		updateuser.setUsername("Nestor Costantini");
-		updateuser.setPassword("12345");
+		updateuser = User.builder().enabled(Boolean.TRUE).id(1L).nickname("RostenRoss")
+				.username("Nestor Costantini").password("12345").build();
+		
 		roles.add(role);
+		
 		updateuser.setRoles(roles);
 		
 		userOp = Optional.of(user);
@@ -88,7 +98,7 @@ class UserServiceTest {
 	}
 
 	@Test
-	void loadUserByUsernameTest() {
+	void loadUserByUsernameTestShuoldReturnUserWhenRepositoryContainsMatches() {
 		
 		given(repository.findByUsername("Nestor")).willReturn(user);
 				
@@ -97,10 +107,27 @@ class UserServiceTest {
 	    assertEquals(userDetail, userTest);
 	    
 	}
+	
+	@Test
+	void loadUserByUsernameTestShuoldReturnThrowUsernameNotFoundException() {
+	
+		User nullUser = null;	
+		
+		given(repository.findByUsername("NestorD")).willReturn(nullUser); 
+	        
+		UsernameNotFoundException usernameNotFoundException =  assertThrows(UsernameNotFoundException.class, () -> {
+	    	   service.loadUserByUsername("NestorD");
+	       		});
+	       String expectedMessage = "User NestorD don`t exist!";
+	       String actualMessage = usernameNotFoundException.getMessage();
+
+	       assertTrue(actualMessage.contains(expectedMessage));
+	}
+
 
 	
 	@Test
-	void findByUsernameTest() {
+	void findByUsernameTestShouldReturnUserWhenRepositoryContainsMatches() {
 		
 		given(repository.findByUsername("Nestor")).willReturn(user);
 				
@@ -111,7 +138,20 @@ class UserServiceTest {
 	}
 	
 	@Test
-	void findByIdTest() {
+	void findByUsernameTestShouldReturNUllWhenRepositoryNotContainsMatches() {
+		
+		User nullUser = null;
+		given(repository.findByUsername("Nestor")).willReturn(nullUser);
+				
+		User userTest = service.findByUsername("Nestor");
+				
+	    assertEquals(nullUser, userTest);
+	    
+	}
+	
+	
+	@Test
+	void findByIdTestShouldReturnUserWhenRepositoryContainMatches() {
 		
 		given(repository.findById(1L)).willReturn(userOp);
 				
@@ -122,7 +162,41 @@ class UserServiceTest {
 	}
 	
 	@Test
-	void createUserTest() {
+	void findByIdTestShouldReturnNullWhenRepositoryNotContainMatches() {
+		
+		Optional<User> nullOpUser =Optional.ofNullable(null);
+		
+		given(repository.findById(1L)).willReturn(nullOpUser);
+				
+		User userTest = service.findById(1L);
+				
+	    assertEquals(nullUser, userTest);
+	    
+	}
+	
+	@Test
+	void createUserTestShouldReturnUserWhenRepositoryPersist() {
+		
+		given(repository.save(user)).willReturn(user);
+				
+		User userTest = service.createUser(user);
+				
+	    assertEquals(user, userTest);
+	    
+	}
+	@Test
+	void createUserTestShouldReturnNullUserWhenRepositoryFailPersist() {
+		
+		given(repository.save(user)).willReturn(nullUser);
+				
+		User userTest = service.createUser(user);
+				
+	    assertEquals(nullUser, userTest);
+	    
+	}
+	
+	@Test
+	void createUserTestShouldUserWhenRepositoryUpdate() {
 		
 		given(repository.save(user)).willReturn(user);
 				
@@ -132,6 +206,15 @@ class UserServiceTest {
 	    
 	}
 	
+	@Test
+	void createUserTestShouldUserWhenRepositoryFailUpdate() throws EntityNotFoundException{
+		
+		given(repository.save(user)).willReturn(user).willThrow(new EntityNotFoundException("The expected message"));
+				
+		//User userTest = service.createUser(user);
+				
+	    //assertEquals(user, userTest);
+	}
 	@Test
 	void updateTest() {
 		

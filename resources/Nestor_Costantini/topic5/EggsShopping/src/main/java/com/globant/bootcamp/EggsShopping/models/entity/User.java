@@ -18,6 +18,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.http.ResponseEntity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Builder;
@@ -79,4 +81,9 @@ public class User implements Serializable{
 	}
 
 	private static final long serialVersionUID = 1L;
+
+	public Object thenReturn(ResponseEntity<?> response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -48,7 +48,7 @@ class EggServiceTest {
 	}
 
 	@Test
-	void eggSaveTestSouldReturnEgg() {
+	void eggSaveTestShouldReturnEggWhenRepositoryPersist() {
 		
 		given(repository.save(egg)).willReturn(egg);
 		
@@ -58,9 +58,9 @@ class EggServiceTest {
 	}
 	
 	@Test
-	void eggSaveTestSouldReturnNull() throws PersistenceException{
+	void eggSaveTestShouldThrowPersistenceExceptionWhenRepositorySaveNullObject() throws PersistenceException{
 		
-		given(repository.save(egg)).willThrow(new PersistenceException("The expected message"));			    
+		given(repository.save(null)).willThrow(new PersistenceException("The expected message"));			    
 
 	}
 

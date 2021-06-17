@@ -8,4 +8,5 @@ import com.globant.bootcamp.EggsShopping.models.entity.Egg;
 @Repository
 public interface IEggDao extends CrudRepository<Egg, Long>{
 
+	
 }

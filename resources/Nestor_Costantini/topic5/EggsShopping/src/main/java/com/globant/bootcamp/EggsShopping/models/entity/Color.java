@@ -31,7 +31,7 @@ public class Color implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique=true, length=20 , nullable = false)
+	@Column(length=20 , nullable = false)
 	@NotBlank(message = "Color name must contain at least onenon-whitespace character")
 	@NotEmpty(message = "Color name cannot be null")	
 	private String color;

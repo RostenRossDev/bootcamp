@@ -41,9 +41,15 @@ class PriceEggServiceTest {
 	
 	private EggsPrice price;
 	
+	private EggsPrice oldPrice;
+	
+	private EggsPrice oldPriceDisabled;
+	
 	private EggsPrice anotherPrice;
 		
-	EggsPrice updatePrice;
+	private EggsPrice updatePrice;
+	
+	private EggsPrice persistPrice;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -51,10 +57,17 @@ class PriceEggServiceTest {
 		
 		color = Color.builder().color(StringConstans.RED).id(1L).enable(Constants.TRUE).build();
 				
-		price = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").id(1L).price(35D).build();
+		price = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").price(35D).build();
 		
-		anotherPrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").id(2L).price(35D).build();
+		updatePrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").price(40D).build();
+		
+		persistPrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").id(2L).price(40D).build();
+		
+		oldPrice = EggsPrice.builder().actual(Constants.FALSE).color(color).description("Some Text").id(1L).price(35D).build();
+		
+		anotherPrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some Text").id(3L).price(35D).build();
 	
+		oldPriceDisabled = EggsPrice.builder().actual(Constants.FALSE).color(color).description("Some Text").id(3L).price(35D).build();
 		
 	}
 
@@ -85,18 +98,16 @@ class PriceEggServiceTest {
 	
 	@Test
 	void updatePriceTestShouldReturnPriceWhenRepositoryPersist() {
-						
-		updatePrice = EggsPrice.builder().actual(Constants.TRUE).color(color).description("Some text").id(3L).price(40D).build();
-
-		given(repository.findByColorAndActual(color, true)).willReturn(price);
-						
-		given(repository.save(updatePrice)).willReturn(updatePrice);
+			
+		//given(repository.disableColor(false, color, true)).willReturn(oldPriceDisabled);
+										
+		given(repository.save(oldPrice)).willReturn(oldPriceDisabled);
 		
-		EggsPrice priceTest = service.updatePrice(color, 40D);
+		given(repository.save(updatePrice)).willReturn(persistPrice);
 		
-		LOG.info(priceTest);
-			    
-	    assertEquals(updatePrice, priceTest);
+		EggsPrice priceTest = service.updatePrice(updatePrice,oldPrice);
+					    
+	    assertEquals(persistPrice, priceTest);
 	}
 	
 	@Test

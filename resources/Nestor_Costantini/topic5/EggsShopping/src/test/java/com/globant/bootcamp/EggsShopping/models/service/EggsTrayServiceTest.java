@@ -69,7 +69,7 @@ class EggsTrayServiceTest {
 	}
 
 	@Test
-	void saveEggTrayTestShouldSaveTray() {
+	void saveEggTrayTestShouldReturnEggTrayWhenRepositoryPersist() {
 		
 		given(repository.save(tray)).willReturn(tray);
 		
@@ -79,7 +79,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void saveEggTrayTestShoulReturnNull() {
+	void saveEggTrayTestShoulReturnNullWhenRepositorySaveNullEggyTray() {
 		
 		given(repository.save(null)).willReturn(null);
 		
@@ -89,7 +89,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void updateEggsTrayListTestShouldReturnUpdatedEggsTray() {
+	void updateEggsTrayListTestShouldReturnUpdatedEggsTrayWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> trays = List.of(tray, anotherTraty);
 		
@@ -101,19 +101,19 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void updateEggsTrayListTestShouldReturnNotFound() {
+	void updateEggsTrayListTestShouldReturnEmptyListWhenRepositoryUpdateNullEggTrayList() {
 		
 		Collection<EggsTray> trays = List.of(tray, anotherTraty);
-		
-		given(repository.saveAll(trays)).willReturn(trays);
+		Collection<EggsTray> nullTrays = null;
+		given(repository.saveAll(trays)).willReturn(nullTrays);
 		
 		List<EggsTray> traysTest = service.updateEggsTrayList((List)trays);
 			    
-	    assertEquals(trays, traysTest);
+	    assertEquals(nullTrays, traysTest);
 	}
 	 
 	@Test
-	void saveEggTrayListTestShouldReturnNull() {
+	void saveEggTrayListTestShouldReturnNullWhenRepositoryPersistFail() {
 		
 		Collection<EggsTray> eggsTrays = null;
 		
@@ -125,7 +125,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void saveEggTrayListTestShouldReturnList() {
+	void saveEggTrayListTestShouldReturnListWhenRepositoryPersistList() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -137,7 +137,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByStockByColorTestShouldReturnColorList() {
+	void findByStockByColorTestShouldReturnColorListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -149,7 +149,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByStockTestTestShouldReturnNull() {
+	void findByStockTestTestShouldReturnNullWhenRepositoryNotContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = null;
 		
@@ -161,7 +161,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByStockTestTesByNonExistinEggsTraytShouldReturnEmptyList() {
+	void findByStockTestTesShouldReturnEmptyListWhenRepositoryNotContainsMatches() {
 				
 		given(repository.findBySold(Constants.FALSE)).willReturn(List.of());
 		
@@ -171,7 +171,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByColorTestShouldReturnEggsTrayList() {
+	void findByColorTestShouldReturnEggsTrayListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -183,7 +183,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findByColorTestShouldReturnEmptyEggsTrayList() {
+	void findByColorTestShouldReturnEmptyEggsTrayListWhenRepositoryNotContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of();
 		
@@ -196,7 +196,7 @@ class EggsTrayServiceTest {
 	
 	
 	@Test
-	void findBySoldTestShouldReturnSoldEggTrayList() {
+	void findBySoldTestShouldReturnSoldEggTrayListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -208,7 +208,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findBySoldTestShouldReturnEmptyEggTrayList() {
+	void findBySoldTestShouldReturnEmptyEggTrayListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of();
 		
@@ -220,7 +220,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findAllTestShouldReturnEggsTrayList() {
+	void findAllTestShouldReturnEggsTrayListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -232,7 +232,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findAllTestShouldReturnEmptyEggsTrayList() {
+	void findAllTestShouldReturnEmptyEggsTrayListWhenRepositoryNotContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of();
 		
@@ -244,7 +244,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findAllByColorAndSoldTest() {
+	void findAllByColorAndSoldTestShouldReturnListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -256,7 +256,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findAllByColorAndSoldTestShoulReturnEmptyList() {
+	void findAllByColorAndSoldTestShoulReturnEmptyListWhenRepositoryNotContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of( );
 		
@@ -268,7 +268,7 @@ class EggsTrayServiceTest {
 	}
 	
 	@Test
-	void findAllByColorAndSoldTestShoulReturnAllEggsTrayColorSoldList() {
+	void findAllByColorAndSoldTestShoulReturnListWhenRepositoryContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of(tray, anotherTraty);
 		
@@ -281,7 +281,7 @@ class EggsTrayServiceTest {
 	
 	
 	@Test
-	void findByColorAndSoldTestShouldReturnEmptyEggsTrayList() {
+	void findByColorAndSoldTestShouldReturnEmptyListWhenRepositoryNotContainsMatches() {
 		
 		Collection<EggsTray> eggsTrays = List.of();
 		

@@ -53,7 +53,6 @@ class ColorServiceTest {
 		closeable.close();
 	}
 
-
 	@Test
 	void findAllByColorTestShouldReturnMatchingColorNamesIgnoringCaseWhenRepositoryContainsMatches() {
 		
@@ -77,7 +76,7 @@ class ColorServiceTest {
 	}
 			
 	@Test
-	void findAByColorTestSouldReturnColorWhenRepositoryContainsMatches() {
+	void findAByColorTestShouldReturnColorWhenRepositoryContainsMatches() {
 		
 		given(colorDao.findByColor("RED")).willReturn(color);
 		
@@ -87,7 +86,7 @@ class ColorServiceTest {
 	}
 	
 	@Test
-	void findAByColorTestSouldReturnNulWhenRepositoryNotContainsMatches() {
+	void findAByColorTestShouldReturnNulWhenRepositoryNotContainsMatches() {
 		
 		given(colorDao.findByColor("RED")).willReturn(null);
 		

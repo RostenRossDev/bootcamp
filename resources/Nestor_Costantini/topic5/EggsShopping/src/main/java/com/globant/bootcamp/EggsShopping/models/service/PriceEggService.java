@@ -34,27 +34,22 @@ public class PriceEggService {
 	 
 	 
     @Transactional
-	public EggsPrice updatePrice(Color color, Double price) {
-    	LOG.info("aca 1");
-		EggsPrice oldprice=  priceDao.findByColorAndActual(color, Constants.TRUE);
+	public EggsPrice updatePrice(EggsPrice toPersist, EggsPrice  disablepRice) {
 		
-    	LOG.info("aca 2 oldprice: "+oldprice);
-
-		oldprice.setActual(false);
-		
-    	LOG.info("aca 3 oldprice: "+oldprice);
-
-		priceDao.save(oldprice);
-		
-    	LOG.info("aca 4 ");
-
-		EggsPrice newPrice = EggsPrice.builder()
-				.actual(Constants.TRUE).color(oldprice.getColor())
-				.description(oldprice.getDescription()).price(price).build();
-		
-    	LOG.info("aca 5 newPrice: "+newPrice);
-
-		return priceDao.save(newPrice);
+    	//priceDao.disableColor(Boolean.FALSE, color, Boolean.TRUE);
+    	
+    	/*EggsPrice toPersist = EggsPrice.builder().actual(Constants.TRUE).color(color)
+				.description(description).price(price)
+				.build();
+    	*/
+    	//LOG.info("toPesist: "+toPersist);
+    	priceDao.save(disablepRice);
+    	
+    	EggsPrice persistedPrice = priceDao.save(toPersist); 
+    	
+    	LOG.info("persist: "+persistedPrice);
+    	
+    	return  persistedPrice;
 	}
 	
     @Transactional
@@ -75,3 +70,5 @@ public class PriceEggService {
     	return priceDao.findByColor(color);
     }
 }
+
+
