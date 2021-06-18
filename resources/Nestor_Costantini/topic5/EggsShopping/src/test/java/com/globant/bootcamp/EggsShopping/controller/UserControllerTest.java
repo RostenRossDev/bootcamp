@@ -41,12 +41,6 @@ class UserControllerTest {
 	private UserController controller;
 
 	@Mock
-	private UserService userService = new UserService();
-
-	@Mock
-	private RoleService roleService = new RoleService();
-
-	@Mock
 	private IUserDao userRepository;
 
 	@Mock
