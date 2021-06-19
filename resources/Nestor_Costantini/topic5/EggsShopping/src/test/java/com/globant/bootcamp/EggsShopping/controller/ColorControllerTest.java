@@ -16,13 +16,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.globant.bootcamp.EggsShopping.constants.StringConstans;
+import com.globant.bootcamp.EggsShopping.models.Repository.IColorDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
+import com.globant.bootcamp.EggsShopping.models.service.ColorService;
 
 class ColorControllerTest {
 	@Mock
 	private ColorController controller;
-
+	
+	@Mock
+	private IColorDao dao;
+	@Mock
+	private ColorService service;
+	
 	private AutoCloseable closeable;
 
 	private Color color;

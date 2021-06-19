@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.bootcamp.EggsShopping.constants.Constants;
-import com.globant.bootcamp.EggsShopping.models.Repository.IColorDao;
 import com.globant.bootcamp.EggsShopping.models.entity.Color;
 import com.globant.bootcamp.EggsShopping.models.entity.tda.IntegerColorTDA;
+import com.globant.bootcamp.EggsShopping.models.service.ColorService;
 
 @RestController
 @RequestMapping(value="/api/v1/color")
 public class ColorController {
 
 	@Autowired
-	IColorDao colorDao;
+	@Qualifier("colorService")
+	private ColorService colorService; 
 	
 	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/")
@@ -37,7 +39,7 @@ public class ColorController {
 		Color color = Color.builder().color(integerColorTda.getColor().toUpperCase()).enable(Constants.TRUE).build();
 			
 		try {
-			color = colorDao.save(color);
+			color = colorService.CreateColor(color);
 			if (color != null) {
 				response.put("msj", "Color created successfuly!!");
 				response.put("color", color);
@@ -60,11 +62,11 @@ public class ColorController {
 		Map<String, Object> response= new HashMap<>(); 
 
 		try {
-			Color color =colorDao.findByColor(integerColorTda.getColor());
+			Color color =colorService.findByColor(integerColorTda.getColor());
 			color.setColor(integerColorTda.getColor().toUpperCase());
 			color.setEnable(integerColorTda.getEnable());
 			
-			color = colorDao.save(color);
+			color = colorService.CreateColor(color);
 			
 			if (color != null) {
 				response.put("msj", "Color created successfuly!!");
@@ -88,8 +90,8 @@ public class ColorController {
 
 		try {
 
-			Color color = colorDao.findByColor(sColor);
-			colorDao.delete(color);
+			Color color = colorService.findByColor(sColor);
+			colorService.deleteColor(color);
 			response.put("msj", "Color was deleted successfully!!");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		}catch (DataAccessException e) {

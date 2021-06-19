@@ -18,7 +18,6 @@ class ColorTest {
 
 	@Mock
 	private Color color; 
-	private Color anotherSameColor; 
 	private Color color2; 
 	private Color colorEnableNull; 
 	private Color anotherColorEnableNull; 
@@ -45,7 +44,6 @@ class ColorTest {
 		prices = EggsPrice.builder().actual(true).color(color).description("dasdas").id(1L).price(35D).build();
 	
 		color  = Color.builder().color(StringConstans.RED).enable(Boolean.TRUE).id(1L).build();
-		anotherSameColor = Color.builder().color(StringConstans.RED).enable(Boolean.TRUE).id(1L).build();
 		color2  = Color.builder().enable(Boolean.TRUE).id(1L).build();
 		colorEnableFalse= Color.builder().id(1L).enable(Boolean.FALSE).build();
 		colorEnable  = Color.builder().id(1L).enable(Boolean.TRUE).build();		

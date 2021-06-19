@@ -25,6 +25,6 @@ public interface IEggPriceDao extends JpaRepository<EggsPrice, Long> {
 	public EggsPrice findByColorAndActual(Color color, Boolean actual);
 	
 	@Modifying
-	@Query("update PriceEgg p set p.actual = ?1 where p.color = ?2 and p.actual = ?3")
+	@Query("update EggsPrice p set p.actual = ?1 where p.color = ?2 and p.actual = ?3")
 	public EggsPrice disableColor(Boolean actual, Color color, Boolean oldActual);
 }
