@@ -48,29 +48,36 @@ public class Color implements Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
 		if (obj == null)
 			return false;
-		
-		if (obj == this)
-			return true;
-		
-		if (!(obj instanceof Color))
+		if (getClass() != obj.getClass())
 			return false;
-		
-		Color colorObj = (Color) obj;
-		
-		if ((id == null)?(colorObj.getId() != null): ! ((Long.compare(id, colorObj.getId())) == 0 ))
+		Color other = (Color) obj;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
 			return false;
-		
-		if ((color == null)?(colorObj.getColor() != null): !color.equals(colorObj.getColor()))
+		if (enable == null) {
+			if (other.enable != null)
+				return false;
+		} else if (!enable.equals(other.enable))
 			return false;
-		
-		if ((enable == null)?(colorObj.getEnable() != null): !enable == colorObj.getEnable())
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
-		
+		if (prices == null) {
+			if (other.prices != null)
+				return false;
+		} else if (!prices.equals(other.prices))
+			return false;
 		return true;
-
 	}
+
 
 
 

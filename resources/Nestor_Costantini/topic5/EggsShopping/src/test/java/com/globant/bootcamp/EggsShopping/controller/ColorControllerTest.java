@@ -30,6 +30,7 @@ class ColorControllerTest {
 	private IntegerColorTDA colorTDA;
 	private ResponseEntity<?> response;
 	private ResponseEntity<?> response500;
+	private ResponseEntity<?> responseOk;
 	private Map<String, Object> responseMap;
 
 	@BeforeEach
@@ -42,6 +43,7 @@ class ColorControllerTest {
 		responseMap = new HashMap<String, Object>();
 		responseMap.put("color", color);
 		response = new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.CREATED);
+		responseOk = new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		response500 =new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -98,7 +100,7 @@ class ColorControllerTest {
 
 	@Test
 	void deleteTestShouldResponsStatus200OkWhenCreateIsCalled() {
-		Mockito.doReturn(response).when(controller).delete(StringConstans.RED);
+		Mockito.doReturn(responseOk).when(controller).delete(StringConstans.RED);
 		Assertions.assertEquals(HttpStatus.OK, controller.delete(StringConstans.RED).getStatusCode());
 	}
 	
